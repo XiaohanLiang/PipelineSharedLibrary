@@ -7,7 +7,7 @@ def call(String credential) {
   set +x
 
   executeCommand("git init ${$WORKSPACE}/workspace")
-  executeCommand(":cd $WORKSPACE/workspace")
+  executeCommand("cd $WORKSPACE/workspace")
 
 //  git config --local --unset credential.helper
 //
