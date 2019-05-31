@@ -15,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/initEnv.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="350">
+              <caret line="14" column="2" lean-forward="true" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -30,6 +30,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/src/com/jdcloud/GlobalVars.groovy" />
         <option value="$PROJECT_DIR$/vars/initEnv.groovy" />
       </list>
     </option>
@@ -52,6 +53,17 @@
             <path>
               <item name="PipelineSharedLibrary" type="b2602c69:ProjectViewProjectNode" />
               <item name="PipelineSharedLibrary" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PipelineSharedLibrary" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PipelineSharedLibrary" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PipelineSharedLibrary" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PipelineSharedLibrary" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="PipelineSharedLibrary" type="b2602c69:ProjectViewProjectNode" />
@@ -133,10 +145,17 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vars/initEnv.groovy">
+    <entry file="file://$PROJECT_DIR$/src/com/jdcloud/GlobalVars.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <caret line="10" column="1" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vars/initEnv.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="14" column="2" lean-forward="true" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="2" />
         </state>
       </provider>
     </entry>

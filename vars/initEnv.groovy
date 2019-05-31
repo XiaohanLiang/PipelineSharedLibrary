@@ -4,9 +4,10 @@ def call(String credential) {
 
   echo "Entered Shared Library"
 
-  set +x
+  executeCommand("set +x")
 
   executeCommand("git init ${$WORKSPACE}/workspace")
+
   executeCommand("cd $WORKSPACE/workspace")
 
 //  git config --local --unset credential.helper
