@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def call() {
+def call(String name = 'human') {
 
     // mkdir + meta(Store some runtime meta info)
     //         ws(We use to clone,build,upload,etc)
@@ -22,8 +22,7 @@ def call() {
     File f = new File(runtimeEnvFile)
     Map envMap =  System.getenv()
     envMap.each {
-        String name = it.key
-        if (name.matches("COMPILER_(.*)") || name.matches("GIT_(.*)") || name == "WORKSPACE") {
+        if (it.key.matches("COMPILER_(.*)") || it.key.matches("GIT_(.*)") || it.key == "WORKSPACE") {
             f << it.key << "=" << it.value << "\n"
         }
     }
