@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def initEnv(String credential) {
+def call(String credential) {
 
   echo "Entered Shared Library"
 
