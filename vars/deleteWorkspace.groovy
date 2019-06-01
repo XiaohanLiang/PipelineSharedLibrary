@@ -18,6 +18,8 @@ def call(def path,def depth="ALL"){
     println("3")
     def entranceExists = fileExists path
     println(entranceExists)
+    println(entranceExists == false)
+    println(entranceExists == "false")
     println("4")
     if (!entranceExists) {
         return
