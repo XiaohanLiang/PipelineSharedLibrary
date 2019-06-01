@@ -4,7 +4,6 @@ def call(def env) {
 
     // mkdir + meta(Store some runtime meta info)
     //         ws(We use to clone,build,upload,etc)
-    println("Entering")
     String entrance = env.WORKSPACE
     assert entrance.length() > 0 : "Cannot find WORKSPACE"
     String meta = entrance + "/.JD_CODE_BUILD"
