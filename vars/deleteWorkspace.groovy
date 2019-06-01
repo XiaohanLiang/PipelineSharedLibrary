@@ -22,6 +22,7 @@ def call(def path,def depth="ALL"){
     println(entranceExists == "false")
     println("4")
     if (entranceExists == false) {
+        println("Entered If clause")
         return 1
     }
     if (!entranceExists) {
