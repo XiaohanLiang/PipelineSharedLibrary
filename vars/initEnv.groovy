@@ -4,21 +4,16 @@ def call(String name = 'human') {
 
     // mkdir + meta(Store some runtime meta info)
     //         ws(We use to clone,build,upload,etc)
-    echo "Entered"
     String generalWorkingDirectory = System.getenv("WORKSPACE")
-    echo "Entered-1"
-    sh("pwd")
-    assert length(generalWorkingDirectory) > 0 : "Cannot find WORKSPACE"
+    assert generalWorkingDirectory.length() > 0 : "Cannot find WORKSPACE"
     String meta = generalWorkingDirectory + "/.JD_CODE_BUILD"
     makeDir(meta)
-    echo "Entered-2"
     String ws = generalWorkingDirectory + "/workspace"
     makeDir(ws)
-    echo "Entered-3"
     String runtimeEnvFile = meta + "/buildRuntimeEnv"
     touchFile(runtimeEnvFile)
 
-    // Read task runtime variable
+    // Read task runtime variable2
     File f = new File(runtimeEnvFile)
     Map envMap =  System.getenv()
     envMap.each {
