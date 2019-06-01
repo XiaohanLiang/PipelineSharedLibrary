@@ -12,7 +12,9 @@ def call(def path,def depth="ALL"){
     println(path)
 
     assert path.length()>0 :"Empty path given"
+    println("11111")
     def entrance = new File(path)
+    println("122222")
     if (!entrance.exists()) {
         return
     }
