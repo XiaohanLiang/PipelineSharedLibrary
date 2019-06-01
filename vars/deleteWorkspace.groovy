@@ -17,10 +17,10 @@ def call(def path,def depth="ALL"){
 //    def entrance = new File(path)
     println("3")
     def entrance = fileExists path
+    println("4")
     if (!entrance) {
         return
     }
-    println("4")
 
     println("Cleaning workspace..")
 
