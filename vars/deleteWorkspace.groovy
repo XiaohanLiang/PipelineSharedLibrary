@@ -40,7 +40,7 @@ def call(def path,def depth="ALL"){
     println("7")
 
     // Meta info will deleted as long as it exists
-    if (metaExists){
-        meta.deleteDir()
-    }
+//    if (metaExists){
+//        meta.deleteDir()
+//    }
 }
