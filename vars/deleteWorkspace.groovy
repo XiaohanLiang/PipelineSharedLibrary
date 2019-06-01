@@ -34,9 +34,9 @@ def call(def path,def depth="ALL"){
     def metaExists = fileExists meta
 
     // Workspace will be deleted when required
-    if ( depth == "ALL" && wsExists ) {
-        ws.deleteDir()
-    }
+//    if ( depth == "ALL" && wsExists ) {
+//        ws.deleteDir()
+//    }
     println("7")
 
     // Meta info will deleted as long as it exists
