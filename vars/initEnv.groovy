@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def call(env, body) {
+def call(env) {
 
     // mkdir + meta(Store some runtime meta info)
     //         ws(We use to clone,build,upload,etc)
