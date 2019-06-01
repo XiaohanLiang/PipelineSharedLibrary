@@ -8,6 +8,7 @@ def call(env, body) {
     println("nishizhu")
     println(env)
     println(env.PATH)
+    println(env.WORKSPACE)
     println("nishizhu2")
     println(envMap["PATH"])
     println("nishizhu3")
