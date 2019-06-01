@@ -6,44 +6,15 @@ def call(def env) {
     //         ws(We use to clone,build,upload,etc)
     String entrance = env.WORKSPACE
     assert entrance.length() > 0 : "Cannot find WORKSPACE"
-    println(entrance)
-    def entranceExists = fileExists entrance
-    println("Entrance")
-    println(entranceExists)
-    def upper = fileExists "/var/lib/jenkins/workspace"
-    println("Upper")
-    println(upper)
-    if (!entranceExists) {
-        echo "Entered if cluse"
-        makeDir(entrance)
-        println("EntranceInside")
-        def entranceExists2 = fileExists entrance
-        println(entranceExists2)
-
-    }
+    makeDir(entrance)
 
     String meta = entrance + "/.JD_CODE_BUILD"
-    println("meta")
-    println(meta)
-
     makeDir(meta)
-    def m = fileExists meta
-    println("m")
-    println(m)
-
     String ws = entrance + "/workspace"
-    println("ws")
-    println(ws)
-
     makeDir(ws)
-    def w = fileExists meta
-    println("w")
-    println(w)
 
     String runtimeEnvFile = meta + "/buildRuntimeEnv"
-    println("c")
     touchFile(runtimeEnvFile)
-    println("d")
 
     /*
      * Todo -  
@@ -65,11 +36,8 @@ def call(def env) {
 }
 
 void makeDir(String path){
-    println("1")
     File f = new File(path)
-    println("2")
     f.mkdir()
-    println("3")
 }
 
 void touchFile(String filePath){
