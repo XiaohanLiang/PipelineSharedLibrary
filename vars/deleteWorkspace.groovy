@@ -16,27 +16,28 @@ def call(def path,def depth="ALL"){
     println("2")
 //    def entrance = new File(path)
     println("3")
-    def entrance = fileExists path
+    def entranceExists = fileExists path
     println("4")
-    if (!entrance) {
+    if (!entranceExists) {
         return
     }
 
     println("Cleaning workspace..")
 
-    def ws = new File(path + "/workspace")
-    println("5")
-    def meta = new File(path + "/.JD_CODE_BUILD")
-    println("6")
+//    def ws = new File(path + "/workspace")
+    def ws = path + "/workspace"
+    def meta = path + "/.JD_CODE_BUILD"
+    def wsExists = fileExists ws
+    def metaExists = fileExists meta
 
     // Workspace will be deleted when required
-    if ( depth == "ALL" && ws.exists() ) {
+    if ( depth == "ALL" && wsExists ) {
         ws.deleteDir()
     }
     println("7")
 
     // Meta info will deleted as long as it exists
-    if ( meta.exists() ){
+    if (metaExists){
         meta.deleteDir()
     }
 }
