@@ -17,6 +17,7 @@ def call(def path,def depth="ALL"){
 //    def entrance = new File(path)
     println("3")
     def entranceExists = fileExists path
+    println(entranceExists)
     println("4")
     if (!entranceExists) {
         return
