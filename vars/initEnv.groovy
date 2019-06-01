@@ -6,7 +6,14 @@ def call(def env) {
     //         ws(We use to clone,build,upload,etc)
     String entrance = env.WORKSPACE
     assert entrance.length() > 0 : "Cannot find WORKSPACE"
+    println(entrance)
+    def entranceExists = fileExists entrance
+    println("Entrance")
+    println(entranceExists)
+
     String meta = entrance + "/.JD_CODE_BUILD"
+    println("meta")
+    println(meta)
     makeDir(meta)
     String ws = entrance + "/workspace"
     makeDir(ws)
@@ -33,8 +40,11 @@ def call(def env) {
 }
 
 void makeDir(String path){
+    println("1")
     File f = new File(path)
+    println("2")
     f.mkdir()
+    println("3")
 }
 
 void touchFile(String filePath){
