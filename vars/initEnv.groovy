@@ -17,12 +17,10 @@ def call(def env) {
      * Todo -  
      *           Obviously compile-server need more than these two parameters 
      *           In order to replace BuildCMD completely, we need to trace all 
-     *           parameters required in the following scripts
+     *           parameters required in the following scripts. eg. package size
      */
-    // Read task runtime variable2
+    // Read task runtime variable
     File f = new File(runtimeEnvFile)
-    f << "UPLOAD_ARTIFACT" << "=" << env.UPLOAD_ARTIFACT << "\n"
-    assert env.UPLOAD_ARTIFACT.length() > 0 : "Cannot find UPLOAD_ARTIFACT"
     f << readFile("/var/tmp/REGION_ID") << "\n"
 
     // Git Operations
