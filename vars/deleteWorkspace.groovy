@@ -21,9 +21,9 @@ def call(def path,def depth="ALL"){
     println(entranceExists == false)
     println(entranceExists == "false")
     println("4")
-    if (entranceExists == false) {
-        return 1
-    }
+//    if (entranceExists == false) {
+//        return 1
+//    }
 
     println("Cleaning workspace..")
 
