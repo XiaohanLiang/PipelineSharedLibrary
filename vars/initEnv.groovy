@@ -1,11 +1,11 @@
 #!/usr/bin/env groovy
 
-def call(String name = 'human') {
+def call(def env) {
 
     // mkdir + meta(Store some runtime meta info)
     //         ws(We use to clone,build,upload,etc)
     Map envMap =  System.getenv()
-    println(envMap)
+    println(env)
     println(envMap["PATH"])
     sh("pwd")
     sh("ls")
