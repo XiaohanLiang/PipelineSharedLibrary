@@ -11,21 +11,28 @@ def call(def path,def depth="ALL"){
     println("We have path")
     println(path)
 
+    println("1")
     assert path.length()>0 :"Empty path given"
+    println("2")
     def entrance = new File(path)
+    println("3")
     if (!entrance.exists()) {
         return
     }
+    println("4")
 
     println("Cleaning workspace..")
 
     def ws = new File(path + "/workspace")
+    println("5")
     def meta = new File(path + "/.JD_CODE_BUILD")
+    println("6")
 
     // Workspace will be deleted when required
     if ( depth == "ALL" && ws.exists() ) {
         ws.deleteDir()
     }
+    println("7")
 
     // Meta info will deleted as long as it exists
     if ( meta.exists() ){
