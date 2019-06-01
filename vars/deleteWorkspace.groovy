@@ -21,7 +21,7 @@ def call(def path,def depth="ALL"){
     println(entranceExists == false)
     println(entranceExists == "false")
     println("4")
-    if (!entranceExists) {
+    if (entranceExists == false) {
         return
     }
 
