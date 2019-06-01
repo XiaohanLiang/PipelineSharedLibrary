@@ -10,6 +10,13 @@ def call(def env) {
     def entranceExists = fileExists entrance
     println("Entrance")
     println(entranceExists)
+    def upper = fileExists "/var/lib/jenkins/workspace"
+    println("Upper")
+    println(upper)
+    if (!entranceExists) {
+        echo "Entered if cluse"
+        makeDir(entranceExists)
+    }
 
     String meta = entrance + "/.JD_CODE_BUILD"
     println("meta")
