@@ -4,19 +4,8 @@ def call(env, body) {
 
     // mkdir + meta(Store some runtime meta info)
     //         ws(We use to clone,build,upload,etc)
-    Map envMap =  System.getenv()
-    println("nishizhu")
-    println(env)
-    println(env.PATH)
-    println(env.WORKSPACE)
-    println("nishizhu2")
-    println(envMap["PATH"])
-    println("nishizhu3")
-    sh("pwd")
-    sh("ls")
-    sh("env")
-    String generalWorkingDirectory = envMap["WORKSPACE"]
-//    assert generalWorkingDirectory.length() > 0 : "C  annot find WORKSPACE"
+    String generalWorkingDirectory = env.WORKSPACE
+    assert generalWorkingDirectory.length() > 0 : "Cannot find WORKSPACE"
     String meta = generalWorkingDirectory + "/.JD_CODE_BUILD"
     makeDir(meta)
     String ws = generalWorkingDirectory + "/workspace"
@@ -26,8 +15,7 @@ def call(env, body) {
 
     // Read task runtime variable2
     File f = new File(runtimeEnvFile)
-//    Map envMap =  System.getenv()
-    envMap.each {
+    env.each {
         if (it.key.matches("COMPILER_(.*)") || it.key.matches("GIT_(.*)") || it.key == "WORKSPACE") {
             f << it.key << "=" << it.value << "\n"
         }
