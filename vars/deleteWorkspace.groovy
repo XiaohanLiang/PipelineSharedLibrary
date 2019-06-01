@@ -8,6 +8,9 @@ import java.io.File
  */
 def call(def path,def depth="ALL"){
 
+    println("We have path")
+    println(path)
+
     assert path.length()>0 :"Empty path given"
     def entrance = new File(path)
     if (!entrance.exists()) {
