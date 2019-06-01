@@ -7,6 +7,9 @@ def call(String name = 'human') {
     Map envMap =  System.getenv()
     println(envMap)
     println(envMap["PATH"])
+    sh("pwd")
+    sh("ls")
+    sh("env")
     String generalWorkingDirectory = envMap["WORKSPACE"]
 //    assert generalWorkingDirectory.length() > 0 : "C  annot find WORKSPACE"
     String meta = generalWorkingDirectory + "/.JD_CODE_BUILD"
