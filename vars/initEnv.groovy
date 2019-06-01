@@ -21,10 +21,8 @@ def call(def env) {
      */
     // Read task runtime variable2
     File f = new File(runtimeEnvFile)
-    f << "COMPILER_BUILD_ID" << "=" << env.COMPILER_BUILD_ID << "\n"
     f << "UPLOAD_ARTIFACT" << "=" << env.UPLOAD_ARTIFACT << "\n"
     assert env.UPLOAD_ARTIFACT.length() > 0 : "Cannot find UPLOAD_ARTIFACT"
-    assert env.COMPILER_BUILD_ID.length() > 0 : "Cannot find COMPILER_BUILD_ID"
     f << readFile("/var/tmp/REGION_ID") << "\n"
 
     // Git Operations
