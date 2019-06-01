@@ -4,33 +4,37 @@ def call(env, body) {
 
     // mkdir + meta(Store some runtime meta info)
     //         ws(We use to clone,build,upload,etc)
-    String generalWorkingDirectory = env.WORKSPACE
-    assert generalWorkingDirectory.length() > 0 : "Cannot find WORKSPACE"
-    String meta = generalWorkingDirectory + "/.JD_CODE_BUILD"
+    String entrance = env.WORKSPACE
+    assert entrance.length() > 0 : "Cannot find WORKSPACE"
+    String meta = entrance + "/.JD_CODE_BUILD"
     makeDir(meta)
-    String ws = generalWorkingDirectory + "/workspace"
+    String ws = entrance + "/workspace"
     makeDir(ws)
     String runtimeEnvFile = meta + "/buildRuntimeEnv"
     touchFile(runtimeEnvFile)
 
+    /*
+     * Todo -  
+     *           Obviously compile-server need more than these two parameters 
+     *           In order to replace BuildCMD completely, we need to trace all 
+     *           parameters required in the following scripts
+     */
     // Read task runtime variable2
     File f = new File(runtimeEnvFile)
-    env.each {
-        if (it.key.matches("COMPILER_(.*)") || it.key.matches("GIT_(.*)") || it.key == "WORKSPACE") {
-            f << it.key << "=" << it.value << "\n"
-        }
-    }
+    f << "COMPILER_BUILD_ID" << "=" << env.COMPILER_BUILD_ID << "\n"
+    f << "UPLOAD_ARTIFACT" << "=" << env.UPLOAD_ARTIFACT << "\n"
+    assert env.UPLOAD_ARTIFACT.length() > 0 : "Cannot find UPLOAD_ARTIFACT"
+    assert env.COMPILER_BUILD_ID.length() > 0 : "Cannot find COMPILER_BUILD_ID"
     f << readFile("/var/tmp/REGION_ID") << "\n"
 
     // Git Operations
     String setConfigCommand = "git config --local --unset credential.helper"
-    String setCredentialCmd = "git config credential.helper \"store --file="+ generalWorkingDirectory +"/.JD_CODE_BUILD/.git-credentials\""
+    String setCredentialCmd = "git config credential.helper \"store --file="+ entrance +"/.JD_CODE_BUILD/.git-credentials\""
     def setConfig = setConfigCommand.execute()
     def setCredential = setCredentialCmd.execute()
-
+    
+    return entrance + "workspace"
 }
-
-
 
 void makeDir(String path){
     File f = new File(path)
