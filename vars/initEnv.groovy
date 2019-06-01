@@ -7,6 +7,7 @@ def call(env, body) {
     Map envMap =  System.getenv()
     println("nishizhu")
     println(env)
+    println(env.PATH)
     println("nishizhu2")
     println(envMap["PATH"])
     println("nishizhu3")
