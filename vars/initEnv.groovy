@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def call(def env) {
+def call(env, body) {
 
     // mkdir + meta(Store some runtime meta info)
     //         ws(We use to clone,build,upload,etc)
@@ -9,6 +9,7 @@ def call(def env) {
     println(env)
     println("nishizhu2")
     println(envMap["PATH"])
+    println("nishizhu3")
     sh("pwd")
     sh("ls")
     sh("env")
