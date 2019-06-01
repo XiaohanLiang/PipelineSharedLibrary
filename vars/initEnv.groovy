@@ -29,7 +29,7 @@ def call(def env) {
     def setConfig = setConfigCommand.execute()
     def setCredential = setCredentialCmd.execute()
     
-    return entrance + "workspace"
+    return entrance + "/workspace"
 }
 
 void makeDir(String path){
