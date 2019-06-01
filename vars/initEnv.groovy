@@ -15,7 +15,11 @@ def call(def env) {
     println(upper)
     if (!entranceExists) {
         echo "Entered if cluse"
-        makeDir(entranceExists)
+        makeDir(entrance)
+        println("EntranceInside")
+        def entranceExists2 = fileExists entrance
+        println(entranceExists2)
+
     }
 
     String meta = entrance + "/.JD_CODE_BUILD"
