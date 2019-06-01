@@ -14,11 +14,25 @@ def call(def env) {
     String meta = entrance + "/.JD_CODE_BUILD"
     println("meta")
     println(meta)
+
     makeDir(meta)
+    def m = fileExists meta
+    println("m")
+    println(m)
+
     String ws = entrance + "/workspace"
+    println("ws")
+    println(ws)
+
     makeDir(ws)
+    def w = fileExists meta
+    println("w")
+    println(w)
+
     String runtimeEnvFile = meta + "/buildRuntimeEnv"
+    println("c")
     touchFile(runtimeEnvFile)
+    println("d")
 
     /*
      * Todo -  
