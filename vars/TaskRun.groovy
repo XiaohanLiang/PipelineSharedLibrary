@@ -1,5 +1,6 @@
 #!/usr/bin/env groovy
-import com.jdcloud.Task
+import com.jdcloud.*
+
 /**
  *  This function is expected to output a structure namely
  *  `Tasks` containing Key-Value pair
