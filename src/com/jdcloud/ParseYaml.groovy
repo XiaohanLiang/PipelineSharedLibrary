@@ -29,8 +29,6 @@ class ParseYaml{
         File file = new File("/root/build.yaml")
         FileInputStream stream = new FileInputStream(file);
         Address cc = new Address("123","123","123","123")
-        AssertNotNull(stream)
-        println(stream)
         def c = yaml.loadAs(stream, Address.class)
         return c
     }
