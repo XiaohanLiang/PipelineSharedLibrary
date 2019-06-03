@@ -9,10 +9,14 @@ class ParseYaml{
     def Cmds c
     ParseYaml(String path){
 
-        Yaml yaml = new Yaml()
-        File file = new File(path)
-        FileInputStream stream = new FileInputStream(file);
-        this.c = yaml.loadAs(stream, Cmds.class)
+//        Yaml yaml = new Yaml()
+//        File file = new File(path)
+//        FileInputStream stream = new FileInputStream(file);
+//        this.c = yaml.loadAs(stream, Cmds.class)
+        String yamlStr = "key: hello yaml";
+        Yaml yaml = new Yaml();
+        Object ret = yaml.load(yamlStr);
+        System.out.println(ret);
 
     }
 }
