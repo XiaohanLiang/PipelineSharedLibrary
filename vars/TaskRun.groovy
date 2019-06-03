@@ -1,5 +1,6 @@
 #!/usr/bin/env groovy
 import com.jdcloud.Cmds
+import com.jdcloud.ParseYaml
 
 /**
  *  This function is expected to output a structure namely
@@ -14,16 +15,16 @@ def call(def pathToYaml){
 
     // Parse yaml and make it Java class
     echo "1"
-    Cmds cmds = new Cmds()
-    echo "2"
-    cmds.SetUp(pathToYaml)
-    echo "3"
+    ParseYaml py = new ParseYaml(pathToYaml)
+//    echo "2"
+//    cmds.SetUp(pathToYaml)
+//    echo "3"
 
     // Generate exporting commands
-    cmds.PreprareEnvs()
-
+//    cmds.PreprareEnvs()
+//
     // Running inside Docker
-    withDockerContainer(args:"", image:params.buildImage) {
-        cmds.Execute()
-    }
+//    withDockerContainer(args:"", image:params.buildImage) {
+//        cmds.Execute()
+//    }
 }

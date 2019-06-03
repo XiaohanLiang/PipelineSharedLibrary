@@ -1,12 +1,15 @@
 #!/usr/bin/env groovy
 package com.jdcloud
 
-class Yaml{
+class ParseYaml{
 
-    def path
-    Yaml(p){
-        this.path = p
+    def Cmds c
+    ParseYaml(String path){
+
+        Yaml yaml = new Yaml()
+        File file = new File(path)
+        FileInputStream stream = new FileInputStream(file);
+        this.c = yaml.loadAs(stream, Cmds.class)
+
     }
-
-
 }
