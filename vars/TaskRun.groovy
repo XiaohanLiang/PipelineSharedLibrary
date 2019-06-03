@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
-import com.jdcloud.*
+import com.jdcloud.Cmds
 
 /**
  *  This function is expected to output a structure namely
