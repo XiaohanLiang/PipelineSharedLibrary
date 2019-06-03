@@ -24,6 +24,11 @@ class ParseYaml{
         return ret
     }
 
+    def SetUp3(){
+        Address cc = new Address("123","123","123","123")
+        return cc
+    }
+
     def SetUp2(){
         Yaml yaml = new Yaml()
         File file = new File("/root/build.yaml")
