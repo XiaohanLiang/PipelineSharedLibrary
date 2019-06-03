@@ -13,16 +13,15 @@ import com.jdcloud.Cmds
 def call(def pathToYaml){
 
     // Parse yaml and make it Java class
-    echo pathToYaml
-    def datas = readYaml file: pathToYaml
-    echo datas
-//    Cmds cmds = new Cmds(pathToYaml)
+    echo "1"
+    Cmds cmds = new Cmds(pathToYaml)
+    echo "2"
 
     // Generate exporting commands
-//    cmds.PreprareEnvs()
+    cmds.PreprareEnvs()
 
     // Running inside Docker
-//    withDockerContainer(args:"", image:params.buildImage) {
-//        cmds.Execute()
-//    }
+    withDockerContainer(args:"", image:params.buildImage) {
+        cmds.Execute()
+    }
 }

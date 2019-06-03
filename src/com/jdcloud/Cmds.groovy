@@ -23,8 +23,10 @@ class Cmds {
 
     def Cmds(String path) {
         Yaml yaml = new Yaml()
-        InputStream is = Cmds.class.getResourceAsStream(path)
-        this.cmds = yaml.loadAs(is, Cmds.class)
+        File file = new File(path)
+        FileInputStream stream = new FileInputStream(file);
+//        InputStream is = Cmds.class.getResourceAsStream(path)
+        this.cmds = yaml.loadAs(stream, Cmds.class)
     }
 
     def Execute(){
