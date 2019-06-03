@@ -5,13 +5,6 @@ import com.jdcloud.*
 @Grab('org.yaml:snakeyaml:1.17')
 import org.yaml.snakeyaml.Yaml
 
-public class Address {
-    private String lines;
-    private String city;
-    private String state;
-    private Integer postal;
-}
-
 class ParseYaml{
 
     def Cmds c
