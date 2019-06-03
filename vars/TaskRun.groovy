@@ -1,6 +1,7 @@
 #!/usr/bin/env groovy
 import com.jdcloud.Cmds
-import com.jdcloud
+import com.jdcloud.ParseYaml
+import com.jdcloud.Address
 
 /**
  *  This function is expected to output a structure namely

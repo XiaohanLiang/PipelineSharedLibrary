@@ -1,4 +1,5 @@
 package com.jdcloud
+import com.jdcloud.*
 
 public class Address {
     private String lines;
