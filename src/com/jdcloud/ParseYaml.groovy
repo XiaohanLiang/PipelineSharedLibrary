@@ -1,5 +1,6 @@
 #!/usr/bin/env groovy
 import com.jdcloud.Address
+import com.jdcloud.Cmds
 import org.apache.ivy.ant.AddPathTask
 import org.junit.Assert
 @Grab('org.yaml:snakeyaml:1.17')
