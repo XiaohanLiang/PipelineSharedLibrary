@@ -26,7 +26,7 @@ class Cmds {
         File file = new File(path)
         FileInputStream stream = new FileInputStream(file);
 //        InputStream is = Cmds.class.getResourceAsStream(path)
-        this.cmds = yaml.loadAs(stream, Cmds.class)
+        this.cmds = yaml.loadAs(stream, com.jdcloud.Cmds.class)
     }
 
     def Execute(){
