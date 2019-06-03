@@ -14,8 +14,10 @@ def call(def pathToYaml){
 
     // Parse yaml and make it Java class
     echo "1"
-    Cmds cmds = new Cmds(pathToYaml)
+    Cmds cmds = new Cmds()
     echo "2"
+    cmds.SetUp(pathToYaml)
+    echo "3"
 
     // Generate exporting commands
     cmds.PreprareEnvs()
