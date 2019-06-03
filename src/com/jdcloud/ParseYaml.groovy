@@ -1,5 +1,4 @@
 #!/usr/bin/env groovy
-package com.jdcloud
 import com.jdcloud.Address
 import org.apache.ivy.ant.AddPathTask
 import org.junit.Assert

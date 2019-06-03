@@ -1,6 +1,5 @@
-package com.jdcloud
 
-public class Address {
+class Address {
     public String lines;
     public String city;
     public String state;
