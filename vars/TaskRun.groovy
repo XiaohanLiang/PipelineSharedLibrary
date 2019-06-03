@@ -16,6 +16,8 @@ def call(def pathToYaml){
     // Parse yaml and make it Java class
     echo "1"
     ParseYaml py = new ParseYaml(pathToYaml)
+    def item = py.SetUp()
+    echo item
 //    echo "2"
 //    cmds.SetUp(pathToYaml)
 //    echo "3"
