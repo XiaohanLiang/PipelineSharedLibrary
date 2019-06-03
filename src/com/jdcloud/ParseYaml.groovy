@@ -24,19 +24,12 @@ class ParseYaml{
         return ret
     }
 
-    def SetUp3(){
-        Address cc = new Address("123","123","123","123")
-        return cc
-    }
-
     def SetUp2(){
         Yaml yaml = new Yaml()
-        File file = new File("/root/build.yaml")
+        File file = new File("/root/bb.yaml")
         FileInputStream stream = new FileInputStream(file);
-        Address cc = new Address("123","123","123","123")
-        println(Address.class)
-        println(cc.getClass())
-        def c = yaml.loadAs(stream, cc.getClass())
+//        def c = yaml.loadAs(stream, Address.class)
+        Address c = (Address) yaml.load(stream)
         return c
     }
 }
