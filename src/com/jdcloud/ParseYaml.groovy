@@ -26,9 +26,8 @@ class ParseYaml{
     def SetUp2(){
         Yaml yaml = new Yaml()
         File file = new File("/root/build.yaml")
-        Address ddd = new Address("123123","123123","123123","123123")
         FileInputStream stream = new FileInputStream(file);
-        Address c = yaml.loadAs(stream, Address.class)
+        Address c = new yaml.loadAs(stream, Address.class)
         return c
     }
 }
