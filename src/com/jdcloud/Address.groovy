@@ -1,4 +1,5 @@
 
+package com.jdcloud
 class Address {
     public String lines;
     public String city;
