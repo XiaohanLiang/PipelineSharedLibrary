@@ -1,0 +1,26 @@
+#!/usr/bin/env groovy
+import com.jdcloud.Task
+/**
+ *  This function is expected to output a structure namely
+ *  `Tasks` containing Key-Value pair
+ *
+ *  Since this will be a structure. It must be somehow
+ *  Connected to Java-Class, yes, output a Java-Class instance
+ *
+ */
+
+def call(def env){
+
+    def pathToYaml = ""
+
+    // Parse yaml and make it Java class
+    def cmds = Cmds(pathToYaml)
+
+    // Generate exporting commands
+    cmds.PreprareEnvs()
+
+    // Running inside Docker
+    withDockerContainer(args:"", image:params.buildImage) {
+        cmds.Execute()
+    }
+}
