@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 package com.jdcloud
-import com.jdcloud.*
+import com.jdcloud.Address
 
 @Grab('org.yaml:snakeyaml:1.17')
 import org.yaml.snakeyaml.Yaml
@@ -26,6 +26,8 @@ class ParseYaml{
     def SetUp2(){
         Yaml yaml = new Yaml()
         File file = new File("/root/build.yaml")
+        Address ddd = Address()
+        ddd.lines = "123123"
         FileInputStream stream = new FileInputStream(file);
         Address c = yaml.loadAs(stream, Address.class)
         return c
