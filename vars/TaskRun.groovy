@@ -13,6 +13,7 @@ import com.jdcloud.Cmds
 def call(def pathToYaml){
 
     // Parse yaml and make it Java class
+    echo pathToYaml
     Cmds cmds = new Cmds(pathToYaml)
 
     // Generate exporting commands
