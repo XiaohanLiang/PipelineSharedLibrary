@@ -24,6 +24,8 @@ class Cmds {
     def Cmds(String path) {
         Yaml yaml = new Yaml()
         InputStream is = Cmds.class.getResourceAsStream(path)
+        println(path)
+        println(is)
         this.cmds = yaml.loadAs(is, Cmds.class);
     }
 
