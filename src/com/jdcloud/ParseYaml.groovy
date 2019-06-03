@@ -1,7 +1,8 @@
 #!/usr/bin/env groovy
 package com.jdcloud
 import com.jdcloud.Address
-
+import org.apache.ivy.ant.AddPathTask
+import org.junit.Assert
 @Grab('org.yaml:snakeyaml:1.17')
 import org.yaml.snakeyaml.Yaml
 
@@ -27,7 +28,10 @@ class ParseYaml{
         Yaml yaml = new Yaml()
         File file = new File("/root/build.yaml")
         FileInputStream stream = new FileInputStream(file);
-        Address c = new yaml.loadAs(stream, Address.class)
+        Address cc = new Address("123","123","123","123")
+        AssertNotNull(stream)
+        println(stream)
+        def c = yaml.loadAs(stream, Address.class)
         return c
     }
 }
