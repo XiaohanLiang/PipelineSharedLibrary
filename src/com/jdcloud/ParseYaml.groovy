@@ -19,6 +19,6 @@ class ParseYaml{
         String yamlStr = "key: hello yaml";
 //        Yaml yaml = new Yaml();
 //        Object ret = yaml.load(yamlStr);
-        return ret
+        return yamlStr
     }
 }
