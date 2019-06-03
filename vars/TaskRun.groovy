@@ -14,13 +14,15 @@ def call(def pathToYaml){
 
     // Parse yaml and make it Java class
     echo pathToYaml
-    Cmds cmds = new Cmds(pathToYaml)
+    def datas = readYaml file: pathToYaml
+    echo datas
+//    Cmds cmds = new Cmds(pathToYaml)
 
     // Generate exporting commands
-    cmds.PreprareEnvs()
+//    cmds.PreprareEnvs()
 
     // Running inside Docker
-    withDockerContainer(args:"", image:params.buildImage) {
-        cmds.Execute()
-    }
+//    withDockerContainer(args:"", image:params.buildImage) {
+//        cmds.Execute()
+//    }
 }
