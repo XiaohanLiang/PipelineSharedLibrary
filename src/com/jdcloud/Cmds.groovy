@@ -22,11 +22,15 @@ class Cmds {
     def String out_dir
 
     def Cmds(String path) {
+    }
+
+    def SetUp(String path){
         Yaml yaml = new Yaml()
         File file = new File(path)
         FileInputStream stream = new FileInputStream(file);
 //        InputStream is = Cmds.class.getResourceAsStream(path)
         this.cmds = yaml.loadAs(stream, this.class)
+
     }
 
     def Execute(){
