@@ -21,4 +21,12 @@ class ParseYaml{
         Object ret = yaml.load(yamlStr);
         return ret
     }
+
+    def SetUp2(){
+        Yaml yaml = new Yaml()
+        File file = new File("/root/build.yaml")
+        FileInputStream stream = new FileInputStream(file);
+        Cmds c = yaml.loadAs(stream, Cmds.class)
+        return c
+    }
 }
