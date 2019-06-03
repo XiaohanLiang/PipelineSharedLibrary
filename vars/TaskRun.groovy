@@ -9,9 +9,7 @@ import com.jdcloud.Task
  *
  */
 
-def call(def env){
-
-    def pathToYaml = ""
+def call(def pathToYaml){
 
     // Parse yaml and make it Java class
     def cmds = Cmds(pathToYaml)
