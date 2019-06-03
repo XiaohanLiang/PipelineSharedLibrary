@@ -17,7 +17,8 @@ def call(def pathToYaml){
     echo "1"
     ParseYaml py = new ParseYaml(pathToYaml)
     def item = py.SetUp()
-    echo item
+    echo "2"
+    println(item)
 //    echo "2"
 //    cmds.SetUp(pathToYaml)
 //    echo "3"
