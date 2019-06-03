@@ -29,7 +29,7 @@ class ParseYaml{
         File file = new File("/root/build.yaml")
         FileInputStream stream = new FileInputStream(file);
         Address cc = new Address("123","123","123","123")
-        def c = yaml.loadAs(stream, Address.class)
+        def c = yaml.loadAs(stream, cc.getClass())
         return c
     }
 }
