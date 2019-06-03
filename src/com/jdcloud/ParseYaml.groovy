@@ -17,8 +17,8 @@ class ParseYaml{
 
     def SetUp(){
         String yamlStr = "key: hello yaml";
-//        Yaml yaml = new Yaml();
-//        Object ret = yaml.load(yamlStr);
-        return yamlStr
+        Yaml yaml = new Yaml();
+        Object ret = yaml.load(yamlStr);
+        return ret
     }
 }
