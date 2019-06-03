@@ -5,6 +5,7 @@ import org.apache.ivy.ant.AddPathTask
 import org.junit.Assert
 @Grab('org.yaml:snakeyaml:1.17')
 import org.yaml.snakeyaml.Yaml
+import org.yaml.snakeyaml.constructor.Constructor
 
 class ParseYaml{
 
