@@ -16,7 +16,7 @@ def call(def pathToYaml){
 
     // Parse yaml and make it Java class
     echo "1"
-    Cmds ConfigMap = new Cmds("/root/build.yaml")
+    println ParseYaml.fromYaml()
     echo "2"
 //    echo "2"
 //    cmds.SetUp(pathToYaml)

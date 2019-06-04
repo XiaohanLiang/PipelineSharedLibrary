@@ -5,14 +5,10 @@ import org.yaml.snakeyaml.Yaml
 
 class ParseYaml{
 
-    def Cmds c
-    ParseYaml(String path){
-
-//        Yaml yaml = new Yaml()
-//        File file = new File(path)
-//        FileInputStream stream = new FileInputStream(file);
-//        this.c = yaml.loadAs(stream, Cmds.class)
-    }
+    public String lines;
+    public String city;
+    public String state;
+    public String postal;
 
     def SetUp(){
         String yamlStr = "key: hello yaml"
@@ -21,14 +17,16 @@ class ParseYaml{
         return ret
     }
 
-    def SetUp2(){
-        Yaml yaml = new Yaml()
+    static ParseYaml fromYaml() {
+
+//        Yaml yaml = new Yaml()
 //        Yaml yaml = new Yaml(new Constructor(Address.class))
-//        File file = new File("/root/bb.yaml")
-//        FileInputStream stream = new FileInputStream(file)
+        Constructor c = new Constructor(ParseYaml)
+        File file = new File("/root/bb.yaml")
+        FileInputStream stream = new FileInputStream(file)
 //        def c = yaml.loadAs(stream, Address.class)
-        Address cc = new Address("123","123","123","123")
-        def c = yaml.load(("/root/build.yaml" as File).text)
-        return c
+//        Address cc = new Address("123","123","123","123")
+//        def c = (Address) yaml.load(("/root/build.yaml" as File).text)
+        new Yaml(c).load(stream)
     }
 }
