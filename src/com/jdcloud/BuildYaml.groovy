@@ -73,8 +73,9 @@ class BuildYaml {
                 return
             }
 
-            SetEnvCommand = "export " + name + "=" + value
+            def SetEnvCommand = "export " + name + "=" + value
             this.script.echo "SET Env \${" + name + "} = " + value
+
             def start = SetEnvCommand.execute()
             start.waitForOrKill(1000)
 
