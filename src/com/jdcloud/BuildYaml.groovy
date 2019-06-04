@@ -16,6 +16,8 @@ import static org.junit.Assert.*
  *          And Execute it later on...
  *
  */
+// Get the out variable
+def out = getBinding().out;
 
 class BuildYaml {
 
