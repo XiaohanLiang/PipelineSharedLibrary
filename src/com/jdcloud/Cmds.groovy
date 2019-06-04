@@ -24,15 +24,14 @@ class Cmds {
     Cmds(String path) {
 
         Yaml yaml = new Yaml()
-        def configMap = yaml.load((path as File).text)
-        assertNotNull(configMap)
-        configMap.each { k,v ->
-            if (k == "envs") {
-                this.envs = this.envs + GenerateEnvMap(v)
-            }
-            if (k == "cmds") {
-                this.cmds = this.cmds + GenerateCmdMap(v)
-            }
+        def settingMap = yaml.load((path as File).text)
+        assertNotNull(settingMap)
+
+        for( c in settingMap.cmds ){
+            this.cmds = this.cmds + Cmd(c.name,c.command)
+        }
+        for ( e in settingMap.envs ) {
+            this.envs = this.envs + Env(e.name,e.value)
         }
     }
 
