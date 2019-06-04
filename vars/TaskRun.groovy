@@ -13,11 +13,11 @@ import com.jdcloud.*
 def call(def pathToYaml){
 
     // Parse yaml and make it Java class
-    def setting = new BuildYaml("/root/build.yaml")
+    def settings = new BuildYaml("/root/build.yaml")
 
     // Running inside Docker
     withDockerContainer(args:"", image:"ubuntu:14.04.5") {
         println "1"
-        println $setting
+        settings.say()
     }
 }
