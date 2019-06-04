@@ -3,7 +3,7 @@ import com.jdcloud.Address
 import com.jdcloud.Cmds
 import org.apache.ivy.ant.AddPathTask
 import org.junit.Assert
-@Grab('org.yaml:snakeyaml:1.17')
+@Grab(group='org.yaml', module='snakeyaml', version='1.17')
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.constructor.Constructor
 
