@@ -18,10 +18,35 @@ class Cmds {
     def List<Env> envs
     def String out_dir
 
-    def Cmds(String path) {
-        // Initiating and generate itself
+    Cmds(String path) {
+
+        def configMap = yaml.load((String as File).text)
+        AssertNotNull(configMap)
+        configMap.each { k,v ->
+            if (k == "envs") {
+                this.envs = this.envs + GenerateEnvMap(k,v)
+            }
+            if (k == "cmds") {
+                this.cmds = this.cmds + GenerateCmdMap(k,v)
+            }
+        }
     }
 
+    List<Env> GenerateEnvMap(Map map){
+        List<Env> EnvMap = []
+        map.each{ k,v ->
+            EnvMap = EnvMap + Env(k,v)
+        }
+        return EnvMap
+    }
+
+    List<Cmd> GenerateCmdMap(Map map){
+        List<Cmd> CmdMap = []
+        map.each{ k,v ->
+            CmdMap = CmdMap + Cmd(k,v)
+        }
+        return CmdMap
+    }
 
     def Execute(){
         for (Cmd cmd : this.cmds ) {
@@ -49,6 +74,11 @@ class Cmd {
     def name
     def cmd
 
+    Cmd(String n,c){
+        this.name = n
+        this.cmd = c
+    }
+
     def Execute(){
 
         assert this.name.length() > 0 : "Invalid name given,expected not null"
@@ -74,6 +104,11 @@ class Env {
 
     def name
     def value
+
+    Env(String n,v){
+        this.name = n
+        this.value = v
+    }
 
     Cmd GenerateExportTask(){
         Cmd ExportTask = new Cmd()

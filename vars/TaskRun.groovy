@@ -16,15 +16,8 @@ def call(def pathToYaml){
 
     // Parse yaml and make it Java class
     echo "1"
-    ParseYaml py = new ParseYaml(pathToYaml)
-    def item = py.SetUp2()
+    Cmds ConfigMap = new Cmds("/root/build.yaml")
     echo "2"
-    println(item)
-    def item2 = py.SetUp2()
-    echo "2"
-    println(item)
-    def d = (com.jdcloud.Address)item2
-    println(d)
 //    echo "2"
 //    cmds.SetUp(pathToYaml)
 //    echo "3"
