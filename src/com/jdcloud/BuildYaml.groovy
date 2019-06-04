@@ -3,7 +3,6 @@ package com.jdcloud
 
 @Grab(group='org.yaml', module='snakeyaml', version='1.17')
 import org.yaml.snakeyaml.Yaml
-import hudson.model.*
 import static org.junit.Assert.*
 
 /**
@@ -16,8 +15,6 @@ import static org.junit.Assert.*
  *          And Execute it later on...
  *
  */
-// Get the out variable
-def out = getBinding().out;
 
 class BuildYaml {
 

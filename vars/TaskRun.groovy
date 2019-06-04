@@ -1,5 +1,7 @@
 #!/usr/bin/env groovy
+
 import com.jdcloud.*
+import hudson.model.*
 
 /**
  *  This function is expected to output a structure namely
@@ -14,6 +16,11 @@ def call(def pathToYaml){
 
     // Parse yaml and make it a class object
     def settings = new BuildYaml("/root/build.yaml")
+
+    // Get the out variable
+    def out = getBinding().out;
+    out.println("Outside class")
+    output = new OutputClass(out)
 
     // Execute commands inside docker container
     withDockerContainer(args:"", image:"ubuntu:14.04.5") {
