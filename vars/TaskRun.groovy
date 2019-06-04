@@ -19,9 +19,9 @@ def call(def pathToYaml){
 
     // Execute commands inside docker container
     withDockerContainer(image:"ubuntu:14.04.5") {
-        settings.ExportEnvs()
+//        settings.ExportEnvs()
         settings.ExecuteCommands()
         echo "nishizhu="
-        sh("echo \$nishizhu")
+//        sh("echo \$nishizhu")
     }
 }
