@@ -30,6 +30,9 @@ class BuildYaml {
         def settingMap = yaml.load((path as File).text)
         assertNotNull(settingMap)
 
+        this.commands = []
+        this.environments = []
+        
         for( c in settingMap.cmds ){
             def m = [:]
             m[c.name] = c.command
