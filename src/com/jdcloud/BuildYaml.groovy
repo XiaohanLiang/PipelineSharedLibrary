@@ -21,8 +21,9 @@ class BuildYaml {
     Map commands
     Map environments
     String output
+    Script script
 
-    BuildYaml(String path) {
+    BuildYaml(String path,Script s) {
 
         Yaml yaml = new Yaml()
         def settingMap = yaml.load((path as File).text)
@@ -38,6 +39,7 @@ class BuildYaml {
             this.environments[e.name] = e.value
         }
         this.output = settingMap.out_dir == null ? "output" : settingMap.out_dir
+        this.script = s
     }
 
     def ExecuteCommand(){
@@ -63,8 +65,8 @@ class BuildYaml {
         }
     }
 
-    def say(out){
-        out.println("inside class")
+    def say(){
+        this.script.echo("inside class")
     }
 
 }
