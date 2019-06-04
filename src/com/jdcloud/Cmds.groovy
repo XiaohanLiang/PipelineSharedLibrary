@@ -1,9 +1,11 @@
 #!/usr/bin/env groovy
 package com.jdcloud
+
 import static org.junit.Assert.*
 
 @Grab(group='org.yaml', module='snakeyaml', version='1.17')
 import org.yaml.snakeyaml.Yaml
+
 /**
  * Todo -
  *          Complete it with os.Execute and define
@@ -69,54 +71,5 @@ class Cmds {
         for(Env e:this.envs) {
             this.cmds = e.GenerateExportTask() + this.cmds
         }
-    }
-}
-
-class Cmd {
-
-    def name
-    def cmd
-
-    Cmd(def n,def c){
-        this.name = n
-        this.cmd = c
-    }
-
-    def Execute(){
-
-        assert this.name.length() > 0 : "Invalid name given,expected not null"
-        assert this.cmd.length() > 0 : "Invalid command given,expected not null "
-
-        def Stdout = new StringBuilder()
-        def Stderr = new StringBuilder()
-        def start = this.cmd.execute()
-
-        start.consumeProcessOutput(Stdout, Stderr)
-        start.waitForOrKill(3600)
-
-        println "Executing command: " + this.name
-        println "\$      " + this.Command
-        println ">      $Stdout"
-        println "------------"
-
-    }
-
-}
-
-class Env {
-
-    def name
-    def value
-
-    Env(def n,def v){
-        this.name = n
-        this.value = v
-    }
-
-    Cmd GenerateExportTask(){
-        Cmd ExportTask = new Cmd()
-        ExportTask.name = "Setting environment vaiables: " + name
-        ExportTask.cmd = "export " + name + "=" + value
-        return ExportTask
     }
 }
