@@ -16,7 +16,7 @@ def call(def pathToYaml){
     def setting = new BuildYaml("/root/build.yaml")
 
     // Running inside Docker
-    withDockerContainer(args:"", image:params.buildImage) {
+    withDockerContainer(args:"", image:"ubuntu:14.04.5") {
         println "1"
         println $setting
     }
