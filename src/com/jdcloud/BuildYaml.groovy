@@ -75,8 +75,12 @@ class BuildYaml {
 
             def SetEnvCommand = "export " + name + "=" + value
             this.script.echo "SET Env \${" + name + "} = " + value
+            this.script.echo SetEnvCommand
 
+            def Stdout = new StringBuilder()
+            def Stderr = new StringBuilder()
             def start = SetEnvCommand.execute()
+            start.consumeProcessOutput(Stdout, Stderr)
             start.waitForOrKill(1000)
 
         }
