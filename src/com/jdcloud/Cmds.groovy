@@ -1,5 +1,6 @@
 #!/usr/bin/env groovy
 package com.jdcloud
+import com.jdcloud.*
 
 import static org.junit.Assert.*
 
@@ -19,9 +20,9 @@ import org.yaml.snakeyaml.Yaml
 
 class Cmds {
 
-    def List<Cmd> cmds
-    def List<Env> envs
-    def String out_dir
+    def List<Map> commands
+    def List<Map> environments
+    def String output
 
     Cmds(String path) {
 
@@ -30,46 +31,30 @@ class Cmds {
         assertNotNull(settingMap)
 
         for( c in settingMap.cmds ){
-            this.cmds = this.cmds + Cmd(c.name,c.command)
+            this.cmds = this.cmds + [c.name:c.cmd]
         }
         for ( e in settingMap.envs ) {
-            this.envs = this.envs + Env(e.name,e.value)
+            this.envs = this.envs + [e.name:e.value]
         }
     }
 
-    List<Env> GenerateEnvMap(ArrayList map){
-        List<Env> EnvMap = []
-        map.each{ k,v ->
-            EnvMap = EnvMap + Env(k,v)
-        }
-        return EnvMap
-    }
-
-    List<Cmd> GenerateCmdMap(ArrayList map){
-        List<Cmd> CmdMap = []
-        map.each{ k,v ->
-            CmdMap = CmdMap + Cmd(k,v)
-        }
-        return CmdMap
-    }
-
-    def Execute(){
-        for (Cmd cmd : this.cmds ) {
-            cmd.Execute()
-        }
-    }
-
-    def GetCmds(){
-        return this.cmds
-    }
-
-    def GetOutDir(){
-        return this.out_dir
-    }
-
-    def PreprareEnvs(){
-        for(Env e:this.envs) {
-            this.cmds = e.GenerateExportTask() + this.cmds
-        }
-    }
+//    def Execute(){
+//        for (Cmd cmd : this.cmds ) {
+//            cmd.Execute()
+//        }
+//    }
+//
+//    def GetCmds(){
+//        return this.cmds
+//    }
+//
+//    def GetOutDir(){
+//        return this.out_dir
+//    }
+//
+//    def PreprareEnvs(){
+//        for(Env e:this.envs) {
+//            this.cmds = e.GenerateExportTask() + this.cmds
+//        }
+//    }
 }
