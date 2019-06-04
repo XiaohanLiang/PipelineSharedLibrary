@@ -1,11 +1,10 @@
 #!/usr/bin/env groovy
 package com.jdcloud
-import com.jdcloud.*
-
-import static org.junit.Assert.*
 
 @Grab(group='org.yaml', module='snakeyaml', version='1.17')
 import org.yaml.snakeyaml.Yaml
+import hudson.model.*
+import static org.junit.Assert.*
 
 /**
  * Todo -
@@ -65,9 +64,8 @@ class BuildYaml {
         }
     }
 
-    def say(){
-        echo this.output
-        println this.output
+    def say(out){
+        out.println(this.output)
     }
 
 }
