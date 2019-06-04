@@ -7,6 +7,8 @@ import org.junit.Assert
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.constructor.Constructor
 
+import javax.xml.ws.soap.Addressing
+
 /*
   Discard in future
  *
@@ -35,6 +37,7 @@ class ParseYaml{
 //        File file = new File("/root/bb.yaml")
 //        FileInputStream stream = new FileInputStream(file)
 //        def c = yaml.loadAs(stream, Address.class)
+        Address cc = new Address("123","123","123","123")
         Address c = (Address) yaml.load(("/root/bb.yaml" as File).text)
         return c
     }
