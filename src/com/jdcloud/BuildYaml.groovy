@@ -65,7 +65,7 @@ class BuildYaml {
     }
 
     def say(out){
-        out.println(this.output)
+        out.println("inside class")
     }
 
 }
