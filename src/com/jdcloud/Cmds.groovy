@@ -44,7 +44,7 @@ class Cmds {
         return EnvMap
     }
 
-    List<Cmd> GenerateCmdMap(Map map){
+    List<Cmd> GenerateCmdMap(ArrayList map){
         List<Cmd> CmdMap = []
         map.each{ k,v ->
             CmdMap = CmdMap + Cmd(k,v)
