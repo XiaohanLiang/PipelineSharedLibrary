@@ -1,7 +1,9 @@
 package com.jdcloud
 
 @Grab(group='org.yaml', module='snakeyaml', version='1.17')
-import org.yaml.snakeyaml.Yaml
+import org.yaml.snakeyaml.*
+import org.yaml.snakeyaml.constructor.*
+import groovy.transform.*
 
 class ParseYaml{
 
