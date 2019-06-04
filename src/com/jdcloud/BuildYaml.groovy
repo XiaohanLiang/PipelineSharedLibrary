@@ -66,7 +66,8 @@ class BuildYaml {
     }
 
     def say(){
-        println(this.output)
+        echo this.output
+        println this.output
     }
 
 }

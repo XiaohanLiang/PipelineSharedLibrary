@@ -12,12 +12,11 @@ import com.jdcloud.*
 
 def call(def pathToYaml){
 
-    // Parse yaml and make it Java class
+    // Parse yaml and make it a class object
     def settings = new BuildYaml("/root/build.yaml")
 
-    // Running inside Docker
+    // Execute commands inside docker container
     withDockerContainer(args:"", image:"ubuntu:14.04.5") {
-        println "1"
         settings.say()
     }
 }
