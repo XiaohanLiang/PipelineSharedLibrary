@@ -20,6 +20,9 @@ def call(def pathToYaml){
     def item = py.SetUp2()
     echo "2"
     println(item)
+    def item2 = py.SetUp2()
+    echo "2"
+    println(item)
 //    echo "2"
 //    cmds.SetUp(pathToYaml)
 //    echo "3"
