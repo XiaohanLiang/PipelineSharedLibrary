@@ -13,19 +13,11 @@ import com.jdcloud.*
 def call(def pathToYaml){
 
     // Parse yaml and make it Java class
-    echo "1"
     def setting = new BuildYaml("/root/build.yaml")
-    println(setting)
-    echo "2"
-//    echo "2"
-//    cmds.SetUp(pathToYaml)
-//    echo "3"
 
-    // Generate exporting commands
-//    cmds.PreprareEnvs()
-//
     // Running inside Docker
-//    withDockerContainer(args:"", image:params.buildImage) {
-//        cmds.Execute()
-//    }
+    withDockerContainer(args:"", image:params.buildImage) {
+        println "1"
+        println $setting
+    }
 }

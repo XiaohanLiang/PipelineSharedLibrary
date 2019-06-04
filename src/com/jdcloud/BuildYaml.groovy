@@ -20,9 +20,9 @@ import org.yaml.snakeyaml.Yaml
 
 class BuildYaml {
 
-    def List<Map> commands
-    def List<Map> environments
-    def String output
+    Map commands
+    Map environments
+    String output
 
     BuildYaml(String path) {
 
@@ -30,38 +30,41 @@ class BuildYaml {
         def settingMap = yaml.load((path as File).text)
         assertNotNull(settingMap)
 
-        this.commands = []
-        this.environments = []
+        commands = [:]
+        environments = [:]
         
         for( c in settingMap.cmds ){
-            def m = [:]
-            m[c.name] = c.command
-            this.commands = this.commands + m
+            this.commands[c.name] = c.command
         }
         for ( e in settingMap.envs ) {
-            def m = [:]
-            m[e.name] = e.value
-            this.environments = this.environments + m
+            this.environments[e.name] = e.value
+        }
+        this.output = settingMap.out_dir == null ? "output" : settingMap.out_dir
+    }
+
+    def ExecuteCommand(){
+
+        this.commands.each { name,command ->
+
+            if (name.length()==0 || command.length()==0) {
+                return
+            }
+
+            def Stdout = new StringBuilder()
+            def Stderr = new StringBuilder()
+            def start = command.execute()
+
+            start.consumeProcessOutput(Stdout, Stderr)
+            start.waitForOrKill(3600)
+
+            println "Executing command: " + name
+            println "\$      " + command
+            println ">      $Stdout"
+            println "------------"
+
         }
     }
 
-//    def Execute(){
-//        for (Cmd cmd : this.cmds ) {
-//            cmd.Execute()
-//        }
-//    }
-//
-//    def GetCmds(){
-//        return this.cmds
-//    }
-//
-//    def GetOutDir(){
-//        return this.out_dir
-//    }
-//
-//    def PreprareEnvs(){
-//        for(Env e:this.envs) {
-//            this.cmds = e.GenerateExportTask() + this.cmds
-//        }
-//    }
+
+
 }
