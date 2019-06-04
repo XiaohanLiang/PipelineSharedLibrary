@@ -22,6 +22,7 @@ class Cmds {
 
     Cmds(String path) {
 
+        Yaml yaml = new Yaml()
         def configMap = yaml.load((String as File).text)
         AssertNotNull(configMap)
         configMap.each { k,v ->
