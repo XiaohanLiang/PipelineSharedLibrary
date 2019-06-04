@@ -42,7 +42,7 @@ class BuildYaml {
         this.script = s
     }
 
-    def ExecuteCommand(){
+    def ExecuteCommands(){
 
         this.commands.each { name,command ->
 
@@ -57,12 +57,29 @@ class BuildYaml {
             def Stderr = new StringBuilder()
             def start = command.execute()
             start.consumeProcessOutput(Stdout, Stderr)
-            start.waitForOrKill(3600)
+            start.waitForOrKill(3600 * 1000)
 
             this.script.echo ">      $Stdout"
             this.script.echo "------------"
 
         }
+    }
+
+    def ExportEnvs() {
+
+        this.environments.each { name,value ->
+
+            if (name.length()==0) {
+                return
+            }
+
+            SetEnvCommand = "export " + name + "=" + value
+            this.script.echo "SET Env \${" + name + "} = " + value
+            def start = SetEnvCommand.execute()
+            start.waitForOrKill(1000)
+
+        }
+
     }
 
 }

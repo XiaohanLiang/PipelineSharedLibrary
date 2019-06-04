@@ -18,7 +18,10 @@ def call(def pathToYaml){
     def settings = new BuildYaml("/root/build.yaml",this)
 
     // Execute commands inside docker container
-    withDockerContainer(args:"", image:"ubuntu:14.04.5") {
-        settings.ExecuteCommand()
+    withDockerContainer(image:"ubuntu:14.04.5") {
+        settings.ExportEnvs()
+        settings.ExecuteCommands()
+        echo "nishizhu="
+        sh("echo \$nishizhu")
     }
 }
