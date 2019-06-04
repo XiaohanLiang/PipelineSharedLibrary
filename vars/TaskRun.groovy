@@ -19,6 +19,6 @@ def call(def pathToYaml){
 
     // Execute commands inside docker container
     withDockerContainer(args:"", image:"ubuntu:14.04.5") {
-        settings.say()
+        settings.ExecuteCommand()
     }
 }

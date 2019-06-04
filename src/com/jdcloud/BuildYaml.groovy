@@ -50,23 +50,19 @@ class BuildYaml {
                 return
             }
 
+            this.script.echo "Executing command: " + name
+            this.script.echo "\$      " + command
+
             def Stdout = new StringBuilder()
             def Stderr = new StringBuilder()
             def start = command.execute()
-
             start.consumeProcessOutput(Stdout, Stderr)
             start.waitForOrKill(3600)
 
-            println "Executing command: " + name
-            println "\$      " + command
-            println ">      $Stdout"
-            println "------------"
+            this.script.echo ">      $Stdout"
+            this.script.echo "------------"
 
         }
-    }
-
-    def say(){
-        this.script.echo("inside class")
     }
 
 }
