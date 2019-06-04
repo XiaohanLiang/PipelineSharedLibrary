@@ -1,6 +1,8 @@
 #!/usr/bin/env groovy
 package com.jdcloud
 
+@Grab(group='org.yaml', module='snakeyaml', version='1.17')
+import org.yaml.snakeyaml.Yaml
 /**
  * Todo -
  *          Complete it with os.Execute and define
