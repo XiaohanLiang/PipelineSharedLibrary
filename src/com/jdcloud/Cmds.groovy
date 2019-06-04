@@ -77,7 +77,7 @@ class Cmd {
     def name
     def cmd
 
-    Cmd(String n,c){
+    Cmd(def n,def c){
         this.name = n
         this.cmd = c
     }
@@ -108,7 +108,7 @@ class Env {
     def name
     def value
 
-    Env(String n,v){
+    Env(def n,def v){
         this.name = n
         this.value = v
     }
