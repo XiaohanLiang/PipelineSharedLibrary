@@ -1,4 +1,4 @@
-#!/usr/bin/env groovy
+package com.jdcloud
 import com.jdcloud.Address
 import com.jdcloud.Cmds
 import org.apache.ivy.ant.AddPathTask
@@ -7,6 +7,11 @@ import org.junit.Assert
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.constructor.Constructor
 
+/*
+  Discard in future
+ *
+
+*/
 class ParseYaml{
 
     def Cmds c
@@ -19,18 +24,18 @@ class ParseYaml{
     }
 
     def SetUp(){
-        String yamlStr = "key: hello yaml";
-        Yaml yaml = new Yaml();
-        Object ret = yaml.load(yamlStr);
+        String yamlStr = "key: hello yaml"
+        Yaml yaml = new Yaml()
+        Object ret = yaml.load(yamlStr)
         return ret
     }
 
     def SetUp2(){
         Yaml yaml = new Yaml(new Constructor(Address.class))
-        File file = new File("/root/bb.yaml")
-        FileInputStream stream = new FileInputStream(file);
+//        File file = new File("/root/bb.yaml")
+//        FileInputStream stream = new FileInputStream(file)
 //        def c = yaml.loadAs(stream, Address.class)
-        Address c = (Address) yaml.load(stream)
+        Address c = (Address) yaml.load(("/root/bb.yaml" as File).text)
         return c
     }
 }

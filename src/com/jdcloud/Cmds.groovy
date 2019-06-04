@@ -18,13 +18,9 @@ class Cmds {
     def List<Env> envs
     def String out_dir
 
-//    def Cmds(String path) {
-//        Yaml yaml = new Yaml()
-//        File file = new File(path)
-//        FileInputStream stream = new FileInputStream(file);
-//        InputStream is = Cmds.class.getResourceAsStream(path)
-//        this.cmds = yaml.loadAs(stream, Cmds.class)
-//    }
+    def Cmds(String path) {
+        // Initiating and generate itself
+    }
 
 
     def Execute(){
