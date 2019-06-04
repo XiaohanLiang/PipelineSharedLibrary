@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
-import com.jdcloud.MyConfig
+import com.jdcloud.ParseYaml
 
 /**
  *  This function is expected to output a structure namely
