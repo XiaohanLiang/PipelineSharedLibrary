@@ -36,7 +36,7 @@ class Cmds {
         }
     }
 
-    List<Env> GenerateEnvMap(Map map){
+    List<Env> GenerateEnvMap(ArrayList map){
         List<Env> EnvMap = []
         map.each{ k,v ->
             EnvMap = EnvMap + Env(k,v)
