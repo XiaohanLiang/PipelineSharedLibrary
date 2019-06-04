@@ -18,9 +18,9 @@ def call(def pathToYaml){
     def settings = new BuildYaml("/root/build.yaml")
 
     // Get the out variable
-    def out = getBinding().out;
+//    def out = getBinding().out;
     out.println("Outside class")
-    output = new OutputClass(out)
+    output = new OutputClass(script:this)
 
     // Execute commands inside docker container
     withDockerContainer(args:"", image:"ubuntu:14.04.5") {
