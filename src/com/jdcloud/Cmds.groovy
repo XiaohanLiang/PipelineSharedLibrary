@@ -1,5 +1,6 @@
 #!/usr/bin/env groovy
 package com.jdcloud
+import static org.junit.Assert.*
 
 @Grab(group='org.yaml', module='snakeyaml', version='1.17')
 import org.yaml.snakeyaml.Yaml
@@ -24,7 +25,7 @@ class Cmds {
 
         Yaml yaml = new Yaml()
         def configMap = yaml.load((path as File).text)
-        AssertNotNull(configMap)
+        assertNotNull(configMap)
         configMap.each { k,v ->
             if (k == "envs") {
                 this.envs = this.envs + GenerateEnvMap(k,v)
