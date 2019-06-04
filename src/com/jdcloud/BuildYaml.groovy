@@ -18,23 +18,27 @@ import org.yaml.snakeyaml.Yaml
  *
  */
 
-class Cmds {
+class BuildYaml {
 
     def List<Map> commands
     def List<Map> environments
     def String output
 
-    Cmds(String path) {
+    BuildYaml(String path) {
 
         Yaml yaml = new Yaml()
         def settingMap = yaml.load((path as File).text)
         assertNotNull(settingMap)
 
         for( c in settingMap.cmds ){
-            this.cmds = this.cmds + [c.name:c.cmd]
+            def m = [:]
+            m[c.name] = c.command
+            this.commands = this.commands + m
         }
         for ( e in settingMap.envs ) {
-            this.envs = this.envs + [e.name:e.value]
+            def m = [:]
+            m[e.name] = e.value
+            this.environments = this.environments + m
         }
     }
 

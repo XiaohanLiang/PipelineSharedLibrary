@@ -14,7 +14,7 @@ def call(def pathToYaml){
 
     // Parse yaml and make it Java class
     echo "1"
-    Cmds setting = new Cmds("/root/build.yaml")
+    def setting = new BuildYaml("/root/build.yaml")
     println(setting)
     echo "2"
 //    echo "2"
