@@ -32,3 +32,37 @@ class ParseYaml{
         new Yaml(c).load(stream)
     }
 }
+
+String exampleYaml = '''widgets:
+                       |  - name: blah
+                       |    age: 3000
+                       |    silly: true
+                       |  - name: blah meh
+                       |    age: 13939
+                       |    silly: false
+                       |uuid: 1938484
+                       |isActive: false'''.stripMargin()
+
+
+@ToString(includeNames=true)
+class Widget {
+    String name
+    Integer age
+    boolean silly
+}
+
+@ToString(includeNames=true)
+class MyConfig {
+    List<Widget> widgets
+    String uuid
+    boolean isActive
+
+    static MyConfig fromYaml(yaml) {
+        Constructor c = new Constructor(MyConfig)
+        TypeDescription t = new TypeDescription(MyConfig)
+        t.putListPropertyType('widgts', Widget)
+        c.addTypeDescription(t);
+
+        new Yaml(c).load(yaml)
+    }
+}

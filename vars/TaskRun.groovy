@@ -1,7 +1,5 @@
 #!/usr/bin/env groovy
-import com.jdcloud.Cmds
-import com.jdcloud.ParseYaml
-import com.jdcloud.Address
+import com.jdcloud.MyConfig
 
 /**
  *  This function is expected to output a structure namely
@@ -16,7 +14,7 @@ def call(def pathToYaml){
 
     // Parse yaml and make it Java class
     echo "1"
-    println ParseYaml.fromYaml()
+    println MyConfig.fromYaml(exampleYaml)
     echo "2"
 //    echo "2"
 //    cmds.SetUp(pathToYaml)
