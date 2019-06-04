@@ -21,8 +21,8 @@ def call(def pathToYaml){
 //    def out = getBinding().out;
 //    out.println("Outside class")
     echo "2"
-    output = new OutputClass(script:this)
-
+    output = new OutputClass(this)
+//
     // Execute commands inside docker container
     withDockerContainer(args:"", image:"ubuntu:14.04.5") {
         settings.say()
