@@ -23,7 +23,7 @@ class Cmds {
     Cmds(String path) {
 
         Yaml yaml = new Yaml()
-        def configMap = yaml.load((String as File).text)
+        def configMap = yaml.load((path as File).text)
         AssertNotNull(configMap)
         configMap.each { k,v ->
             if (k == "envs") {
