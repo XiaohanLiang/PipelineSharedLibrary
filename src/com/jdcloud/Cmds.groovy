@@ -28,10 +28,10 @@ class Cmds {
         assertNotNull(configMap)
         configMap.each { k,v ->
             if (k == "envs") {
-                this.envs = this.envs + GenerateEnvMap(k,v)
+                this.envs = this.envs + GenerateEnvMap(v)
             }
             if (k == "cmds") {
-                this.cmds = this.cmds + GenerateCmdMap(k,v)
+                this.cmds = this.cmds + GenerateCmdMap(v)
             }
         }
     }
