@@ -38,7 +38,7 @@ class ParseYaml{
 //        FileInputStream stream = new FileInputStream(file)
 //        def c = yaml.loadAs(stream, Address.class)
         Address cc = new Address("123","123","123","123")
-        Address c = (Address) yaml.load(("/root/bb.yaml" as File).text)
+        Address c = (cc.class) yaml.load(("/root/bb.yaml" as File).text)
         return c
     }
 }
