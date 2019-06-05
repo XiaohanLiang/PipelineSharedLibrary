@@ -97,8 +97,8 @@ class BuildYaml {
 
     def ExecuteFile(def filePath){
 
-        this.ExecuteCommandsUsingProcessBuilder2("cat " + filePath)
         this.ExecuteCommandsUsingProcessBuilder2("pwd")
+        this.ExecuteCommandsUsingProcessBuilder2("cat " + filePath)
         this.ExecuteCommandsUsingProcessBuilder2("ls /tmp")
         this.ExecuteCommandsUsingProcessBuilder2("ls /tmp | grep Jenkins")
 
@@ -176,7 +176,7 @@ class BuildYaml {
         System.out.println("Echo Output:\n" + output(process.getInputStream()));
     }
     def ExecuteCommandsUsingProcessBuilder2(def command){
-        ProcessBuilder processBuilder = new ProcessBuilder("bash","-c",command);
+        ProcessBuilder processBuilder = new ProcessBuilder("/bin/sh","-c",command);
         processBuilder.redirectErrorStream(true)
         Process process = processBuilder.start();
         process.waitFor();
