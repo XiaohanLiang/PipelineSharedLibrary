@@ -116,7 +116,11 @@ class BuildYaml {
     }
 
     def output(InputStream inputStream) throws IOException {
-        assertNotNull(inputStream)
+        if (inputStream == null ) {
+            this.script.echo "is null"
+        }else{
+            this.script.echo "not null"
+        }
         StringBuilder sb = new StringBuilder();
         BufferedReader br = null;
         try {
