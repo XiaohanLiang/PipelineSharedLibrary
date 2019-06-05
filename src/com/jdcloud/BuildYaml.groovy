@@ -213,7 +213,6 @@ class BuildYaml {
         Process process = processBuilder.start();
         process.waitFor();
         def result = process.getInputStream().text
-        this.script.echo result.getClass()
         this.script.echo result
     }
 
