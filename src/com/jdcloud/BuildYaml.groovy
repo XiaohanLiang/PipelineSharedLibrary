@@ -170,8 +170,8 @@ class BuildYaml {
         Process process = processBuilder.start();
         process.waitFor();
         def result = output(process.getInputStream())
-        this.script.echo result.getClass()
-        this.script.echo result.length()
+        this.script.echo result.getClass().toString()
+        this.script.echo result.length().toString()
         this.script.echo "Echo Output:\n" + result
     }
 
