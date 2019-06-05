@@ -102,7 +102,8 @@ class BuildYaml {
         process.waitFor()
 
         def consoleOutPut = output(process.getInputStream())
-        this.script.echo consoleOutPut
+        this.script.echo "-----"
+        this.script.echo "$consoleOutPut"
     }
 
     def output(InputStream inputStream) throws IOException {
@@ -122,7 +123,7 @@ class BuildYaml {
 
     // ----------------------------- We don't execute like this anymore
 
-    def ExecuteCommandsVersion1(){
+    def ExecuteCommandsUsingExecute(){
 
         this.commands.each { name,command ->
 
@@ -145,7 +146,7 @@ class BuildYaml {
         }
     }
 
-    def ExecuteCommandsVersion2(def command){
+    def ExecuteCommandsUsingProcessBuilder(def command){
         ProcessBuilder processBuilder = new ProcessBuilder("bash","-c",command);
         processBuilder.redirectErrorStream(true)
         System.out.println("Run echo command");
