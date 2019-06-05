@@ -116,6 +116,7 @@ class BuildYaml {
     }
 
     def output(InputStream inputStream) throws IOException {
+        assertNotNull(inputStream)
         StringBuilder sb = new StringBuilder();
         BufferedReader br = null;
         try {
