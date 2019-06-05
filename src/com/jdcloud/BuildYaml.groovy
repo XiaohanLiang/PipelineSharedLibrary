@@ -169,7 +169,10 @@ class BuildYaml {
         processBuilder.redirectErrorStream(true)
         Process process = processBuilder.start();
         process.waitFor();
-        this.script.echo "Echo Output:\n" + output(process.getInputStream())
+        def result = output(process.getInputStream())
+        this.script.echo result.getClass()
+        this.script.echo result.length()
+        this.script.echo "Echo Output:\n" + result
     }
 
     def ExportEnvs() {
