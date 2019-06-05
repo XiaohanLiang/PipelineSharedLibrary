@@ -17,7 +17,7 @@ import java.lang.ProcessBuilder
  *          4. Stop it from updating script every time
  */
 
-class BuildYaml {
+class FromYaml {
 
     Map commands
     Map environments
@@ -25,7 +25,7 @@ class BuildYaml {
     String metaspace
     Script script
 
-    BuildYaml(String path,Script s,String ws) {
+    FromYaml (String path,Script s,String ws) {
 
         Yaml yaml = new Yaml()
         def settingMap = yaml.load((path as File).text)
@@ -49,14 +49,7 @@ class BuildYaml {
         this.script.echo "$ws"
     }
 
-    def Execute(){
-
-        def scriptPath = this.WriteCommandsToShellScript()
-//        this.ExecuteFile(scriptPath)
-        return scriptPath
-    }
-
-    def WriteCommandsToShellScript(){
+    def GenerateShellScript(){
 
         File meta = new File(this.metaspace)
         File script = File.createTempFile("Jenkins-", ".sh", meta);
@@ -102,25 +95,7 @@ class BuildYaml {
         return scriptPath
     }
 
-    def ExecuteFile(def filePath){
-
-        ProcessBuilder processBuilder = new ProcessBuilder(filePath)
-        processBuilder.redirectErrorStream(true)
-
-        Process process = processBuilder.start()
-        process.waitFor()
-        def consoleOutPut = process.getInputStream().text
-        this.script.echo "$consoleOutPut"
-
-    }
-
-    def GainOutput(def instream){
-
-
-
-    }
-
-    // ----------------------------- We don't execute like this anymore
+    // ----------------------------- We don't execute file here considering tricky IO issue
 
     def ExecuteCommandsUsingExecute(){
 
@@ -219,4 +194,21 @@ class BuildYaml {
         }
 
     }
+    def ExecuteFile(def filePath){
+
+        ProcessBuilder processBuilder = new ProcessBuilder(filePath)
+        processBuilder.redirectErrorStream(true)
+
+        Process process = processBuilder.start()
+        process.waitFor()
+        def consoleOutPut = process.getInputStream().text
+        this.script.echo "$consoleOutPut"
+
+    }
+    def GainOutput(def instream){
+
+
+
+    }
+
 }
