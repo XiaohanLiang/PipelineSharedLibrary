@@ -45,10 +45,8 @@ class BuildYaml {
 
     def Execute(){
 
-//        def scriptPath = this.WriteCommandsToShellScript()
-        this.ExecuteCommandsUsingProcessBuilder3("pwd")
-
-//        this.ExecuteFile(scriptPath)
+        def scriptPath = this.WriteCommandsToShellScript()
+        this.ExecuteFile(scriptPath)
 
     }
 
@@ -57,7 +55,7 @@ class BuildYaml {
         File script = File.createTempFile("Jenkins-", ".sh");
         script.setExecutable(true)
         script.setWritable(true)
-//        script.deleteOnExit();
+        script.deleteOnExit();
         def scriptPath = script.getAbsolutePath()
         this.script.echo "$scriptPath"
 
@@ -99,24 +97,64 @@ class BuildYaml {
 
     def ExecuteFile(def filePath){
 
-        this.ExecuteCommandsUsingProcessBuilder2("pwd")
-        this.ExecuteCommandsUsingProcessBuilder2("cat " + filePath)
-        this.ExecuteCommandsUsingProcessBuilder2("ls /tmp")
-        this.ExecuteCommandsUsingProcessBuilder2("ls /tmp | grep Jenkins")
-
         ProcessBuilder processBuilder = new ProcessBuilder(filePath)
         processBuilder.redirectErrorStream(true)
 
-        this.script.echo "inner-1"
         Process process = processBuilder.start()
         process.waitFor()
-        this.script.echo "inner-2"
-
-        def consoleOutPut = output(process.getInputStream())
-        this.script.echo "inner-3"
+        def consoleOutPut = process.getInputStream().text
         this.script.echo "$consoleOutPut"
+
     }
 
+    def ExecuteCommandsUsingExecute(){
+
+        this.commands.each { name,command ->
+
+            if (name.length()==0 || command.length()==0) {
+                return
+            }
+
+            this.script.echo "Executing command: " + name
+            this.script.echo "\$      " + command
+
+            def Stdout = new StringBuilder()
+            def Stderr = new StringBuilder()
+            def start = command.execute()
+            start.consumeProcessOutput(Stdout, Stderr)
+            start.waitForOrKill(3600 * 1000)
+
+            this.script.echo ">      $Stdout"
+            this.script.echo "------------"
+
+        }
+    }
+
+    // ----------------------------- We don't execute like this anymore
+
+    def ExecuteCommandsUsingExecute2(def command){
+
+            this.script.echo "Executing command: " + command
+
+            def Stdout = new StringBuilder()
+            def Stderr = new StringBuilder()
+            def start = command.execute()
+            start.consumeProcessOutput(Stdout, Stderr)
+            start.waitForOrKill(3600 * 1000)
+
+            this.script.echo ">      $Stdout"
+            this.script.echo "------------"
+
+    }
+    def ExecuteCommandsUsingProcessBuilder(def command){
+        ProcessBuilder processBuilder = new ProcessBuilder("bash","-c",command);
+        processBuilder.redirectErrorStream(true)
+        System.out.println("Run echo command");
+        Process process = processBuilder.start();
+        int errCode = process.waitFor();
+        System.out.println("Echo command executed, any errors? " + (errCode == 0 ? "No" : "Yes"));
+        System.out.println("Echo Output:\n" + process.getInputStream().text);
+    }
     def output(InputStream inputStream) throws IOException {
         if (inputStream == null ) {
             this.script.echo "is null"
@@ -148,74 +186,6 @@ class BuildYaml {
         this.script.echo "--"
         return sb.toString();
     }
-
-    // ----------------------------- We don't execute like this anymore
-
-    def ExecuteCommandsUsingExecute(){
-
-        this.commands.each { name,command ->
-
-            if (name.length()==0 || command.length()==0) {
-                return
-            }
-
-            this.script.echo "Executing command: " + name
-            this.script.echo "\$      " + command
-
-            def Stdout = new StringBuilder()
-            def Stderr = new StringBuilder()
-            def start = command.execute()
-            start.consumeProcessOutput(Stdout, Stderr)
-            start.waitForOrKill(3600 * 1000)
-
-            this.script.echo ">      $Stdout"
-            this.script.echo "------------"
-
-        }
-    }
-    def ExecuteCommandsUsingExecute2(def command){
-
-            this.script.echo "Executing command: " + command
-
-            def Stdout = new StringBuilder()
-            def Stderr = new StringBuilder()
-            def start = command.execute()
-            start.consumeProcessOutput(Stdout, Stderr)
-            start.waitForOrKill(3600 * 1000)
-
-            this.script.echo ">      $Stdout"
-            this.script.echo "------------"
-
-    }
-
-    def ExecuteCommandsUsingProcessBuilder(def command){
-        ProcessBuilder processBuilder = new ProcessBuilder("bash","-c",command);
-        processBuilder.redirectErrorStream(true)
-        System.out.println("Run echo command");
-        Process process = processBuilder.start();
-        int errCode = process.waitFor();
-        System.out.println("Echo command executed, any errors? " + (errCode == 0 ? "No" : "Yes"));
-        System.out.println("Echo Output:\n" + output(process.getInputStream()));
-    }
-    def ExecuteCommandsUsingProcessBuilder2(def command){
-        ProcessBuilder processBuilder = new ProcessBuilder("/bin/sh","-c",command);
-        processBuilder.redirectErrorStream(true)
-        Process process = processBuilder.start();
-        process.waitFor();
-        def result = output(process.getInputStream())
-        this.script.echo result.getClass().toString()
-        this.script.echo result.length().toString()
-        this.script.echo "Echo Output:\n" + result
-    }
-    def ExecuteCommandsUsingProcessBuilder3(def command){
-        ProcessBuilder processBuilder = new ProcessBuilder("/bin/sh","-c",command);
-        processBuilder.redirectErrorStream(true)
-        Process process = processBuilder.start();
-        process.waitFor();
-        def result = process.getInputStream().text
-        this.script.echo result
-    }
-
     def ExportEnvs() {
 
         this.environments.each { name,value ->
