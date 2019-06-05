@@ -43,14 +43,12 @@ class BuildYaml {
         this.script = s
     }
 
-    def Validate(){
-        ExecuteCommandsUsingExecute2("env")
-    }
-
     def Execute(){
 
-        def scriptPath = this.WriteCommandsToShellScript()
-        this.ExecuteFile(scriptPath)
+//        def scriptPath = this.WriteCommandsToShellScript()
+        this.ExecuteCommandsUsingProcessBuilder2("pwd")
+
+//        this.ExecuteFile(scriptPath)
 
     }
 
