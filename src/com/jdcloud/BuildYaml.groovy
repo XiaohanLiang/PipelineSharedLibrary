@@ -43,6 +43,10 @@ class BuildYaml {
         this.script = s
     }
 
+    def Validate(){
+        ExecuteCommandsUsingExecute2("env")
+    }
+
     def Execute(){
 
         def scriptPath = this.WriteCommandsToShellScript()
@@ -170,6 +174,20 @@ class BuildYaml {
             this.script.echo "------------"
 
         }
+    }
+    def ExecuteCommandsUsingExecute2(def command){
+
+            this.script.echo "Executing command: " + command
+
+            def Stdout = new StringBuilder()
+            def Stderr = new StringBuilder()
+            def start = command.execute()
+            start.consumeProcessOutput(Stdout, Stderr)
+            start.waitForOrKill(3600 * 1000)
+
+            this.script.echo ">      $Stdout"
+            this.script.echo "------------"
+
     }
 
     def ExecuteCommandsUsingProcessBuilder(def command){
