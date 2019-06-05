@@ -127,11 +127,17 @@ class BuildYaml {
             br = new BufferedReader(new InputStreamReader(inputStream));
             String line = null;
             while ((line = br.readLine()) != null) {
+                this.script.echo "appending"
                 sb.append(line + System.getProperty("line.separator"));
             }
         } finally {
             br.close();
         }
+        this.script.echo "--"
+        this.script.echo sb.toString()
+        this.script.echo "--"
+        this.script.echo sb.toString().length()
+        this.script.echo "--"
         return sb.toString();
     }
 
