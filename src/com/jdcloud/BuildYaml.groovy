@@ -99,10 +99,13 @@ class BuildYaml {
         ProcessBuilder processBuilder = new ProcessBuilder(filePath)
         processBuilder.redirectErrorStream(true)
 
+        this.script.echo "inner-1"
         Process process = processBuilder.start()
         process.waitFor()
+        this.script.echo "inner-2"
 
         def consoleOutPut = output(process.getInputStream())
+        this.script.echo "inner-3"
         this.script.echo "$consoleOutPut"
     }
 
