@@ -11,8 +11,9 @@ import java.lang.ProcessBuilder
  *          Introduce some try....catch in creating and executing shells
  *
  * CheckList -
- *          1. ignore output, make it work locally
- *          2. Continuous gain output
+ *          1. ignore output, make it work locally - [ok]
+ *          2. Gain output
+ *          3. Continuous gain output
  */
 
 class BuildYaml {
@@ -100,11 +101,28 @@ class BuildYaml {
         Process process = processBuilder.start()
         process.waitFor()
 
+        def consoleOutPut = output(process.getInputStream())
+        this.script.echo consoleOutPut
+    }
+
+    def output(InputStream inputStream) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new InputStreamReader(inputStream));
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                sb.append(line + System.getProperty("line.separator"));
+            }
+        } finally {
+            br.close();
+        }
+        return sb.toString();
     }
 
     // ----------------------------- We don't execute like this anymore
 
-    def ExecuteCommands(){
+    def ExecuteCommandsVersion1(){
 
         this.commands.each { name,command ->
 
@@ -127,6 +145,16 @@ class BuildYaml {
         }
     }
 
+    def ExecuteCommandsVersion2(def command){
+        ProcessBuilder processBuilder = new ProcessBuilder("bash","-c",command);
+        processBuilder.redirectErrorStream(true)
+        System.out.println("Run echo command");
+        Process process = processBuilder.start();
+        int errCode = process.waitFor();
+        System.out.println("Echo command executed, any errors? " + (errCode == 0 ? "No" : "Yes"));
+        System.out.println("Echo Output:\n" + output(process.getInputStream()));
+    }
+
     def ExportEnvs() {
 
         this.environments.each { name,value ->
@@ -147,30 +175,5 @@ class BuildYaml {
 
         }
 
-    }
-
-    def ExecuteSingleCommand(def command){
-        ProcessBuilder processBuilder = new ProcessBuilder("bash","-c",command);
-        processBuilder.redirectErrorStream(true)
-        System.out.println("Run echo command");
-        Process process = processBuilder.start();
-        int errCode = process.waitFor();
-        System.out.println("Echo command executed, any errors? " + (errCode == 0 ? "No" : "Yes"));
-        System.out.println("Echo Output:\n" + output(process.getInputStream()));
-    }
-
-    def output(InputStream inputStream) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new InputStreamReader(inputStream));
-            String line = null;
-            while ((line = br.readLine()) != null) {
-                sb.append(line + System.getProperty("line.separator"));
-            }
-        } finally {
-            br.close();
-        }
-        return sb.toString();
     }
 }
