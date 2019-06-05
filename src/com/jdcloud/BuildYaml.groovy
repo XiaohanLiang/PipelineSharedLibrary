@@ -46,8 +46,8 @@ class BuildYaml {
     def Execute(){
 
         def scriptPath = this.WriteCommandsToShellScript()
-        this.ExecuteFile(scriptPath)
-
+//        this.ExecuteFile(scriptPath)
+        return scriptPath
     }
 
     def WriteCommandsToShellScript(){
@@ -107,6 +107,14 @@ class BuildYaml {
 
     }
 
+    def GainOutput(def instream){
+
+
+
+    }
+
+    // ----------------------------- We don't execute like this anymore
+
     def ExecuteCommandsUsingExecute(){
 
         this.commands.each { name,command ->
@@ -129,9 +137,6 @@ class BuildYaml {
 
         }
     }
-
-    // ----------------------------- We don't execute like this anymore
-
     def ExecuteCommandsUsingExecute2(def command){
 
             this.script.echo "Executing command: " + command

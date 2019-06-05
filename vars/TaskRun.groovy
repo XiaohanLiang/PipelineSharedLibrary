@@ -12,8 +12,8 @@ def call(def pathToYaml){
     withDockerContainer(image:"ubuntu:14.04.5") {
 //        settings.ExportEnvs()
         sh "echo 123"
-        settings.Execute()
-        echo "2"
+        def scriptPath = settings.Execute()
+        sh(scriptPath)
 //        sh("echo \$nishizhu")
     }
 }
