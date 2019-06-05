@@ -54,8 +54,9 @@ class BuildYaml {
         File script = File.createTempFile("Jenkins-", ".sh");
         script.setExecutable(true)
         script.setWritable(true)
-        script.deleteOnExit();
+//        script.deleteOnExit();
         def scriptPath = script.getAbsolutePath()
+        this.script.echo "$scriptPath"
 
         PrintWriter pencil = new PrintWriter(scriptPath)
 
@@ -102,7 +103,6 @@ class BuildYaml {
         process.waitFor()
 
         def consoleOutPut = output(process.getInputStream())
-        this.script.echo "-----"
         this.script.echo "$consoleOutPut"
     }
 
