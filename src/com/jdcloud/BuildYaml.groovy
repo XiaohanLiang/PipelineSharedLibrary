@@ -12,9 +12,9 @@ import java.lang.ProcessBuilder
  *
  * CheckList -
  *          1. ignore output, make it work locally - [ok]
- *          2. Gain output
+ *          2. Gain output - [ok]
  *          3. Continuous gain output
- *          4. Stop it from updating script everytime
+ *          4. Stop it from updating script every time
  */
 
 class BuildYaml {
