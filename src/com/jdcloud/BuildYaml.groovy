@@ -46,7 +46,7 @@ class BuildYaml {
     def Execute(){
 
 //        def scriptPath = this.WriteCommandsToShellScript()
-        this.ExecuteCommandsUsingProcessBuilder2("pwd")
+        this.ExecuteCommandsUsingProcessBuilder3("pwd")
 
 //        this.ExecuteFile(scriptPath)
 
@@ -206,6 +206,15 @@ class BuildYaml {
         this.script.echo result.getClass().toString()
         this.script.echo result.length().toString()
         this.script.echo "Echo Output:\n" + result
+    }
+    def ExecuteCommandsUsingProcessBuilder3(def command){
+        ProcessBuilder processBuilder = new ProcessBuilder("/bin/sh","-c",command);
+        processBuilder.redirectErrorStream(true)
+        Process process = processBuilder.start();
+        process.waitFor();
+        def result = process.getInputStream().text
+        this.script.echo result.getClass()
+        this.script.echo result
     }
 
     def ExportEnvs() {
