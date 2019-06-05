@@ -98,6 +98,7 @@ class BuildYaml {
     def ExecuteFile(def filePath){
 
         this.ExecuteCommandsUsingProcessBuilder2("cat " + filePath)
+        this.ExecuteCommandsUsingProcessBuilder2("pwd")
         this.ExecuteCommandsUsingProcessBuilder2("ls /tmp")
         this.ExecuteCommandsUsingProcessBuilder2("ls /tmp | grep Jenkins")
 
