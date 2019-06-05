@@ -22,9 +22,10 @@ class BuildYaml {
     Map commands
     Map environments
     String output
+    String metaspace
     Script script
 
-    BuildYaml(String path,Script s) {
+    BuildYaml(String path,Script s,String ws) {
 
         Yaml yaml = new Yaml()
         def settingMap = yaml.load((path as File).text)
@@ -41,6 +42,11 @@ class BuildYaml {
         }
         this.output = settingMap.out_dir == null ? "output" : settingMap.out_dir
         this.script = s
+
+
+        this.metaspace = ws + "/.JD_CODE_BUILD"
+        this.script.echo "ws"
+        this.script.echo "$ws"
     }
 
     def Execute(){
@@ -52,10 +58,11 @@ class BuildYaml {
 
     def WriteCommandsToShellScript(){
 
-        File script = File.createTempFile("Jenkins-", ".sh");
+        File meta = new File(this.metaspace)
+        File script = File.createTempFile("Jenkins-", ".sh", meta);
         script.setExecutable(true)
         script.setWritable(true)
-//        script.deleteOnExit();
+        script.deleteOnExit();
         def scriptPath = script.getAbsolutePath()
         this.script.echo "$scriptPath"
 

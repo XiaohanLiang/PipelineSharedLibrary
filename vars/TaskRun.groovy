@@ -3,10 +3,10 @@
 import com.jdcloud.*
 import hudson.model.*
 
-def call(def pathToYaml){
+def call(def pathToYaml,def env){
 
     // Parse yaml and make it a class object
-    def settings = new BuildYaml("/root/build.yaml",this)
+    def settings = new BuildYaml("/root/build.yaml",this, env.WORKSPACE)
 
     // Execute commands inside docker container
     withDockerContainer(image:"ubuntu:14.04.5") {
