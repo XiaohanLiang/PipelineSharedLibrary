@@ -13,6 +13,9 @@ def call(def pathToYaml){
 //        settings.ExportEnvs()
         sh "echo 123"
         def scriptPath = settings.Execute()
+        sh("pwd")
+        sh("ls /tmp")
+
         sh(scriptPath)
 //        sh("echo \$nishizhu")
     }
