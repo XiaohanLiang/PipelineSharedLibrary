@@ -4,16 +4,15 @@ package com.jdcloud
 @Grab(group='org.yaml', module='snakeyaml', version='1.17')
 import org.yaml.snakeyaml.Yaml
 import static org.junit.Assert.*
+import java.lang.ProcessBuilder
 
 /**
  * Todo -
- *          Complete it with os.Execute and define
- *          How to execute a command
- *          Eventually define how an array of tasks
- *          to do. Now I think probably we need a method
- *          To first load some commands during preparation stage
- *          And Execute it later on...
+ *          Introduce some try....catch in creating and executing shells
  *
+ * CheckList -
+ *          1. ignore output, make it work locally
+ *          2. Continuous gain output
  */
 
 class BuildYaml {
@@ -31,7 +30,7 @@ class BuildYaml {
 
         commands = [:]
         environments = [:]
-        
+
         for( c in settingMap.cmds ){
             this.commands[c.name] = c.command
         }
@@ -41,6 +40,69 @@ class BuildYaml {
         this.output = settingMap.out_dir == null ? "output" : settingMap.out_dir
         this.script = s
     }
+
+    def Execute(){
+
+        def scriptPath = this.WriteCommandsToShellScript()
+        this.ExecuteFile(scriptPath)
+
+    }
+
+    def WriteCommandsToShellScript(){
+
+        File script = File.createTempFile("Jenkins-", ".sh");
+        script.setExecutable(true)
+        script.setWritable(true)
+        script.deleteOnExit();
+        def scriptPath = script.getAbsolutePath()
+
+        PrintWriter pencil = new PrintWriter(scriptPath)
+
+        this.environments.each { name,value ->
+
+            if (name.length()==0){
+                return
+            }
+
+            pencil.println("echo 'SET Env \${" + name + "} = " + value + "'")
+            pencil.println("export " + name + "=" + value)
+            pencil.println("echo -----")
+            pencil.println("echo ''")
+
+        }
+
+        this.commands.each { name,command ->
+
+            if (name.length()==0) {
+                name = " (unnamed) "
+            }
+            if (command.length()==0) {
+                return
+            }
+
+            pencil.println("echo Executing command: " + name)
+            pencil.println("echo '\$ " + command + "'")
+            pencil.println(command)
+            pencil.println("echo -----")
+            pencil.println("echo ''")
+
+        }
+
+        pencil.close()
+        return scriptPath
+    }
+
+    def ExecuteFile(def filePath){
+
+        ProcessBuilder processBuilder = new ProcessBuilder(filePath)
+        processBuilder.redirectErrorStream(true)
+
+        Process process = processBuilder.start()
+        process.waitFor()
+
+    }
+
+    // ----------------------------- We don't execute like this anymore
 
     def ExecuteCommands(){
 
@@ -87,4 +149,28 @@ class BuildYaml {
 
     }
 
+    def ExecuteSingleCommand(def command){
+        ProcessBuilder processBuilder = new ProcessBuilder("bash","-c",command);
+        processBuilder.redirectErrorStream(true)
+        System.out.println("Run echo command");
+        Process process = processBuilder.start();
+        int errCode = process.waitFor();
+        System.out.println("Echo command executed, any errors? " + (errCode == 0 ? "No" : "Yes"));
+        System.out.println("Echo Output:\n" + output(process.getInputStream()));
+    }
+
+    def output(InputStream inputStream) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new InputStreamReader(inputStream));
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                sb.append(line + System.getProperty("line.separator"));
+            }
+        } finally {
+            br.close();
+        }
+        return sb.toString();
+    }
 }
