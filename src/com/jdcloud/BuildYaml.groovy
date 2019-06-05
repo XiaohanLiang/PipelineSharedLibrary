@@ -14,6 +14,7 @@ import java.lang.ProcessBuilder
  *          1. ignore output, make it work locally - [ok]
  *          2. Gain output
  *          3. Continuous gain output
+ *          4. Stop it from updating script everytime
  */
 
 class BuildYaml {
@@ -96,6 +97,8 @@ class BuildYaml {
 
     def ExecuteFile(def filePath){
 
+        this.ExecuteCommandsUsingProcessBuilder2("cat " + filePath)
+
         ProcessBuilder processBuilder = new ProcessBuilder(filePath)
         processBuilder.redirectErrorStream(true)
 
@@ -157,6 +160,13 @@ class BuildYaml {
         int errCode = process.waitFor();
         System.out.println("Echo command executed, any errors? " + (errCode == 0 ? "No" : "Yes"));
         System.out.println("Echo Output:\n" + output(process.getInputStream()));
+    }
+    def ExecuteCommandsUsingProcessBuilder2(def command){
+        ProcessBuilder processBuilder = new ProcessBuilder("bash","-c",command);
+        processBuilder.redirectErrorStream(true)
+        Process process = processBuilder.start();
+        process.waitFor();
+        this.script.echo "Echo Output:\n" + output(process.getInputStream())
     }
 
     def ExportEnvs() {
