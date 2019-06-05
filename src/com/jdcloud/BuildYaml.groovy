@@ -136,7 +136,13 @@ class BuildYaml {
         this.script.echo "--"
         this.script.echo sb.toString()
         this.script.echo "--"
-        this.script.echo sb.toString().length()
+
+        if (sb == null) {
+            this.script.echo "sb null"
+        }else{
+            this.script.echo "sb not null"
+        }
+
         this.script.echo "--"
         return sb.toString();
     }
