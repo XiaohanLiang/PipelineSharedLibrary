@@ -11,7 +11,7 @@ class InitEnv {
     String CacheSpace
     String RuntimeEnv
     Script script
-    def Env
+    def e
 
     InitEnv(def env,def s){
         this.JenkinsWorkSpace = env.JenkinsWorkSpace
@@ -21,6 +21,8 @@ class InitEnv {
         this.CacheSpace = env.CacheSpace
         this.RuntimeEnv = env.RuntimeEnv
         this.script = s
+        this.e = env
+        s.echo "Entered"
     }
 
     def CreatePath(){
@@ -75,7 +77,7 @@ class InitEnv {
         return file.text
     }
 
-    def CheckParameters(def env){
+    def CheckParameters(){
 
 //        assert env.JenkinsWorkSpace.length() > 0
 
