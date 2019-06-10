@@ -15,7 +15,7 @@ class InitEnv {
 
     InitEnv(def env,def s){
 
-        CheckParameters(env)
+//        CheckParameters(env)
 
         this.JenkinsWorkSpace = env.JenkinsWorkSpace
         this.UserWorkSpace = env.UserWorkSpace
@@ -102,7 +102,7 @@ class InitEnv {
 
     def Execute(){
 
-        CheckParameters()
+//        CheckParameters()
         
         Cleaning()
         CreatePath()
