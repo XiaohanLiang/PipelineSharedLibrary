@@ -58,7 +58,17 @@ class InitEnv {
     }
 
     def Cleaning(String pattern) {
-        // Pattern and cleaning
+
+        this.script.echo "Cleaning"
+        
+        this.script.dir(this.UserWorkSpace){
+            this.script.deleteDir()
+        }
+
+        this.script.dir(this.MetaSpace){
+            this.script.deleteDir()
+        }
+
     }
 
     def ReadFile(String filePath) {
@@ -68,10 +78,9 @@ class InitEnv {
 
     def Execute(){
 
+        Cleaning()
         CreatePath()
         CreateFile(this.RuntimeEnv)
-        GitInit()
         RecordRegionInfo()
-        Cleaning()
     }
 }
