@@ -47,9 +47,6 @@ class FromYaml {
 
     def GenerateShellScript(){
 
-        this.script.echo "mataspace = "
-        this.script.echo this.metaspace
-
         File meta = new File(this.metaspace)
         File script = File.createTempFile("Jenkins-UserDefinedScripts-", ".sh", meta);
         script.setExecutable(true)
