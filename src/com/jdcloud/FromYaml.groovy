@@ -25,10 +25,10 @@ class FromYaml {
     String metaspace
     Script script
 
-    FromYaml (String path,Script s,String ws) {
+    FromYaml (String y,Script s,String ws) {
 
         Yaml yaml = new Yaml()
-        def settingMap = yaml.load((path as File).text)
+        def settingMap = yaml.load(y)
         assertNotNull(settingMap)
 
         commands = [:]
@@ -88,7 +88,6 @@ class FromYaml {
     }
 
     // ----------------------------- We don't execute file here considering tricky IO issue
-
     def ExecuteCommandsUsingExecute(){
 
         this.commands.each { name,command ->

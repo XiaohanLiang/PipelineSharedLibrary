@@ -59,8 +59,6 @@ class InitEnv {
 
     def Cleaning(String pattern) {
 
-        this.script.echo "Cleaning"
-        
         this.script.dir(this.UserWorkSpace){
             this.script.deleteDir()
         }

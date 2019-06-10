@@ -122,7 +122,23 @@ class ArtifactPackage {
         f << pattern << "\n"
     }
 
+    def CheckParameters(){
+
+        assert this.UploadArtifact.length()>0
+        assert this.CompileModuleName.length()>0
+        assert this.OutputSpace.length()>0
+        assert this.Branch.length()>0
+        assert this.Commit.length()>0
+        assert this.CompilerOssBucket.length()>0
+        assert this.CompilerOssPath.length()>0
+        assert this.CompilerOssEndpoint.length()>0
+        assert this.AccessKey.length()>0
+        assert this.SecretKey.length()>0
+
+    }
     def Execute(){
+
+        CheckParameters()
 
         Packaging()
 

@@ -4,9 +4,20 @@ import com.jdcloud.*
 
 def call(def env){
 
-    // Initiating env here
+    def artifact = new ArtifactPackage(
+            this,
+            env.WORKSPACE,
+            env.OutputSpace,
+            env.UploadArtifact,
+            env.CompileModuleName,
+            env.Branch,
+            env.CommitID,
+            env.OssBucketName,
+            env.OssBucketpath,
+            env.OssBucketEndpoint,
+            env.OssAccessKey,
+            env.OssSecretKey)
 
-    def artifact = new ArtifactPackage(this,env.WORKSPACE,env.WORKSPACE,"1","MyModuleName","master","abc123xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","bucketName","bucketPath","endpoint","ak","sk")
     artifact.Execute()
 
 }
