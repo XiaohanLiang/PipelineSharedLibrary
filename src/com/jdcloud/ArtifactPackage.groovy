@@ -68,6 +68,7 @@ class ArtifactPackage {
         start.waitForOrKill(3600 * 1000)
 
         this.script.echo ">      $Stdout"
+        this.script.echo ">      $Stderr"
         this.script.echo "------------"
     }
 
@@ -137,6 +138,10 @@ class ArtifactPackage {
         this.script.echo  "We have packageName="
         this.script.echo  packageName
         Packaging()
+        def hash = MD5Hash()
+        this.script.echo  "We have MD5Sum"
+        this.script.echo  hash
+
 
     }
 }
