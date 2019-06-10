@@ -24,6 +24,7 @@ class ArtifactPackage {
     String OutputSpace
     String MetaSpace
     String ArtifactSpace
+    String PackageNameWithPath
 
 
     ArtifactPackage(def s,def ws,def outputSpace,def upload,def moduleName,def branch,def commit,def bucketName,def bucketPath,def endpoint,def ak,def sk){
@@ -43,20 +44,20 @@ class ArtifactPackage {
         this.ArtifactSpace = ws + "/artifact/"
     }
 
-    def GetPackageNameWithPath(){
-
+    def SetPackageName(){
         def moduleName = this.CompileModuleName.toLowerCase().replaceAll("_","-")
         def branch = this.Branch
         if (branch.split("/").size() >=2 ) {
             branch = branch.split("/").get(1)
         }
         def commitId = this.Commit[0..8]
-        return this.ArtifactSpace + moduleName + "-" + branch + "-" + System.currentTimeSeconds() + ".tar.gz"
+        this.PackageNameWithPath = this.ArtifactSpace + moduleName + "-" + branch + "-" + System.currentTimeSeconds() + ".tar.gz"
     }
 
     def Packaging(){
 
-        def packageName = GetPackageNameWithPath()
+        SetPackageName()
+        def packageName = this.PackageNameWithPath
         def packageCommand = "tar zcvf " + packageName + " " + this.OutputSpace
 
         this.script.echo "Packaging -> " + packageName
@@ -73,7 +74,7 @@ class ArtifactPackage {
 
     def MD5Hash(){
 
-        def packageName = GetPackageNameWithPath()
+        def packageName = this.PackageNameWithPath
 
         this.script.echo "Inside MD5Hash function -> PackageName"
         this.script.echo packageName
