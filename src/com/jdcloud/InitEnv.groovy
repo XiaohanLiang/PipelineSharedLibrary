@@ -15,7 +15,7 @@ class InitEnv {
 
     InitEnv(def env,def s){
 
-//        CheckParameters(env)
+        CheckParameters(env)
 
         this.JenkinsWorkSpace = env.JenkinsWorkSpace
         this.UserWorkSpace = env.UserWorkSpace
@@ -82,22 +82,22 @@ class InitEnv {
 
         assert env.JenkinsWorkSpace.length() > 0
 
-        assert env.ScmUrl.length() > 0
-        assert env.ScmBranch.length() > 0
-        assert env.CommitID.length() > 0
-        assert env.ScmCredential.length() > 0
-
-        assert env.Yaml.length() > 0
-        assert env.BuildImage.length() > 0
-
-        assert env.UploadArtifact.length() > 0
-        assert env.CompileModuleName.length() > 0
-        assert env.OutputSpace.length() > 0
-        assert env.OssBucketName.length() > 0
-        assert env.OssBucketpath.length() > 0
-        assert env.OssBucketEndpoint.length() > 0
-        assert env.OssAccessKey.length() > 0
-        assert env.OssSecretKey.length() > 0
+//        assert env.ScmUrl.length() > 0
+//        assert env.ScmBranch.length() > 0
+//        assert env.CommitID.length() > 0
+//        assert env.ScmCredential.length() > 0
+//
+//        assert env.Yaml.length() > 0
+//        assert env.BuildImage.length() > 0
+//
+//        assert env.UploadArtifact.length() > 0
+//        assert env.CompileModuleName.length() > 0
+//        assert env.OutputSpace.length() > 0
+//        assert env.OssBucketName.length() > 0
+//        assert env.OssBucketpath.length() > 0
+//        assert env.OssBucketEndpoint.length() > 0
+//        assert env.OssAccessKey.length() > 0
+//        assert env.OssSecretKey.length() > 0
     }
 
     def Execute(){
