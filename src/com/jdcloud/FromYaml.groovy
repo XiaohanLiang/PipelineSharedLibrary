@@ -28,6 +28,7 @@ class FromYaml {
     FromYaml (def e,Script s) {
 
         Yaml yaml = new Yaml()
+        s.echo e.Yaml
         def settingMap = yaml.load(e.Yaml)
         assertNotNull(settingMap)
 
