@@ -93,11 +93,12 @@ class ArtifactPackage {
         int bytesCount = 0;
 
         //Read file data and update in message digest
-        while ((bytesCount = fis.read(byteArray)) != -1) {
+        while ( bytesCount != -1) {
             this.script.echo "Inside checksum loop"
             def yay = bytesCount.toString()
             this.script.echo yay
             digest.update(byteArray, 0, bytesCount);
+            bytesCount = fis.read(byteArray)
         };
 
         //close the stream; We don't need it now.
