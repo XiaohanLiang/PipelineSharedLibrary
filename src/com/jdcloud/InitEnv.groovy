@@ -78,35 +78,51 @@ class InitEnv {
 
     def CheckParameters(){
 
-//        assert env.JenkinsWorkSpace.length() > 0
+        checkParametersNonNil(this.e.JenkinsWorkSpace)
+        checkParametersNonNil(this.e.ScmUrl)
+        checkParametersNonNil(this.e.ScmBranch)
+        checkParametersNonNil(this.e.CommitID)
+        checkParametersNonNil(this.e.ScmCredential)
+        checkParametersNonNil(this.e.Yaml)
+        checkParametersNonNil(this.e.UploadArtifact)
+        checkParametersNonNil(this.e.CompileModuleName)
+        checkParametersNonNil(this.e.OutputSpace)
+        checkParametersNonNil(this.e.OssBucketName)
+        checkParametersNonNil(this.e.OssBucketpath)
+        checkParametersNonNil(this.e.OssBucketEndpoint)
+        checkParametersNonNil(this.e.OssAccessKey)
+        checkParametersNonNil(this.e.OssSecretKey)
 
-        this.script.echo "1"
-        this.script.error("Failed")
-        this.script.echo "2"
+        checkFileExists(this.e.JenkinsWorkSpace)
+        checkFileExists(this.e.UserWorkSpace)
+        checkFileExists(this.e.ArtifactSpace)
+        checkFileExists(this.e.MetaSpace)
+        checkFileExists(this.e.CacheSpace)
+        checkFileExists(this.e.RuntimeEnv)
 
-//        assert env.ScmUrl.length() > 0
-//        assert env.ScmBranch.length() > 0
-//        assert env.CommitID.length() > 0
-//        assert env.ScmCredential.length() > 0
-//
-//        assert env.Yaml.length() > 0
-//        assert env.BuildImage.length() > 0
-//
-//        assert env.UploadArtifact.length() > 0
-//        assert env.CompileModuleName.length() > 0
-//        assert env.OutputSpace.length() > 0
-//        assert env.OssBucketName.length() > 0
-//        assert env.OssBucketpath.length() > 0
-//        assert env.OssBucketEndpoint.length() > 0
-//        assert env.OssAccessKey.length() > 0
-//        assert env.OssSecretKey.length() > 0
+    }
+    def checkParametersNonNil(String s){
+        if (s.length()==0){
+            this.script.error("Failed, parameter is supposed to be non-nil")
+        }
+    }
+    def checkFileExists(String d){
+        def dir = new File(d)
+        if (!dir.exists()){
+            this.script.error("Directory " + d + " not exists while supposed to")
+        }
     }
 
     def Execute(){
+
         CheckParameters()
+
         Cleaning()
+
         CreatePath()
+
         CreateFile(this.RuntimeEnv)
+
         RecordRegionInfo()
     }
 }

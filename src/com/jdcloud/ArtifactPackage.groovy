@@ -27,21 +27,20 @@ class ArtifactPackage {
     String PackageNameWithPath
 
 
-    ArtifactPackage(def s,def ws,def outputSpace,def upload,def moduleName,def branch,def commit,def bucketName,def bucketPath,def endpoint,def ak,def sk){
-
-        this.script = s
-        this.UploadArtifact = upload
-        this.CompileModuleName = moduleName
-        this.OutputSpace = outputSpace
-        this.Branch = branch
-        this.Commit = commit
-        this.CompilerOssBucket = bucketName
-        this.CompilerOssPath = bucketPath
-        this.CompilerOssEndpoint = endpoint
-        this.AccessKey = ak
-        this.SecretKey = sk
-        this.MetaSpace = ws + "/meta/"
-        this.ArtifactSpace = ws + "/artifact/"
+    ArtifactPackage(def env,def s){
+        this.script = env.
+        this.UploadArtifact = env.UploadArtifact
+        this.CompileModuleName = env.CompileModuleName
+        this.OutputSpace = env.OutputSpace
+        this.Branch = env.Branch
+        this.Commit = env.Commit
+        this.CompilerOssBucket = env.CompilerOssBucket
+        this.CompilerOssPath = env.CompilerOssPath
+        this.CompilerOssEndpoint = env.CompilerOssEndpoint
+        this.AccessKey = env.AccessKey
+        this.SecretKey = env.SecretKey
+        this.MetaSpace = env.MetaSpace
+        this.ArtifactSpace = env.ArtifactSpace
     }
 
     def SetPackageName(){
