@@ -68,12 +68,16 @@ class ArtifactPackage {
         start.waitForOrKill(3600 * 1000)
 
         this.script.echo ">      $Stdout"
-        this.script.echo ">      $Stderr"
         this.script.echo "------------"
     }
 
     def MD5Hash(){
+
         def packageName = GetPackageNameWithPath()
+
+        this.script.echo "Inside MD5Hash function -> PackageName"
+        this.script.echo packageName
+
         File p = new File(packageName);
         MessageDigest md5Digest = MessageDigest.getInstance("MD5");
         return getFileChecksum(md5Digest, p);
@@ -89,6 +93,8 @@ class ArtifactPackage {
 
         //Read file data and update in message digest
         while ((bytesCount = fis.read(byteArray)) != -1) {
+            this.script.echo "Inside checksum loop"
+            this.script.echo bytesCount
             digest.update(byteArray, 0, bytesCount);
         };
 
