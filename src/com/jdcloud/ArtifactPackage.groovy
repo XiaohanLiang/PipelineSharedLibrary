@@ -40,7 +40,7 @@ class ArtifactPackage {
         this.CompilerOssEndpoint = endpoint
         this.AccessKey = ak
         this.SecretKey = sk
-        this.MetaSpace = ws + "/meta"
+        this.MetaSpace = ws + "/meta/"
         this.ArtifactSpace = ws + "/artifact/"
     }
 
@@ -75,13 +75,12 @@ class ArtifactPackage {
     def MD5Hash(){
 
         def packageName = this.PackageNameWithPath
-
-        this.script.echo "Inside MD5Hash function -> PackageName"
-        this.script.echo packageName
-
         File p = new File(packageName);
         MessageDigest md5Digest = MessageDigest.getInstance("MD5");
-        return getFileChecksum(md5Digest, p);
+        def md5 = getFileChecksum(md5Digest, p)
+
+        this.script.echo  "Package MD5Sum = " + md5
+        return md5
     }
 
     def getFileChecksum(MessageDigest digest, File file) throws IOException {
@@ -94,19 +93,8 @@ class ArtifactPackage {
 
         //Read file data and update in message digest
         for ( ; bytesCount != -1 ;bytesCount = fis.read(byteArray)){
-            this.script.echo "Inside checksum loop"
-            def yay = bytesCount.toString()
-            this.script.echo yay
             digest.update(byteArray, 0, bytesCount);
         }
-
-//        while ( bytesCount != -1) {
-//            this.script.echo "Inside checksum loop"
-//            def yay = bytesCount.toString()
-//            this.script.echo yay
-//            digest.update(byteArray, 0, bytesCount);
-//            bytesCount = fis.read(byteArray)
-//        };
 
         //close the stream; We don't need it now.
         fis.close();
@@ -126,35 +114,21 @@ class ArtifactPackage {
         return sb.toString();
     }
 
-    def GenerateProfilingScript() {
-
-        File ws = new File(this.MetaSpace)
-        File script = File.createTempFile("Jenkins-Profiling-", ".sh", ws)
-        script.setExecutable(true)
-        script.setWritable(true)
-        script.deleteOnExit()
-
-        def scriptPath = script.getAbsolutePath()
-        PrintWriter pencil = new PrintWriter(scriptPath)
-
-        // Prepare packaging command
-        pencil.println(GetPackagingCommand())
-
-        // MD5Sum Calculating md5sum  tf.tar.gz | awk '{print $1}'
-
-
-        // AWS-Signing-Uploading
-
-        // Java-SDK uploading
+    def RecordRuntimeEnv(String pattern) {
+        // Assume buildRuntimeEnv exists
+        PrintWriter pencil = new PrintWriter(this.MetaSpace + "buildRuntimeEnv")
+        pencil.println(pattern)
     }
 
     def Execute(){
 
         Packaging()
+
         def hash = MD5Hash()
-        this.script.echo  "We have MD5Sum"
-        this.script.echo  hash
+        RecordRuntimeEnv("COMPILER_PACKAGE_MD5SUM="+hash)
 
+        // AWS-Signing-Uploading
 
+        // Java-SDK uploading
     }
 }
