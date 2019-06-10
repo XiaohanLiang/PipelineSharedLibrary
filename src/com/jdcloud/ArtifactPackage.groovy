@@ -116,10 +116,10 @@ class ArtifactPackage {
 
     def RecordRuntimeEnv(String pattern) {
         // Assume buildRuntimeEnv exists
-        PrintWriter pencil = new PrintWriter(this.MetaSpace + "buildRuntimeEnv")
         this.script.echo "Target -> " + this.MetaSpace + "buildRuntimeEnv"
         this.script.echo "Pattern -> " + pattern
-        pencil.println(pattern)
+        File f = new File(this.MetaSpace + "buildRuntimeEnv")
+        f << pattern << "\n"
     }
 
     def Execute(){
