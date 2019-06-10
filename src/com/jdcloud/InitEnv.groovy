@@ -11,8 +11,12 @@ class InitEnv {
     String CacheSpace
     String RuntimeEnv
     Script script
+    def Env
 
     InitEnv(def env,def s){
+
+        CheckParameters(env)
+
         this.JenkinsWorkSpace = env.JenkinsWorkSpace
         this.UserWorkSpace = env.UserWorkSpace
         this.ArtifactSpace = env.ArtifactSpace
@@ -20,23 +24,7 @@ class InitEnv {
         this.CacheSpace = env.CacheSpace
         this.RuntimeEnv = env.RuntimeEnv
         this.script = s
-        this.script.echo env.JenkinsWorkSpace
-        this.script.echo env.UserWorkSpace
-        this.script.echo env.ArtifactSpace
-        this.script.echo env.MetaSpace
-        this.script.echo env.CacheSpace
-        this.script.echo env.RuntimeEnv
     }
-
-//    InitEnv(def j,def u,def a,def m,def c,def r,def s){
-//        this.JenkinsWorkSpace = j
-//        this.UserWorkSpace = u
-//        this.ArtifactSpace = a
-//        this.MetaSpace = m
-//        this.CacheSpace = c
-//        this.RuntimeEnv = r
-//        this.script = s
-//    }
 
     def CreatePath(){
         createPath(this.JenkinsWorkSpace)
@@ -90,8 +78,32 @@ class InitEnv {
         return file.text
     }
 
+    def CheckParameters(def env){
+
+        assert env.JenkinsWorkSpace.length() > 0
+
+        assert env.ScmUrl.length() > 0
+        assert env.ScmBranch.length() > 0
+        assert env.CommitID.length() > 0
+        assert env.ScmCredential.length() > 0
+
+        assert env.Yaml.length() > 0
+        assert env.BuildImage.length() > 0
+
+        assert env.UploadArtifact.length() > 0
+        assert env.CompileModuleName.length() > 0
+        assert env.OutputSpace.length() > 0
+        assert env.OssBucketName.length() > 0
+        assert env.OssBucketpath.length() > 0
+        assert env.OssBucketEndpoint.length() > 0
+        assert env.OssAccessKey.length() > 0
+        assert env.OssSecretKey.length() > 0
+    }
+
     def Execute(){
 
+        CheckParameters()
+        
         Cleaning()
         CreatePath()
         CreateFile(this.RuntimeEnv)
