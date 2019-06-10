@@ -13,7 +13,7 @@ import java.lang.ProcessBuilder
  * CheckList -
  *          1. ignore output, make it work locally - [ok]
  *          2. Gain output - [ok]
- *          3. Continuous gain output
+ *          3. Continuous gain output - [ok]
  *          4. Stop it from updating script every time
  */
 
@@ -42,22 +42,17 @@ class FromYaml {
         }
         this.output = settingMap.out_dir == null ? "output" : settingMap.out_dir
         this.script = s
-
-
-        this.metaspace = ws + "/.JD_CODE_BUILD"
-        this.script.echo "ws"
-        this.script.echo "$ws"
+        this.metaspace = ws + "/meta"
     }
 
     def GenerateShellScript(){
 
         File meta = new File(this.metaspace)
-        File script = File.createTempFile("Jenkins-", ".sh", meta);
+        File script = File.createTempFile("Jenkins-UserDefinedScripts-", ".sh", meta);
         script.setExecutable(true)
         script.setWritable(true)
         script.deleteOnExit();
         def scriptPath = script.getAbsolutePath()
-        this.script.echo "$scriptPath"
 
         PrintWriter pencil = new PrintWriter(scriptPath)
 
@@ -69,9 +64,6 @@ class FromYaml {
 
             pencil.println("echo 'SET Env \${" + name + "} = " + value + "'")
             pencil.println("export " + name + "=" + value)
-            pencil.println("echo -----")
-            pencil.println("echo ''")
-
         }
 
         this.commands.each { name,command ->

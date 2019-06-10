@@ -5,10 +5,16 @@ import hudson.model.*
 
 def call(def pathToYaml,def env){
 
+    // Env.Yaml Location
+    // Env.BuildImage
+
     def fromYaml = new FromYaml("/root/build.yaml",this, env.WORKSPACE)
 
-    withDockerContainer(image:"ubuntu:14.04.5") {
-        def scriptPath = fromYaml.GenerateShellScript()
-        sh(scriptPath)
+    def scriptPath = fromYaml.GenerateShellScript()
+
+    dir( env.WORKSPACE ){
+        withDockerContainer(image:"ubuntu:14.04.5") {
+            sh(scriptPath)
+        }
     }
 }
