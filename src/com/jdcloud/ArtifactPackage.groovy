@@ -2,7 +2,6 @@
 package com.jdcloud
 
 import java.security.MessageDigest;
-import java.io.*;
 
 class ArtifactPackage {
 
@@ -27,9 +26,12 @@ class ArtifactPackage {
     String ArtifactSpace
 
 
-    ArtifactPackage(def ws,def upload,def bucketName,def bucketPath,def endpoint,def ak,def sk){
+    ArtifactPackage(def ws,def upload,def moduleName,def branch,def commit,def bucketName,def bucketPath,def endpoint,def ak,def sk){
 
         this.UploadArtifact = upload
+        this.CompileModuleName = moduleName
+        this.Branch = branch
+        this.Commit = commit
         this.CompilerOssBucket = bucketName
         this.CompilerOssPath = bucketPath
         this.CompilerOssEndpoint = endpoint
