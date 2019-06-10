@@ -26,8 +26,9 @@ class ArtifactPackage {
     String ArtifactSpace
 
 
-    ArtifactPackage(def ws,def upload,def moduleName,def branch,def commit,def bucketName,def bucketPath,def endpoint,def ak,def sk){
+    ArtifactPackage(def s,def ws,def upload,def moduleName,def branch,def commit,def bucketName,def bucketPath,def endpoint,def ak,def sk){
 
+        this.script = s
         this.UploadArtifact = upload
         this.CompileModuleName = moduleName
         this.Branch = branch
