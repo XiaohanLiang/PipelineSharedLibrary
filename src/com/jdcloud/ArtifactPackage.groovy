@@ -90,16 +90,23 @@ class ArtifactPackage {
 
         //Create byte array to read data in chunks
         byte[] byteArray = new byte[1024];
-        int bytesCount = 0;
+        int bytesCount = fis.read(byteArray)
 
         //Read file data and update in message digest
-        while ( bytesCount != -1) {
+        for ( ; bytesCount != -1 ;bytesCount = fis.read(byteArray)){
             this.script.echo "Inside checksum loop"
             def yay = bytesCount.toString()
             this.script.echo yay
             digest.update(byteArray, 0, bytesCount);
-            bytesCount = fis.read(byteArray)
-        };
+        }
+
+//        while ( bytesCount != -1) {
+//            this.script.echo "Inside checksum loop"
+//            def yay = bytesCount.toString()
+//            this.script.echo yay
+//            digest.update(byteArray, 0, bytesCount);
+//            bytesCount = fis.read(byteArray)
+//        };
 
         //close the stream; We don't need it now.
         fis.close();
