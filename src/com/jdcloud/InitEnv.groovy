@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 package com.jdcloud
-
+import java.io.File;
 
 class InitEnv {
 
