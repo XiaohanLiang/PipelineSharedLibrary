@@ -10,7 +10,7 @@ def call(def env) {
     env.CacheSpace = env.WORKSPACE + "/cache/"
     env.RuntimeEnv = env.WORKSPACE + "/meta/buildRuntimeEnv"
 
-    if (env.OutputSpace = ""){
+    if (env.OutputSpace == ""){
         env.OutputSpace = env.JenkinsWorkSpace
     }
 
