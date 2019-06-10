@@ -74,6 +74,15 @@ class InitEnv {
         return file.text
     }
 
+    def SetEnv(){
+//        env.JenkinsWorkSpace = this.JenkinsWorkSpace
+//        env.UserWorkSpace = this.UserWorkSpace
+//        env.ArtifactSpace = this.ArtifactSpace
+//        env.MetaSpace = this.MetaSpace
+//        env.CacheSpace = this.CacheSpace
+//        env.RuntimeEnv = this.RuntimeEnv
+    }
+
     def Execute(){
 
         Cleaning()
