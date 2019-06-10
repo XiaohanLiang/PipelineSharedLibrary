@@ -142,9 +142,6 @@ class ArtifactPackage {
 
     def Execute(){
 
-        def packageName = GetPackageNameWithPath()
-        this.script.echo  "We have packageName="
-        this.script.echo  packageName
         Packaging()
         def hash = MD5Hash()
         this.script.echo  "We have MD5Sum"
