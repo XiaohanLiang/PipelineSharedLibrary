@@ -27,7 +27,6 @@ def call(def env) {
     env.OssAccessKey = ""
     env.OssSecretKey = ""
 
-    echo "Entering "
     def initiating = new InitEnv(env, this)
-//    initiating.Execute()
+    initiating.Execute()
 }
