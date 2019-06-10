@@ -49,7 +49,7 @@ class InitEnv {
         String setConfigCommand = "git config --local --unset credential.helper"
         String setCredentialCmd = "git config credential.helper 'store --file="+ this.MetaSpace +".git-credentials'"
 
-        dir(this.UserWorkSpace){
+        this.script.dir(this.UserWorkSpace){
             this.script.echo "Entering UserWorkSpace"
             def setConfig = setConfigCommand.execute()
             def setCredential = setCredentialCmd.execute()
