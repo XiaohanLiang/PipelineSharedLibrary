@@ -14,9 +14,6 @@ class InitEnv {
     def Env
 
     InitEnv(def env,def s){
-
-        CheckParameters(env)
-
         this.JenkinsWorkSpace = env.JenkinsWorkSpace
         this.UserWorkSpace = env.UserWorkSpace
         this.ArtifactSpace = env.ArtifactSpace
@@ -105,9 +102,7 @@ class InitEnv {
     }
 
     def Execute(){
-
-//        CheckParameters()
-        
+        CheckParameters()
         Cleaning()
         CreatePath()
         CreateFile(this.RuntimeEnv)
