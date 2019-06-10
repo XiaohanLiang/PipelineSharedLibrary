@@ -7,7 +7,8 @@ def call(def env){
     env.ScmUrl = "https://github.com/XiaohanLiang/hello"
     env.ScmCredential = ""
     env.UserWorkSpace = env.WORKSPACE + "/workspace/"
-
+    echo env.haha
+    
     dir(env.UserWorkSpace){
         checkout changelog: false, poll: false,
                 scm: [ $class: 'GitSCM', branches: [[name: env.ScmBranch]],
