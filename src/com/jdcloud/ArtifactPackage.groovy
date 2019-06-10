@@ -2,6 +2,7 @@
 package com.jdcloud
 
 import java.security.MessageDigest;
+import java.io.*;
 
 class ArtifactPackage {
 

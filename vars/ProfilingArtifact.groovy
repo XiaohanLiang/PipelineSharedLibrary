@@ -8,5 +8,5 @@ def call(def env){
 
     def artifact = new ArtifactPackage(env.WORKSPACE,"1","bucketName","bucketPath","endpoint","ak","sk")
     artifact.Execute()
-    
+
 }
