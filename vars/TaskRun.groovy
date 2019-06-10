@@ -3,7 +3,7 @@
 import com.jdcloud.*
 import hudson.model.*
 
-def call(def pathToYaml,def env){
+def call(def env){
 
     def fromYaml = new FromYaml(env,this)
     def scriptPath = fromYaml.GenerateShellScript()
