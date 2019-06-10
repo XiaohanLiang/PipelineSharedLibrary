@@ -83,7 +83,7 @@ class InitEnv {
 //        assert env.JenkinsWorkSpace.length() > 0
 
         this.script.echo "1"
-        this.script.error("Failed")
+//        this.script.error("Failed")
         this.script.echo "2"
 
 //        assert env.ScmUrl.length() > 0
