@@ -25,24 +25,24 @@ class FromYaml {
     String metaspace
     Script script
 
-    FromYaml (String y,Script s,String ws) {
+    FromYaml (def e,Script s) {
 
         Yaml yaml = new Yaml()
-        def settingMap = yaml.load(y)
+        def settingMap = yaml.load(e.Yaml)
         assertNotNull(settingMap)
 
         commands = [:]
         environments = [:]
-
         for( c in settingMap.cmds ){
             this.commands[c.name] = c.command
         }
-        for ( e in settingMap.envs ) {
-            this.environments[e.name] = e.value
+        for ( ee in settingMap.envs ) {
+            this.environments[ee.name] = ee.value
         }
-        this.output = settingMap.out_dir == null ? "output" : settingMap.out_dir
+
+        this.output = e.OutputSpace
+        this.metaspace = e.MetaSpace
         this.script = s
-        this.metaspace = ws + "/meta"
     }
 
     def GenerateShellScript(){

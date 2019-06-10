@@ -10,8 +10,8 @@ def call(def env) {
     env.CacheSpace = env.WORKSPACE + "/cache/"
     env.RuntimeEnv = env.WORKSPACE + "/meta/buildRuntimeEnv"
 
-    if (env.OssBucketName = ""){
-        env.OssBucketName = env.JenkinsWorkSpace
+    if (env.OutputSpace = ""){
+        env.OutputSpace = env.JenkinsWorkSpace
     }
 
     def initiating = new InitEnv(env, this)

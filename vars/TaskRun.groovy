@@ -5,7 +5,7 @@ import hudson.model.*
 
 def call(def pathToYaml,def env){
 
-    def fromYaml = new FromYaml(env.Yaml,this, env.WORKSPACE)
+    def fromYaml = new FromYaml(env,this)
     def scriptPath = fromYaml.GenerateShellScript()
 
     dir(env.UserWorkSpace){
