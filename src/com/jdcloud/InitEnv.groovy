@@ -12,15 +12,31 @@ class InitEnv {
     String RuntimeEnv
     Script script
 
-    InitEnv(def j,def s){
-        this.JenkinsWorkSpace = j
-        this.UserWorkSpace = j + "/workspace/"
-        this.ArtifactSpace = j + "/artifact/"
-        this.MetaSpace = j + "/meta/"
-        this.CacheSpace = j + "/cache/"
-        this.RuntimeEnv = j + "/meta/buildRuntimeEnv"
+    InitEnv(def env,def s){
+        this.JenkinsWorkSpace = env.JenkinsWorkSpace
+        this.UserWorkSpace = env.UserWorkSpace
+        this.ArtifactSpace = env.ArtifactSpace
+        this.MetaSpace = env.MetaSpace
+        this.CacheSpace = env.CacheSpace
+        this.RuntimeEnv = env.RuntimeEnv
         this.script = s
+        this.script.echo env.JenkinsWorkSpace
+        this.script.echo env.UserWorkSpace
+        this.script.echo env.ArtifactSpace
+        this.script.echo env.MetaSpace
+        this.script.echo env.CacheSpace
+        this.script.echo env.RuntimeEnv
     }
+
+//    InitEnv(def j,def u,def a,def m,def c,def r,def s){
+//        this.JenkinsWorkSpace = j
+//        this.UserWorkSpace = u
+//        this.ArtifactSpace = a
+//        this.MetaSpace = m
+//        this.CacheSpace = c
+//        this.RuntimeEnv = r
+//        this.script = s
+//    }
 
     def CreatePath(){
         createPath(this.JenkinsWorkSpace)
@@ -72,15 +88,6 @@ class InitEnv {
     def ReadFile(String filePath) {
         File file = new File(filePath)
         return file.text
-    }
-
-    def SetEnv(){
-//        env.JenkinsWorkSpace = this.JenkinsWorkSpace
-//        env.UserWorkSpace = this.UserWorkSpace
-//        env.ArtifactSpace = this.ArtifactSpace
-//        env.MetaSpace = this.MetaSpace
-//        env.CacheSpace = this.CacheSpace
-//        env.RuntimeEnv = this.RuntimeEnv
     }
 
     def Execute(){

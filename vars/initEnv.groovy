@@ -3,8 +3,37 @@ import com.jdcloud.*
 
 def call(def env) {
 
-    env.haha = "123"
+    env.JenkinsWorkSpace = env.WORKSPACE
+    env.UserWorkSpace = env.WORKSPACE + "/workspace/"
+    env.ArtifactSpace = env.WORKSPACE + "/artifact/"
+    env.MetaSpace = env.WORKSPACE + "/meta/"
+    env.CacheSpace = env.WORKSPACE + "/cache/"
+    env.RuntimeEnv = env.WORKSPACE + "/meta/buildRuntimeEnv"
 
-    def initiating = new InitEnv(env.WORKSPACE,this)
-    initiating.Execute()
+    env.ScmUrl = "https://github.com/XiaohanLiang/hello"
+    env.ScmBranch = 'master'
+    env.CommitID = ""
+    env.ScmCredential = ""
+
+    env.Yaml = "---"
+    env.BuildImage = "ubuntu:14.04.5"
+
+    env.UploadArtifact = ""
+    env.CompileModuleName = ""
+    env.OutputSpace = ""
+    env.OssBucketName = ""
+    env.OssBucketpath = ""
+    env.OssBucketEndpoint = ""
+    env.OssAccessKey = ""
+    env.OssSecretKey = ""
+
+    def initiating = new InitEnv(
+            env.JenkinsWorkSpace,
+            env.UserWorkSpace,
+            env.ArtifactSpace,
+            env.MetaSpace,
+            env.CacheSpace,
+            env.RuntimeEnv,
+            this)
+//    initiating.Execute()
 }

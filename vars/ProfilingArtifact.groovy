@@ -10,7 +10,7 @@ def call(def env){
             env.OutputSpace,
             env.UploadArtifact,
             env.CompileModuleName,
-            env.Branch,
+            env.ScmBranch,
             env.CommitID,
             env.OssBucketName,
             env.OssBucketpath,
