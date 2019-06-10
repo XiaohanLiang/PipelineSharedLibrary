@@ -27,13 +27,14 @@ def call(def env) {
     env.OssAccessKey = ""
     env.OssSecretKey = ""
 
-    def initiating = new InitEnv(
-            env.JenkinsWorkSpace,
-            env.UserWorkSpace,
-            env.ArtifactSpace,
-            env.MetaSpace,
-            env.CacheSpace,
-            env.RuntimeEnv,
-            this)
+//    def initiating = new InitEnv(
+//            env.JenkinsWorkSpace,
+//            env.UserWorkSpace,
+//            env.ArtifactSpace,
+//            env.MetaSpace,
+//            env.CacheSpace,
+//            env.RuntimeEnv,
+//            this)
+    def initiating = new InitEnv(env, this)
 //    initiating.Execute()
 }
