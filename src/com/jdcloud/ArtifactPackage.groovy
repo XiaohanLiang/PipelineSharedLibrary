@@ -26,11 +26,12 @@ class ArtifactPackage {
     String ArtifactSpace
 
 
-    ArtifactPackage(def s,def ws,def upload,def moduleName,def branch,def commit,def bucketName,def bucketPath,def endpoint,def ak,def sk){
+    ArtifactPackage(def s,def ws,def outputSpace,def upload,def moduleName,def branch,def commit,def bucketName,def bucketPath,def endpoint,def ak,def sk){
 
         this.script = s
         this.UploadArtifact = upload
         this.CompileModuleName = moduleName
+        this.OutputSpace = outputSpace
         this.Branch = branch
         this.Commit = commit
         this.CompilerOssBucket = bucketName
@@ -135,7 +136,7 @@ class ArtifactPackage {
         def packageName = GetPackageNameWithPath()
         this.script.echo  "We have packageName="
         this.script.echo  packageName
-//        Packaging()
+        Packaging()
 
     }
 }
