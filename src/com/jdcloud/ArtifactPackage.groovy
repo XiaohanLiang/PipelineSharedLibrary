@@ -94,7 +94,8 @@ class ArtifactPackage {
         //Read file data and update in message digest
         while ((bytesCount = fis.read(byteArray)) != -1) {
             this.script.echo "Inside checksum loop"
-            this.script.echo bytesCount
+            def yay = bytesCount.toString()
+            this.script.echo yay
             digest.update(byteArray, 0, bytesCount);
         };
 
