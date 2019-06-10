@@ -28,7 +28,9 @@ class ArtifactPackage {
 
 
     ArtifactPackage(def env,def s){
-        this.script = env.
+
+        this.script = s
+
         this.UploadArtifact = env.UploadArtifact
         this.CompileModuleName = env.CompileModuleName
         this.OutputSpace = env.OutputSpace
@@ -44,12 +46,11 @@ class ArtifactPackage {
     }
 
     def SetPackageName(){
+
         def moduleName = this.CompileModuleName.toLowerCase().replaceAll("_","-")
-        def branch = this.Branch
-        if (branch.split("/").size() >=2 ) {
-            branch = branch.split("/").get(1)
-        }
-        def commitId = this.Commit[0..8]
+        def branch = branch.split("/").size() >=2 ? branch.split("/").get(1) : this.Branch
+        def commitId = this.Commit.length() > 9 ? this.Commit[0..8] : this.Commit
+
         this.PackageNameWithPath = this.ArtifactSpace + moduleName + "-" + branch + "-" + System.currentTimeSeconds() + ".tar.gz"
     }
 

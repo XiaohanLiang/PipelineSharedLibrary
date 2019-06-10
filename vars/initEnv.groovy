@@ -10,22 +10,9 @@ def call(def env) {
     env.CacheSpace = env.WORKSPACE + "/cache/"
     env.RuntimeEnv = env.WORKSPACE + "/meta/buildRuntimeEnv"
 
-    env.ScmUrl = "https://github.com/XiaohanLiang/hello"
-    env.ScmBranch = 'master'
-    env.CommitID = ""
-    env.ScmCredential = ""
-
-    env.Yaml = "---"
-    env.BuildImage = "ubuntu:14.04.5"
-
-    env.UploadArtifact = ""
-    env.CompileModuleName = ""
-    env.OutputSpace = ""
-    env.OssBucketName = ""
-    env.OssBucketpath = ""
-    env.OssBucketEndpoint = ""
-    env.OssAccessKey = ""
-    env.OssSecretKey = ""
+    if (env.OssBucketName = ""){
+        env.OssBucketName = env.JenkinsWorkSpace
+    }
 
     def initiating = new InitEnv(env, this)
     initiating.Execute()
