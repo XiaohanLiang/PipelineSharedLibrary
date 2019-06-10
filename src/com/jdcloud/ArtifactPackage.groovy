@@ -39,7 +39,7 @@ class ArtifactPackage {
         this.AccessKey = ak
         this.SecretKey = sk
         this.MetaSpace = ws + "/meta"
-        this.ArtifactSpace = ws + "/artifact"
+        this.ArtifactSpace = ws + "/artifact/"
     }
 
     def GetPackageNameWithPath(){
@@ -50,7 +50,7 @@ class ArtifactPackage {
             branch = branch.split("/").get(1)
         }
         def commitId = this.Commit[0..8]
-        return this.ArtifactSpace + moduleName + "-" + branch + "-" + System.currentTimeSeconds() + "tar.gz"
+        return this.ArtifactSpace + moduleName + "-" + branch + "-" + System.currentTimeSeconds() + ".tar.gz"
     }
 
     def Packaging(){
