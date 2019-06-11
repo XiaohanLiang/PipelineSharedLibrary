@@ -24,12 +24,15 @@ class FromYaml {
     String output
     String metaspace
     Script script
+    String toolChain
+    def e
+    def validTools = ["g":"/root/g"]
+    def cachedImages = ["maven"]
 
-    FromYaml (def e,Script s) {
+    FromYaml (def env,Script s) {
 
         Yaml yaml = new Yaml()
-        s.echo e.Yaml
-        def settingMap = yaml.load(e.Yaml)
+        def settingMap = yaml.load(env.Yaml)
         assertNotNull(settingMap)
 
         commands = [:]
@@ -41,8 +44,10 @@ class FromYaml {
             this.environments[ee.name] = ee.value
         }
 
-        this.output = e.OutputSpace
-        this.metaspace = e.MetaSpace
+        this.output = env.OutputSpace
+        this.metaspace = env.MetaSpace
+        this.toolChain = env.tools
+        this.e = env
         this.script = s
     }
 
@@ -86,6 +91,32 @@ class FromYaml {
 
         pencil.close()
         return scriptPath
+    }
+
+    def DefineRequirements(){
+
+        // User defined yaml
+        def args = generateReqPair("-v",e.MetaSpace)
+
+        // Tools : If desired tools are valid, then we map it into /bin/<Your_tool>:ro
+        for( tool in this.toolChain.split("#")){
+            if (validTools.containsKey(tool)){
+                args += generateReqPair("-v",validTools.get(tool),"/bin/"+tool,"ro")
+            }
+        }
+
+        // Caches
+        if (e.BuildImage.toLowerCase().contains("maven")){
+            args += generateReqPair("-v",e.CacheSpace,"/root/.m2")
+        }
+
+        return args
+    }
+
+    def generateReqPair(def type,def source,def target=source,def pattern=""){
+        def ret = pattern.length()==0 ? sprintf("  %s %s:%s  ",type,source,target) :
+                                        sprintf("  %s %s:%s:%s  ",type,source,target,pattern)
+        return ret
     }
 
     // ----------------------------- We don't execute file here considering tricky IO issue

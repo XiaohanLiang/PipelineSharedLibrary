@@ -7,9 +7,10 @@ def call(def env){
 
     def fromYaml = new FromYaml(env,this)
     def scriptPath = fromYaml.GenerateShellScript()
+    def requirements = fromYaml.DefineRequirements()
 
     dir(env.UserWorkSpace){
-        withDockerContainer(image:env.BuildImage) {
+        withDockerContainer(args: requirements ,image:env.BuildImage) {
             sh(scriptPath)
         }
     }

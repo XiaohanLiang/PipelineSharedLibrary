@@ -89,6 +89,7 @@ class InitEnv {
         checkParametersNonNil(this.e.OssBucketEndpoint)
         checkParametersNonNil(this.e.OssAccessKey)
         checkParametersNonNil(this.e.OssSecretKey)
+        checkParametersNonNil(this.e.BuildImage)
 
         checkFileExists(this.e.JenkinsWorkSpace)
         checkFileExists(this.e.UserWorkSpace)
