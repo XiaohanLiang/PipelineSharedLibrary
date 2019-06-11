@@ -46,7 +46,7 @@ class FromYaml {
 
         this.output = env.OutputSpace
         this.metaspace = env.MetaSpace
-        this.toolChain = env.tools
+        this.toolChain = env.Tools
         this.e = env
         this.script = s
     }
