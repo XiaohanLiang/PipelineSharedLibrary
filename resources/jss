@@ -1,0 +1,101 @@
+#!/bin/sh
+
+if [ X"$(uname)" = X"Darwin" ] ; then
+    BASE64_ENCODE="base64"
+else
+    BASE64_ENCODE="base64 -w0"
+fi
+
+ENDPOINT=http://storage.jd.com/
+NOW="$(TZ=GMT date -R |sed 's/+0000/GMT/g')"
+MODE=download
+
+usage(){
+    echo "Usage:" 1>&2
+    echo "    Upload:   $0 -n <RESOURCE_NAME> -f <FILE> -k <ACCESS_KEY> -s <ACCESS_SECRET> -e <ENDPOINT> -b <BUCKET>" 1>&2
+    echo "    Download: $0 -n <RESOURCE_NAME> -k <ACCESS_KEY> -s <ACCESS_SECRET> -e <ENDPOINT> -b <BUCKET>" 1>&2
+    echo "    List:     $0 -l <RESOURCE_NAME> -k <ACCESS_KEY> -s <ACCESS_SECRET> -e <ENDPOINT> -b <BUCKET>" 1>&2
+    exit 1
+}
+
+while [[ $# -gt 0 ]] ; do
+    case "$1" in
+        -n|--name)
+            RESOURCE_NAME="$2"
+            ;;
+        -f|--file)
+            RESOURCE_FILE="$2"
+            MODE=upload
+            ;;
+        -k|--accessKey)
+            ACCESS_KEY="$2"
+            ;;
+        -s|--accessSecret)
+            ACCESS_SECRET="$2"
+            ;;
+        -e|--endpoint)
+            ENDPOINT="$2"
+            ;;
+        -b|--bucket)
+            BUCKET="$2"
+            ;;
+        -l|--list)
+            RESOURCE_FILE="$2"
+            MODE="list"
+            ;;
+        *)
+            usage
+            ;;
+    esac
+
+    shift
+    shift
+done
+
+if [ X"$RESOURCE_NAME" = X"" ] ; then
+    RESOURCE_NAME="$RESOURCE_FILE"
+fi
+
+if [ X"$RESOURCE_NAME" = X"" ] ; then
+    usage
+fi
+if [ X"$ACCESS_KEY" = X"" ] ; then
+    usage
+fi
+if [ X"$ACCESS_SECRET" = X"" ] ; then
+    usage
+fi
+if [ X"$BUCKET" = X"" ] ; then
+    usage
+fi
+
+
+if [ X"${RESOURCE_NAME}" != X"/" ] ; then
+    RESOURCE_NAME="/$RESOURCE_NAME"
+fi
+
+if [ X"${ENDPOINT:${#ENDPOINT}-1}" != X"/" ] ; then
+    ENDPOINT="$ENDPOINT/"
+fi
+
+case "$MODE" in
+    upload)
+        SIGN=$(printf "PUT\n\napplication/octet-stream\n$NOW\n/$BUCKET$RESOURCE_NAME" |openssl sha1 -hmac "$ACCESS_SECRET" -binary |$BASE64_ENCODE)
+        AUTH="jingdong $ACCESS_KEY:$SIGN"
+        curl -s -XPUT "${ENDPOINT}${BUCKET}${RESOURCE_NAME}" -H'Content-Type: application/octet-stream' \
+            -H'Accept: application/json' -H"Authorization: $AUTH"  -H"Date: $NOW" --data-binary @"$RESOURCE_FILE"
+        ;;
+
+    download)
+        SIGN=$(printf "GET\n\n\n$NOW\n/$BUCKET$RESOURCE_NAME" |openssl sha1 -hmac "$ACCESS_SECRET" -binary |$BASE64_ENCODE)
+        AUTH="jingdong $ACCESS_KEY:$SIGN"
+        curl -s -XGET "${ENDPOINT}${BUCKET}${RESOURCE_NAME}" -H"Authorization: $AUTH" -H"Date: $NOW"
+        ;;
+
+    list)
+        # TODO
+        SIGN=$(printf "GET\n\n\n$NOW\n/$BUCKET$RESOURCE_NAME" |openssl sha1 -hmac "$ACCESS_SECRET" -binary |$BASE64_ENCODE)
+        AUTH="jingdong $ACCESS_KEY:$SIGN"
+        curl -s -XGET "${ENDPOINT}${BUCKET}${RESOURCE_NAME}?prefix=/" -H"Authorization: $AUTH" -H"Date: $NOW"
+        ;;
+esac
