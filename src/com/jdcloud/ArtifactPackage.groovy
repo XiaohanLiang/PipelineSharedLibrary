@@ -139,23 +139,30 @@ class ArtifactPackage {
 
     def GenerateUploadingShell(){
 
-        this.script.dir(this.ArtifactSpace){
+        this.script.dir(this.ArtifactSpace) {
 
             def shellString = this.script.libraryResource("jss")
             def shellFile = this.MetaSpace + "jss.sh"
-            this.script.writeFile file: shellFile , text: shellString
+            this.script.writeFile file: shellFile, text: shellString
 
             File shell = new File(this.MetaSpace + "jss.sh")
             shell.setExecutable(true)
             shell.setWritable(true)
 
+            def fileName = "xiaohan_testing"
+            def targetName = "xiaohan_testing"
+            def ak = this.AccessKey
+            def sk = this.SecretKey
+            def bucketName = this.CompilerOssBucket
+            def endPoint = this.CompilerOssEndpoint
+
+            def command = sprintf(" -n %s -f %s -k %s -s %s -e %s -b %s", fileName, targetName, ak, sk, endPoint, bucketName)
+
             this.script.echo "Start uploading..."
-            this.script.sh (this.MetaSpace + "jss.sh")
-
+            this.script.sh(this.MetaSpace + "jss.sh" + command)
+            this.script.echo "End uploading"
         }
-
-
-
+        
     }
 
     def Execute(){
