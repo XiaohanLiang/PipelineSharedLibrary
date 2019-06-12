@@ -34,7 +34,7 @@ class ArtifactPackage {
         this.UploadArtifact = env.UploadArtifact
         this.CompileModuleName = env.CompileModuleName
         this.OutputSpace = env.OutputSpace
-        this.Branch = env.Branch
+        this.Branch = env.ScmBranch
         this.Commit = env.Commit
         this.CompilerOssBucket = env.CompilerOssBucket
         this.CompilerOssPath = env.CompilerOssPath
@@ -136,14 +136,38 @@ class ArtifactPackage {
         assert this.SecretKey.length()>0
 
     }
+
+    def GenerateUploadingShell(){
+
+        this.script.dir(this.ArtifactSpace){
+
+            def shellString = this.script.libraryResource("jss")
+            def shellFile = this.MetaSpace + "jss.sh"
+            this.script.writeFile file: shellFile , text: shellString
+
+            File shell = new File(this.MetaSpace + "jss.sh")
+            shell.setExecutable(true)
+            shell.setWritable(true)
+
+            this.script.echo "Start uploading..."
+            sh (this.MetaSpace + "jss.sh")
+
+        }
+
+
+
+    }
+
     def Execute(){
 
-        CheckParameters()
+//        CheckParameters()
+//
+//        Packaging()
+//
+//        def hash = MD5Hash()
+//        RecordRuntimeEnv("COMPILER_PACKAGE_MD5SUM="+hash)
 
-        Packaging()
-
-        def hash = MD5Hash()
-        RecordRuntimeEnv("COMPILER_PACKAGE_MD5SUM="+hash)
+        GenerateUploadingShell()
 
         // AWS-Signing-Uploading
 
