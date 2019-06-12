@@ -130,7 +130,6 @@ class ArtifactPackage {
         assert this.Branch.length()>0
         assert this.Commit.length()>0
         assert this.CompilerOssBucket.length()>0
-        assert this.CompilerOssPath.length()>0
         assert this.CompilerOssEndpoint.length()>0
         assert this.AccessKey.length()>0
         assert this.SecretKey.length()>0
