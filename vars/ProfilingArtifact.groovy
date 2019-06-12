@@ -3,10 +3,10 @@
 import com.jdcloud.*
 
 def call(def env){
-    
+
     echo "We have metaSpace="
     echo env.MetaSpace
-    def artifact = new ArtifactPackage(this,env)
+    def artifact = new ArtifactPackage(env,this)
     artifact.Execute()
 
 }
