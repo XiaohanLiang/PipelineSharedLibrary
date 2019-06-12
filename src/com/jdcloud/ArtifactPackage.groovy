@@ -35,12 +35,12 @@ class ArtifactPackage {
         this.CompileModuleName = env.CompileModuleName
         this.OutputSpace = env.OutputSpace
         this.Branch = env.ScmBranch
-        this.Commit = env.Commit
-        this.CompilerOssBucket = env.CompilerOssBucket
-        this.CompilerOssPath = env.CompilerOssPath
-        this.CompilerOssEndpoint = env.CompilerOssEndpoint
-        this.AccessKey = env.AccessKey
-        this.SecretKey = env.SecretKey
+        this.Commit = env.CommitID
+        this.CompilerOssBucket = env.OssBucketName
+        this.CompilerOssPath = env.OssBucketpath
+        this.CompilerOssEndpoint = env.OssBucketEndpoint
+        this.AccessKey = env.OssAccessKey
+        this.SecretKey = env.OssSecretKey
         this.MetaSpace = env.MetaSpace
         this.ArtifactSpace = env.ArtifactSpace
     }
