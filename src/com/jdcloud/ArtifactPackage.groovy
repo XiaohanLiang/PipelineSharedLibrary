@@ -150,7 +150,7 @@ class ArtifactPackage {
             shell.setWritable(true)
 
             this.script.echo "Start uploading..."
-            sh (this.MetaSpace + "jss.sh")
+            this.script.sh (this.MetaSpace + "jss.sh")
 
         }
 
