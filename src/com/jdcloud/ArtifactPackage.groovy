@@ -156,13 +156,13 @@ class ArtifactPackage {
             def bucketName = this.CompilerOssBucket
             def endPoint = this.CompilerOssEndpoint
 
-            def command = sprintf(" -n %s -f %s -k %s -s %s -e %s -b %s", fileName, targetName, ak, sk, endPoint, bucketName)
-
+            def args = sprintf(" -n %s -f %s -k %s -s %s -e %s -b %s", fileName, targetName, ak, sk, endPoint, bucketName)
+            
             this.script.echo "Start uploading..."
-            this.script.sh(this.MetaSpace + "jss.sh" + command)
+            this.script.sh("./" + this.MetaSpace + "jss.sh" + command)
             this.script.echo "End uploading"
         }
-        
+
     }
 
     def Execute(){
