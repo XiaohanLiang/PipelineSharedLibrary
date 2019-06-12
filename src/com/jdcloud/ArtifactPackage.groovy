@@ -164,17 +164,15 @@ class ArtifactPackage {
 
     def Execute(){
 
-//        CheckParameters()
-//
-//        Packaging()
-//
-//        def hash = MD5Hash()
-//        RecordRuntimeEnv("COMPILER_PACKAGE_MD5SUM="+hash)
+        CheckParameters()
+
+        Packaging()
+
+        def hash = MD5Hash()
+
+        RecordRuntimeEnv("COMPILER_PACKAGE_MD5SUM="+hash)
 
         GenerateUploadingShell()
 
-        // AWS-Signing-Uploading
-
-        // Java-SDK uploading
     }
 }
