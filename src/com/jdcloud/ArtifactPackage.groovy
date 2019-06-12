@@ -149,14 +149,11 @@ class ArtifactPackage {
             shell.setExecutable(true)
             shell.setWritable(true)
 
-            def fileName = "xiaohan_testing"
-            def targetName = "xiaohan_testing"
-            def ak = this.AccessKey
-            def sk = this.SecretKey
-            def bucketName = this.CompilerOssBucket
-            def endPoint = this.CompilerOssEndpoint
+            File art = new File(this.PackageNameWithPath)
+            String fileName = art.getName()
 
-            def args = sprintf(" -n %s -f %s -k %s -s %s -e %s -b %s", fileName, targetName, ak, sk, endPoint, bucketName)
+            String args = sprintf(" -n %s -f %s -k %s -s %s -e %s -b %s", fileName, fileName,this.AccessKey,
+                    this.SecretKey, this.CompilerOssEndpoint, this.CompilerOssBucket)
 
             this.script.echo "Start uploading..."
             this.script.sh("../meta/jss.sh" + args)
