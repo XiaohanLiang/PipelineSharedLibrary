@@ -39,6 +39,10 @@ class FromYaml {
         environments = [:]
         for( c in settingMap.cmds ){
             s.echo "Inside cmd map"
+            s.echo "this time the name"
+            s.echo c.name
+            s.echo "this time the command"
+            s.echo c.command
             this.commands[c.name] = c.command
         }
         for ( ee in settingMap.envs ) {
