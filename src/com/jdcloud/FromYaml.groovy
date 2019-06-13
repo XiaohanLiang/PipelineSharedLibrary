@@ -42,11 +42,14 @@ class FromYaml {
             this.commands[c.name] = c.command
         }
         for ( ee in settingMap.envs ) {
+            s.echo "Inside Setting map"
             this.environments[ee.name] = ee.value
         }
         if (settingMap.out_dir == null) {
+            s.echo "Yes outdir is empty"
             this.OutputSpace = env.UserWorkSpace
         }else {
+            s.echo "Nah outdir not empty"
             this.OutputSpace = settingMap.out_dir
         }
         this.metaspace = env.MetaSpace
