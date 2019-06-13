@@ -4,7 +4,7 @@ import com.jdcloud.*
 
 def call(def env){
 
-    def artifact = new ArtifactPackage(env,this)
+    def artifact = new Artifact(env,this)
     artifact.Execute()
 
 }
