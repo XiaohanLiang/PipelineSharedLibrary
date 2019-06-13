@@ -11,10 +11,6 @@ def call(def env) {
     env.RuntimeEnv = env.WORKSPACE + "/meta/buildRuntimeEnv"
     env.Dockerfile = env.WORKSPACE + "/workspace/Dockerfile"
 
-    if (env.OutputSpace == ""){
-        env.OutputSpace = env.JenkinsWorkSpace
-    }
-
     def initiating = new InitEnv(env, this)
     initiating.Execute()
 }
