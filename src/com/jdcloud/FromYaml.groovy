@@ -43,8 +43,11 @@ class FromYaml {
         for ( ee in settingMap.envs ) {
             this.environments[ee.name] = ee.value
         }
-
-        this.OutputSpace = settingMap.out_dir.length()==0? env.UserWorkSpace : settingMap.out_dir
+        if (settingMap.out_dir == null) {
+            this.OutputSpace = env.UserWorkSpace
+        }else {
+            this.OutputSpace = settingMap.out_dir
+        }
         this.metaspace = env.MetaSpace
         //this.toolChain = env.Tools
         this.e = env
