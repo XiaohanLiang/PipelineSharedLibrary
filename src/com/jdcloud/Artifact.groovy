@@ -5,6 +5,8 @@ import java.security.MessageDigest;
 
 class Artifact {
 
+    String BuildTag
+
     String AccessKey
     String SecretKey
     String CompileModuleName
@@ -31,6 +33,7 @@ class Artifact {
     Artifact (def env,def s) {
 
         this.script = s
+        this.BuildTag = env.BUILD_TAG
 
         this.UploadArtifact = env.UploadArtifact
         this.CompileModuleName = env.CompileModuleName
@@ -189,9 +192,9 @@ class Artifact {
         
         //Generate docker related Commands, we do this since docker login/rmi is not yet supported
         def login = printf("docker login -u jdcloud -p %s %s",this.DockerLoginToken,this.DockerRegistry)
-        def buildCommand = printf("docker build -t %s:%s .",this.DockerRegistry,this.e.BUILD_TAG)
-        def pushCommand = printf("docker push %s:%s ",this.DockerRegistry,this.e.BUILD_TAG)
-        def rmiCommand = printf("docker rmi %s:%s ",this.DockerRegistry,this.e.BUILD_TAG)
+        def buildCommand = printf("docker build -t %s:%s .",this.DockerRegistry,this.BuildTag)
+        def pushCommand = printf("docker push %s:%s ",this.DockerRegistry,this.BuildTag)
+        def rmiCommand = printf("docker rmi %s:%s ",this.DockerRegistry,this.BuildTag)
 
         // Start executing them
         this.script.sh login
