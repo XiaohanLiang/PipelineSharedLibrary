@@ -71,6 +71,7 @@ class FromYaml {
 
         this.environments.each { name,value ->
 
+            this.script.echo "this.environments.each"
             if (name.length()==0){
                 return
             }
