@@ -113,7 +113,7 @@ class FromYaml {
 //        }
 
         // Caches
-        if (e.BuildImage.toLowerCase().contains("maven")){
+        if (e.BUILD_IMAGE.toLowerCase().contains("maven")){
             args += generateReqPair("-v",e.CacheSpace,"/root/.m2")
         }
 
