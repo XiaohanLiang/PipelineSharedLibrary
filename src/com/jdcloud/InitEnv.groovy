@@ -99,7 +99,6 @@ class InitEnv {
             checkParametersNonNil(this.e.DOCKER_REPOSITORY)
             checkParametersNonNil(this.e.DOCKER_LOGIN_TOKEN)
             checkParametersNonNil(this.e.DOCKER_REGISTRY)
-            checkFileExists(this.e.Dockerfile)
         }
 
 
