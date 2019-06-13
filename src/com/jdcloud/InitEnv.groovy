@@ -30,6 +30,7 @@ class InitEnv {
         createPath(this.UserWorkSpace)
         createPath(this.ArtifactSpace)
         createPath(this.MetaSpace)
+        CreateFile(this.RuntimeEnv)
     }
     def createPath(String exp){
         File f = new File(exp)
@@ -129,8 +130,6 @@ class InitEnv {
         CreatePath()
 
         CheckParameters()
-
-        CreateFile(this.RuntimeEnv)
 
         RecordRegionInfo()
     }
