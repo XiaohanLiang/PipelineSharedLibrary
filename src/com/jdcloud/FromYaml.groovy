@@ -21,7 +21,7 @@ class FromYaml {
 
     Map commands
     Map environments
-    String output
+    String OutputSpace
     String metaspace
     Script script
     String toolChain
