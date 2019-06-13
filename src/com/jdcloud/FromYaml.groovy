@@ -90,7 +90,7 @@ class FromYaml {
 
             pencil.println("echo Executing command: " + name)
             pencil.println("echo '\$ " + cmd + "'")
-            pencil.println(command)
+            pencil.println(cmd)
             pencil.println("echo -----")
             pencil.println("echo ''")
 
