@@ -36,22 +36,22 @@ class Artifact {
         this.script = s
         this.BuildTag = env.BUILD_TAG
 
-        this.UploadArtifact = env.UploadArtifact
-        this.CompileModuleName = env.CompileModuleName
+        this.UploadArtifact = env.UPLOAD_ARTIFACT
+        this.CompileModuleName = env.COMPILE_MODULE_NAME
         this.OutputSpace = env.OutputSpace
-        this.Branch = env.ScmBranch
-        this.Commit = env.CommitID
-        this.CompilerOssBucket = env.OssBucketName
-        this.CompilerOssPath = env.OssBucketpath
-        this.CompilerOssEndpoint = env.OssBucketEndpoint
-        this.AccessKey = env.OssAccessKey
-        this.SecretKey = env.OssSecretKey
+        this.Branch = env.SCM_BRANCH
+        this.Commit = env.SCM_COMMIT_ID
+        this.CompilerOssBucket = env.OSS_BUCKET_NAME
+        this.CompilerOssPath = env.OSS_BUCKET_PATH
+        this.CompilerOssEndpoint = env.OSS_BUCKET_ENDPOINT
+        this.AccessKey = env.OSS_ACCESS_KEY
+        this.SecretKey = env.OSS_SECRET_KEY
         this.MetaSpace = env.MetaSpace
         this.ArtifactSpace = env.ArtifactSpace
-        this.CompilerType = env.CompilerType
-        this.DockerRegistry = env.DockerRegistry
-        this.DockerRepository = env.DockerRepository
-        this.DockerLoginToken = env.DockerLoginToken
+        this.CompilerType = env.COMPILER_TYPE
+        this.DockerRegistry = env.DOCKER_REGISTRY
+        this.DockerRepository = env.DOCKER_REPOSITORY
+        this.DockerLoginToken = env.DOCKER_LOGIN_TOKEN
         this.UserWorkSpace = env.UserWorkSpace
     }
 
@@ -214,7 +214,7 @@ class Artifact {
         
         if(this.UploadArtifact == "1"){
   
-            if(this.CompilerType == "Package"){
+            if(this.CompilerType == "PACKAGE"){
             
                 Packaging()
 
@@ -225,7 +225,7 @@ class Artifact {
                 UploadPackage()
             }
 
-            if(this.CompilerType == "Image"){
+            if(this.CompilerType == "IMAGE"){
 
                 PrepareImage()
 

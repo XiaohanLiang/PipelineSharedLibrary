@@ -32,7 +32,7 @@ class FromYaml {
     FromYaml (def env,Script s) {
 
         Yaml yaml = new Yaml()
-        def settingMap = yaml.load(env.Yaml)
+        def settingMap = yaml.load(env.YAML)
         assertNotNull(settingMap)
 
         commands = [:]
@@ -44,9 +44,9 @@ class FromYaml {
             this.environments[ee.name] = ee.value
         }
 
-        this.output = env.OutputSpace
+        this.OutputSpace = settingMap.out_dir.length()==0? env.UserWorkSpace : settingMap.out_dir
         this.metaspace = env.MetaSpace
-        this.toolChain = env.Tools
+        //this.toolChain = env.Tools
         this.e = env
         this.script = s
     }
@@ -117,6 +117,10 @@ class FromYaml {
         def ret = pattern.length()==0 ? sprintf("  %s %s:%s  ",type,source,target) :
                                         sprintf("  %s %s:%s:%s  ",type,source,target,pattern)
         return ret
+    }
+
+    def getOutputSpace(){
+        return this.OutputSpace
     }
 
     // ----------------------------- We don't execute file here considering tricky IO issue

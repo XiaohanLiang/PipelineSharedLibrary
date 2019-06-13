@@ -79,24 +79,26 @@ class InitEnv {
     def CheckParameters(){
 
         checkParametersNonNil(this.e.JenkinsWorkSpace)
-        checkParametersNonNil(this.e.ScmUrl)
-        checkParametersNonNil(this.e.ScmBranch)
-        checkParametersNonNil(this.e.CommitID)
-        checkParametersNonNil(this.e.Yaml)
-        checkParametersNonNil(this.e.UploadArtifact)
-        checkParametersNonNil(this.e.CompileModuleName)
-        checkParametersNonNil(this.e.BuildImage)
-        checkParametersNonNil(this.e.CompilerType)
+        checkParametersNonNil(this.e.SCM_URL)
+        checkParametersNonNil(this.e.SCM_CREDENTIAL)
+        checkParametersNonNil(this.e.SCM_BRANCH)
+        checkParametersNonNil(this.e.SCM_COMMIT_ID)
+        checkParametersNonNil(this.e.YAML)
+        checkParametersNonNil(this.e.UPLOAD_ARTIFACT)
+        checkParametersNonNil(this.e.COMPILE_MODULE_NAME)
+        checkParametersNonNil(this.e.BUILD_IMAGE)
+        checkParametersNonNil(this.e.COMPILER_TYPE)
 
-        if (this.e.CompilerType == "Image"){
-            checkParametersNonNil(this.e.OssBucketName)
-            checkParametersNonNil(this.e.OssBucketEndpoint)
-            checkParametersNonNil(this.e.OssAccessKey)
-            checkParametersNonNil(this.e.OssSecretKey)
+        if (this.e.CompilerType == "PACKAGE"){
+            checkParametersNonNil(this.e.OSS_BUCKET_NAME)
+            checkParametersNonNil(this.e.OSS_BUCKET_PATH)
+            checkParametersNonNil(this.e.OSS_BUCKET_ENDPOINT)
+            checkParametersNonNil(this.e.OSS_ACCESS_KEY)
+            checkParametersNonNil(this.e.OSS_SECRET_KEY)
         }else{
-            checkParametersNonNil(this.e.DockerRepository)
-            checkParametersNonNil(this.e.DockerLoginToken)
-            checkParametersNonNil(this.e.DockerRepository)
+            checkParametersNonNil(this.e.DOCKER_REPOSITORY)
+            checkParametersNonNil(this.e.DOCKER_LOGIN_TOKEN)
+            checkParametersNonNil(this.e.DOCKER_REGISTRY)
             checkFileExists(this.e.Dockerfile)
         }
 
