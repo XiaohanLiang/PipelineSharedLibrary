@@ -210,10 +210,11 @@ class Artifact {
 
     def Execute(){
 
-        CheckParameters()
-        
+
         if(this.UploadArtifact == "1"){
-  
+
+            CheckParameters()
+
             if(this.CompilerType == "PACKAGE"){
             
                 Packaging()

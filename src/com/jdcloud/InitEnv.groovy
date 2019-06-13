@@ -91,7 +91,7 @@ class InitEnv {
         checkParametersNonNil(this.e.COMPILER_TYPE)
 
         if (this.e.UPLOAD_ARTIFACT == "1"){
-            
+
             if (this.e.COMPILER_TYPE == "PACKAGE"){
                 checkParametersNonNil(this.e.OSS_BUCKET_NAME)
                 checkParametersNonNil(this.e.OSS_BUCKET_ENDPOINT)
