@@ -91,7 +91,6 @@ class InitEnv {
 
         if (this.e.COMPILER_TYPE == "PACKAGE"){
             checkParametersNonNil(this.e.OSS_BUCKET_NAME)
-            checkParametersNonNil(this.e.OSS_BUCKET_PATH)
             checkParametersNonNil(this.e.OSS_BUCKET_ENDPOINT)
             checkParametersNonNil(this.e.OSS_ACCESS_KEY)
             checkParametersNonNil(this.e.OSS_SECRET_KEY)
