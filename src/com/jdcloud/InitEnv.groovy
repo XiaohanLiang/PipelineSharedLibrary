@@ -89,7 +89,7 @@ class InitEnv {
         checkParametersNonNil(this.e.BUILD_IMAGE)
         checkParametersNonNil(this.e.COMPILER_TYPE)
 
-        if (this.e.CompilerType == "PACKAGE"){
+        if (this.e.COMPILER_TYPE == "PACKAGE"){
             checkParametersNonNil(this.e.OSS_BUCKET_NAME)
             checkParametersNonNil(this.e.OSS_BUCKET_PATH)
             checkParametersNonNil(this.e.OSS_BUCKET_ENDPOINT)
