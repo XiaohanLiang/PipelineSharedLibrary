@@ -90,9 +90,7 @@ class InitEnv {
         checkParametersNonNil(this.e.BUILD_IMAGE)
         checkParametersNonNil(this.e.COMPILER_TYPE)
 
-        if (this.e.USE_JDCLOUD_YAML == "1"){
-            checkFileExists(this.e.JdcloudYaml)
-        } else {
+        if (this.e.USE_JDCLOUD_YAML == "0"){
             checkParametersNonNil(this.e.YAML)
         }
 
