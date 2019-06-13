@@ -124,11 +124,11 @@ class InitEnv {
 
     def Execute(){
 
-        CheckParameters()
-
         Cleaning()
 
         CreatePath()
+
+        CheckParameters()
 
         CreateFile(this.RuntimeEnv)
 
