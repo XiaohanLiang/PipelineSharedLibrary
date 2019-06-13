@@ -27,7 +27,7 @@ class Artifact {
     String CompilerOssEndpoint
 
     def DockerLoginToken
-    def DockerRegistry
+    def DockerRegistryUri
     def DockerRepository
 
 
@@ -49,7 +49,7 @@ class Artifact {
         this.MetaSpace = env.MetaSpace
         this.ArtifactSpace = env.ArtifactSpace
         this.CompilerType = env.COMPILER_TYPE
-        this.DockerRegistry = env.DOCKER_REGISTRY
+        this.DockerRegistryUri = env.DOCKER_REGISTRY_URI
         this.DockerRepository = env.DOCKER_REPOSITORY
         this.DockerLoginToken = env.DOCKER_LOGIN_TOKEN
         this.UserWorkSpace = env.UserWorkSpace
@@ -161,7 +161,7 @@ class Artifact {
     def checkImageParameters(){
 
         assert this.DockerLoginToken.length()>0
-        assert this.DockerRegistry.length()>0
+        assert this.DockerRegistryUri.length()>0
         assert this.DockerRepository.length()>0
     }
 
@@ -193,10 +193,10 @@ class Artifact {
     def PrepareImage(){
         
         //Generate docker related Commands, we do this since docker login/rmi is not yet supported
-        def login = sprintf("docker login -u jdcloud -p %s %s",this.DockerLoginToken,this.DockerRegistry)
-        def buildCommand = sprintf("docker build -t %s:%s .",this.DockerRegistry,this.BuildTag)
-        def pushCommand = sprintf("docker push %s:%s ",this.DockerRegistry,this.BuildTag)
-        def rmiCommand = sprintf("docker rmi %s:%s ",this.DockerRegistry,this.BuildTag)
+        def login = sprintf("docker login -u jdcloud -p %s %s",this.DockerLoginToken,this.DockerRegistryUri)
+        def buildCommand = sprintf("docker build -t %s:%s .",this.DockerRegistryUri,this.BuildTag)
+        def pushCommand = sprintf("docker push %s:%s ",this.DockerRegistryUri,this.BuildTag)
+        def rmiCommand = sprintf("docker rmi %s:%s ",this.DockerRegistryUri,this.BuildTag)
 
         // Start executing them
         this.script.dir(this.UserWorkSpace){

@@ -98,7 +98,7 @@ class InitEnv {
         }else{
             checkParametersNonNil(this.e.DOCKER_REPOSITORY)
             checkParametersNonNil(this.e.DOCKER_LOGIN_TOKEN)
-            checkParametersNonNil(this.e.DOCKER_REGISTRY)
+            checkParametersNonNil(this.e.DOCKER_REGISTRY_URI)
         }
 
 
