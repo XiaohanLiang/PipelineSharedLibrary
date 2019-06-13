@@ -90,15 +90,18 @@ class InitEnv {
         checkParametersNonNil(this.e.BUILD_IMAGE)
         checkParametersNonNil(this.e.COMPILER_TYPE)
 
-        if (this.e.COMPILER_TYPE == "PACKAGE"){
-            checkParametersNonNil(this.e.OSS_BUCKET_NAME)
-            checkParametersNonNil(this.e.OSS_BUCKET_ENDPOINT)
-            checkParametersNonNil(this.e.OSS_ACCESS_KEY)
-            checkParametersNonNil(this.e.OSS_SECRET_KEY)
-        }else{
-            checkParametersNonNil(this.e.DOCKER_REPOSITORY)
-            checkParametersNonNil(this.e.DOCKER_LOGIN_TOKEN)
-            checkParametersNonNil(this.e.DOCKER_REGISTRY_URI)
+        if (this.e.UPLOAD_ARTIFACT == "1"){
+            
+            if (this.e.COMPILER_TYPE == "PACKAGE"){
+                checkParametersNonNil(this.e.OSS_BUCKET_NAME)
+                checkParametersNonNil(this.e.OSS_BUCKET_ENDPOINT)
+                checkParametersNonNil(this.e.OSS_ACCESS_KEY)
+                checkParametersNonNil(this.e.OSS_SECRET_KEY)
+            }else{
+                checkParametersNonNil(this.e.DOCKER_REPOSITORY)
+                checkParametersNonNil(this.e.DOCKER_LOGIN_TOKEN)
+                checkParametersNonNil(this.e.DOCKER_REGISTRY_URI)
+            }
         }
 
 
