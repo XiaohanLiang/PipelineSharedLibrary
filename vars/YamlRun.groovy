@@ -5,6 +5,7 @@ import hudson.model.*
 
 def call(def env){
 
+    def fromYaml = new FromYaml(env,this)
     def scriptPath = fromYaml.GenerateShellScript()
     def requirements = fromYaml.DefineRequirements()
 
