@@ -19,8 +19,8 @@ import java.lang.ProcessBuilder
 
 class FromYaml {
 
-    Map commands
-    Map environments
+    Map cmds
+    Map envs
     String OutputSpace
     String metaspace
     Script script
@@ -35,27 +35,23 @@ class FromYaml {
         def settingMap = yaml.load(env.YAML)
         assertNotNull(settingMap)
 
-        commands = [:]
-        environments = [:]
+        cmds = [:]
+        envs = [:]
+
         for( c in settingMap.cmds ){
-            s.echo "Inside cmd map"
-            s.echo "this time the name"
-            s.echo c.name
-            s.echo "this time the command"
-            s.echo c.command
-            this.commands[c.name] = c.command
+            this.cmds[c.name] = c.cmd
         }
+
         for ( ee in settingMap.envs ) {
-            s.echo "Inside Setting map"
-            this.environments[ee.name] = ee.value
+            this.envs[ee.name] = ee.value
         }
+
         if (settingMap.out_dir == null) {
-            s.echo "Yes outdir is empty"
             this.OutputSpace = env.UserWorkSpace
         }else {
-            s.echo "Nah outdir not empty"
             this.OutputSpace = settingMap.out_dir
         }
+
         this.metaspace = env.MetaSpace
         //this.toolChain = env.Tools
         this.e = env
@@ -73,31 +69,27 @@ class FromYaml {
 
         PrintWriter pencil = new PrintWriter(scriptPath)
 
-        this.script.echo "this.environments.each pre"
-        this.environments.each { name,value ->
+        this.envs.each { name,value ->
 
-            this.script.echo "this.environments.each post"
-            if (name.length()==0){
+            if (name == null || name.length()==0){
                 return
             }
-
             pencil.println("echo 'SET Env \${" + name + "} = " + value + "'")
             pencil.println("export " + name + "=" + value)
+
         }
 
-        this.script.echo "this.commands.each pre"
-        this.commands.each { name,command ->
-        this.script.echo "this.commands.each post"
+        this.cmds.each { name,cmd ->
 
-            if (name.length()==0) {
+            if (name == null || name.length()==0) {
                 name = " (unnamed) "
             }
-            if (command.length()==0) {
+            if (cmd == null || cmd.length()==0) {
                 return
             }
 
             pencil.println("echo Executing command: " + name)
-            pencil.println("echo '\$ " + command + "'")
+            pencil.println("echo '\$ " + cmd + "'")
             pencil.println(command)
             pencil.println("echo -----")
             pencil.println("echo ''")
@@ -129,8 +121,9 @@ class FromYaml {
     }
 
     def generateReqPair(def type,def source,def target=source,def pattern=""){
-        def ret = pattern.length()==0 ? sprintf("  %s %s:%s  ",type,source,target) :
-                                        sprintf("  %s %s:%s:%s  ",type,source,target,pattern)
+        def ret = (pattern == null || pattern.length()==0) ?
+                sprintf("  %s %s:%s  ",type,source,target) :
+                sprintf("  %s %s:%s:%s  ",type,source,target,pattern)
         return ret
     }
 
