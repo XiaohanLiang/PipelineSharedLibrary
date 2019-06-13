@@ -137,17 +137,17 @@ class Artifact {
         assert this.CompileModuleName.length()>0
         assert this.OutputSpace.length()>0
         assert this.Branch.length()>0
-        assert this.Commit.length()>0
+        //assert this.Commit.length()>0
 
         assert this.UploadArtifact == "0" || this.UploadArtifact == "1"
 
-        assert this.CompilerType == "Image" || this.CompilerType == "Package"
-        if(this.CompilerType == "Image"){
+        assert this.CompilerType == "IMAGE" || this.CompilerType == "PACKAGE"
+        if(this.CompilerType == "IMAGE"){
            checkImageParameters() 
         }
-	if(this.CompilerType == "Package"){
-	   checkPackageParameters()	
-	}
+        if(this.CompilerType == "PACKAGE"){
+           checkPackageParameters()
+        }
     }
 
     def checkPackageParameters(){
