@@ -38,6 +38,7 @@ class FromYaml {
         commands = [:]
         environments = [:]
         for( c in settingMap.cmds ){
+            s.echo "Inside cmd map"
             this.commands[c.name] = c.command
         }
         for ( ee in settingMap.envs ) {
@@ -64,10 +65,6 @@ class FromYaml {
         def scriptPath = script.getAbsolutePath()
 
         PrintWriter pencil = new PrintWriter(scriptPath)
-        this.script.echo "We have envs"
-        this.script.echo this.environments
-        this.script.echo "We have Cmds"
-        this.script.echo this.commands
 
         this.environments.each { name,value ->
 
