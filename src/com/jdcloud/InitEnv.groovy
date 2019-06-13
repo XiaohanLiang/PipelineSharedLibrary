@@ -82,7 +82,7 @@ class InitEnv {
         checkParametersNonNil(this.e.SCM_URL)
         checkParametersNonNil(this.e.SCM_CREDENTIAL)
         checkParametersNonNil(this.e.SCM_BRANCH)
-        checkParametersNonNil(this.e.SCM_COMMIT_ID)
+        //checkParametersNonNil(this.e.SCM_COMMIT_ID)
         checkParametersNonNil(this.e.YAML)
         checkParametersNonNil(this.e.UPLOAD_ARTIFACT)
         checkParametersNonNil(this.e.COMPILE_MODULE_NAME)
