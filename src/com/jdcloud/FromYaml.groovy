@@ -81,7 +81,9 @@ class FromYaml {
             pencil.println("export " + name + "=" + value)
         }
 
+        this.script.echo "this.commands.each pre"
         this.commands.each { name,command ->
+        this.script.echo "this.commands.each post"
 
             if (name.length()==0) {
                 name = " (unnamed) "
