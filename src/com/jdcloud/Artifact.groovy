@@ -197,6 +197,8 @@ class Artifact {
         def rmiCommand = printf("docker rmi %s:%s ",this.DockerRegistry,this.BuildTag)
 
         // Start executing them
+        this.script.echo "We have login command"
+        this.script.echo login
         this.script.sh login
         this.script.sh buildCommand
         this.script.sh pushCommand
