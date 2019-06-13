@@ -45,6 +45,9 @@ class Artifact {
         this.MetaSpace = env.MetaSpace
         this.ArtifactSpace = env.ArtifactSpace
         this.CompilerType = env.CompilerType
+        this.DockerRegistry = env.DockerRegistry
+        this.DockerRepository = env.DockerRepository
+        this.DockerLoginToken = env.DockerLoginToken
     }
 
     def SetPackageName(){
@@ -152,9 +155,9 @@ class Artifact {
 
     def checkImageParameters(){
 
-        assert DockerLoginToken.length()>0
-        assert DockerRegistry.length()>0
-        assert DockerRepository.length()>0
+        assert this.DockerLoginToken.length()>0
+        assert this.DockerRegistry.length()>0
+        assert this.DockerRepository.length()>0
     }
 
     def UploadPackage(){
