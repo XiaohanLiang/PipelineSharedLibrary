@@ -25,14 +25,21 @@ class FromYaml {
     String metaspace
     Script script
     String toolChain
+
     def e
     def validTools = ["g":"/root/g"]
     def cachedImages = ["maven"]
+    def SettingMap
 
     FromYaml (def env,Script s) {
 
         Yaml yaml = new Yaml()
-        def settingMap = yaml.load(env.YAML)
+        if (env.USE_JDCLOUD_YAML=="1"){
+            def content = new File(env.JdcloudYaml)
+            this.SettingMap = yaml.load(content)
+        } else {
+            this.SettingMap = yaml.load(env.YAML)
+        }
         assertNotNull(settingMap)
 
         cmds = [:]

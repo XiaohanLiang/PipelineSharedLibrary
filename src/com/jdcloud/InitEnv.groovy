@@ -84,11 +84,17 @@ class InitEnv {
         //checkParametersNonNil(this.e.SCM_CREDENTIAL)
         checkParametersNonNil(this.e.SCM_BRANCH)
         //checkParametersNonNil(this.e.SCM_COMMIT_ID)
-        checkParametersNonNil(this.e.YAML)
+        checkParametersNonNil(this.e.USE_JDCLOUD_YAML)
         checkParametersNonNil(this.e.UPLOAD_ARTIFACT)
         checkParametersNonNil(this.e.COMPILE_MODULE_NAME)
         checkParametersNonNil(this.e.BUILD_IMAGE)
         checkParametersNonNil(this.e.COMPILER_TYPE)
+
+        if (this.e.USE_JDCLOUD_YAML == "1"){
+            checkFileExists(this.e.JdcloudYaml)
+        } else {
+            checkParametersNonNil(this.e.YAML)
+        }
 
         if (this.e.UPLOAD_ARTIFACT == "1"){
 
@@ -103,6 +109,7 @@ class InitEnv {
                 checkParametersNonNil(this.e.DOCKER_REGISTRY_URI)
             }
         }
+
 
 
         checkFileExists(this.e.JenkinsWorkSpace)
