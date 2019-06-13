@@ -3,31 +3,32 @@ package com.jdcloud
 
 import java.security.MessageDigest;
 
-class ArtifactPackage {
+class Artifact {
 
-    String UploadArtifact
-
-    String ArtifactPath
-    String CompilerOssBucket
-    String CompilerOssPath
-    String CompilerOssEndpoint
     String AccessKey
     String SecretKey
-    String WorkSpace
     String CompileModuleName
     String Branch
     String Commit
     Script script
-
-
-    String MD5Sum
     String OutputSpace
     String MetaSpace
     String ArtifactSpace
     String PackageNameWithPath
 
+    String CompilerType
+    String UploadArtifact
 
-    ArtifactPackage(def env,def s){
+    String CompilerOssBucket
+    String CompilerOssPath
+    String CompilerOssEndpoint
+
+    def DockerLoginToken
+    def DockerRegistry
+    def DockerRepository
+
+
+    Artifact (def env,def s) {
 
         this.script = s
 
@@ -43,6 +44,7 @@ class ArtifactPackage {
         this.SecretKey = env.OssSecretKey
         this.MetaSpace = env.MetaSpace
         this.ArtifactSpace = env.ArtifactSpace
+        this.CompilerType = env.CompilerType
     }
 
     def SetPackageName(){
@@ -124,19 +126,38 @@ class ArtifactPackage {
 
     def CheckParameters(){
 
-        assert this.UploadArtifact.length()>0
         assert this.CompileModuleName.length()>0
         assert this.OutputSpace.length()>0
         assert this.Branch.length()>0
         assert this.Commit.length()>0
+
+        assert this.UploadArtifact == "0" || this.UploadArtifact == "1"
+
+        assert this.CompilerType == "Image" || this.CompilerType == "Package"
+        if(this.CompilerType == "Image"){
+           checkImageParameters() 
+        }
+	if(this.CompilerType == "Package"){
+	   checkPackageParameters()	
+	}
+    }
+
+    def checkPackageParameters(){
+
         assert this.CompilerOssBucket.length()>0
         assert this.CompilerOssEndpoint.length()>0
         assert this.AccessKey.length()>0
         assert this.SecretKey.length()>0
-
     }
 
-    def GenerateUploadingShell(){
+    def checkImageParameters(){
+
+        assert DockerLoginToken.length()>0
+        assert DockerRegistry.length()>0
+        assert DockerRepository.length()>0
+    }
+
+    def UploadPackage(){
 
         this.script.dir(this.ArtifactSpace) {
 
@@ -161,17 +182,49 @@ class ArtifactPackage {
 
     }
 
+    def PrepareImage(){
+        
+        //Generate docker related Commands, we do this since docker login/rmi is not yet supported
+        def login = printf("docker login -u jdcloud -p %s %s",this.DockerLoginToken,this.DockerRegistry)
+        def buildCommand = printf("docker build -t %s:%s .",this.DockerRegistry,this.e.BUILD_TAG)
+        def pushCommand = printf("docker push %s:%s ",this.DockerRegistry,this.e.BUILD_TAG)
+        def rmiCommand = printf("docker rmi %s:%s ",this.DockerRegistry,this.e.BUILD_TAG)
+
+        // Start executing them
+        this.script.sh login
+        this.script.sh buildCommand
+        this.script.sh pushCommand
+        this.script.sh rmiCommand
+
+    }
+
     def Execute(){
 
         CheckParameters()
+        
+        if(this.UploadArtifact == "1"){
+  
+            if(this.CompilerType == "Package"){
+            
+                Packaging()
 
-        Packaging()
+                def hash = MD5Hash()
 
-        def hash = MD5Hash()
+                RecordRuntimeEnv("COMPILER_PACKAGE_MD5SUM="+hash)
 
-        RecordRuntimeEnv("COMPILER_PACKAGE_MD5SUM="+hash)
+                UploadPackage()
+            }
 
-        GenerateUploadingShell()
+            if(this.CompilerType == "Image"){
+
+                PrepareImage()
+
+            }
+        }else{
+        
+            this.script.echo "Uploading skipped"
+
+        }
 
     }
 }

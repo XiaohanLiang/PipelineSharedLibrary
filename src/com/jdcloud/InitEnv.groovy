@@ -85,11 +85,21 @@ class InitEnv {
         checkParametersNonNil(this.e.Yaml)
         checkParametersNonNil(this.e.UploadArtifact)
         checkParametersNonNil(this.e.CompileModuleName)
-        checkParametersNonNil(this.e.OssBucketName)
-        checkParametersNonNil(this.e.OssBucketEndpoint)
-        checkParametersNonNil(this.e.OssAccessKey)
-        checkParametersNonNil(this.e.OssSecretKey)
         checkParametersNonNil(this.e.BuildImage)
+        checkParametersNonNil(this.e.CompilerType)
+
+        if (this.e.CompilerType == "Image"){
+            checkParametersNonNil(this.e.OssBucketName)
+            checkParametersNonNil(this.e.OssBucketEndpoint)
+            checkParametersNonNil(this.e.OssAccessKey)
+            checkParametersNonNil(this.e.OssSecretKey)
+        }else{
+            checkParametersNonNil(this.e.DockerRepository)
+            checkParametersNonNil(this.e.DockerLoginToken)
+            checkParametersNonNil(this.e.DockerRepository)
+            checkFileExists(this.e.Dockerfile)
+        }
+
 
         checkFileExists(this.e.JenkinsWorkSpace)
         checkFileExists(this.e.UserWorkSpace)
@@ -107,7 +117,7 @@ class InitEnv {
     def checkFileExists(String d){
         def dir = new File(d)
         if (!dir.exists()){
-            this.script.error("Directory " + d + " not exists while supposed to")
+            this.script.error("File " + d + " not exists while supposed to")
         }
     }
 

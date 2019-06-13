@@ -7,10 +7,9 @@ def call(def env) {
     env.UserWorkSpace = env.WORKSPACE + "/workspace/"
     env.ArtifactSpace = env.WORKSPACE + "/artifact/"
     env.MetaSpace = env.WORKSPACE + "/meta/"
-    echo "We have metaSpace="
-    echo env.MetaSpace
     env.CacheSpace = env.WORKSPACE + "/cache/"
     env.RuntimeEnv = env.WORKSPACE + "/meta/buildRuntimeEnv"
+    env.Dockerfile = env.WORKSPACE + "/workspace/Dockerfile"
 
     if (env.OutputSpace == ""){
         env.OutputSpace = env.JenkinsWorkSpace
