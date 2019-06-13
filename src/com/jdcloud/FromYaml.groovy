@@ -106,11 +106,11 @@ class FromYaml {
         def args = generateReqPair("-v",e.MetaSpace)
 
         // Tools : If desired tools are valid, then we map it into /bin/<Your_tool>:ro
-        for( tool in this.toolChain.split("#")){
-            if (validTools.containsKey(tool)){
-                args += generateReqPair("-v",validTools.get(tool),"/bin/"+tool,"ro")
-            }
-        }
+//        for( tool in this.toolChain.split("#")){
+//            if (validTools.containsKey(tool)){
+//                args += generateReqPair("-v",validTools.get(tool),"/bin/"+tool,"ro")
+//            }
+//        }
 
         // Caches
         if (e.BuildImage.toLowerCase().contains("maven")){
