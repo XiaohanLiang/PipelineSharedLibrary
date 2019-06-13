@@ -80,7 +80,7 @@ class InitEnv {
 
         checkParametersNonNil(this.e.JenkinsWorkSpace)
         checkParametersNonNil(this.e.SCM_URL)
-        checkParametersNonNil(this.e.SCM_CREDENTIAL)
+        //checkParametersNonNil(this.e.SCM_CREDENTIAL)
         checkParametersNonNil(this.e.SCM_BRANCH)
         //checkParametersNonNil(this.e.SCM_COMMIT_ID)
         checkParametersNonNil(this.e.YAML)
