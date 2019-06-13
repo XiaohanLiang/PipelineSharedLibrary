@@ -198,7 +198,7 @@ class Artifact {
 
         // Start executing them
         this.script.echo "We have login command"
-        this.script.echo login
+        this.script.echo "$login"
         this.script.sh login
         this.script.sh buildCommand
         this.script.sh pushCommand
