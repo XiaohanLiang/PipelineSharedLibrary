@@ -16,6 +16,7 @@ class Artifact {
     String OutputSpace
     String MetaSpace
     String ArtifactSpace
+    String JenkinsWorkSpace
     String PackageNameWithPath
 
     String CompilerType
@@ -51,6 +52,7 @@ class Artifact {
         this.DockerRegistry = env.DockerRegistry
         this.DockerRepository = env.DockerRepository
         this.DockerLoginToken = env.DockerLoginToken
+        this.JenkinsWorkSpace = env.JenkinsWorkSpace
     }
 
     def SetPackageName(){
@@ -197,12 +199,12 @@ class Artifact {
         def rmiCommand = sprintf("docker rmi %s:%s ",this.DockerRegistry,this.BuildTag)
 
         // Start executing them
-        this.script.echo "We have login command"
-        this.script.echo "$login"
-        this.script.sh login
-        this.script.sh buildCommand
-        this.script.sh pushCommand
-        this.script.sh rmiCommand
+        this.script.dir(this.JenkinsWorkSpace){
+            this.script.sh login
+            this.script.sh buildCommand
+            this.script.sh pushCommand
+            this.script.sh rmiCommand
+        }
 
     }
 
