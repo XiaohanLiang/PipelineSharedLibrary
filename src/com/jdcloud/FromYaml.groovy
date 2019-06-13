@@ -69,9 +69,10 @@ class FromYaml {
 
         PrintWriter pencil = new PrintWriter(scriptPath)
 
+        this.script.echo "this.environments.each pre"
         this.environments.each { name,value ->
 
-            this.script.echo "this.environments.each"
+            this.script.echo "this.environments.each post"
             if (name.length()==0){
                 return
             }
