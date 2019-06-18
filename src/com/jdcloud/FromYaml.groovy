@@ -110,48 +110,51 @@ class FromYaml {
     def DefineRequirements(){
 
         // User defined yaml
-        def args = generateReqPair("-v",e.MetaSpace)
+        def args = generateAttachPair(e.MetaSpace)
 
         // TODO : Attach tools -> into /bin/<tool_name>:ro
 
         // Caches - For Java
         if (e.BUILD_IMAGE.toLowerCase().contains("maven")){
-            args += generateReqPair("-v",e.CacheSpace,"/root/.m2")
+            args += generateAttachPair(e.CacheSpace,"/root/.m2")
         }
 
         // Caches - For Android
         if (e.BUILD_IMAGE.toLowerCase().contains("gradle")){
 
             // Set Android SDK
-            args += generateReqPair("-v","/usr/local/lib/android-sdk-linux","/usr/local/lib/android-sdk-linux","ro")
-            args += generateReqPair("-e","ANDROID_HOME","/usr/local/lib/android-sdk-linux")
+            args += generateAttachPair("/usr/local/lib/android-sdk-linux","/usr/local/lib/android-sdk-linux","ro")
+            args += generateEnvPair("ANDROID_HOME","/usr/local/lib/android-sdk-linux")
 
             // Set Android NDK
-            args += generateReqPair("-v","/usr/local/lib/android-sdk-linux/ndk-bundle","/usr/local/lib/android-sdk-linux/ndk-bundle","ro")
-            args += generateReqPair("-e","ANDROID_NDK_HOME","/usr/local/lib/android-sdk-linux/ndk-bundle")
+            args += generateAttachPair("/usr/local/lib/android-sdk-linux/ndk-bundle","/usr/local/lib/android-sdk-linux/ndk-bundle","ro")
+            args += generateEnvPair("ANDROID_NDK_HOME","/usr/local/lib/android-sdk-linux/ndk-bundle")
 
             // Set Gradle Tool
-            args += generateReqPair("-v","/usr/local/lib/gradle","/usr/local/lib/gradle","ro")
-            args += generateReqPair("-e","GRADLE_HOME","/usr/local/lib/gradle")
+            args += generateAttachPair("/usr/local/lib/gradle","/usr/local/lib/gradle","ro")
+            args += generateEnvPair("GRADLE_HOME","/usr/local/lib/gradle")
 
             // Set JDK
-            args += generateReqPair("-v","/usr/local/lib/jdk","/usr/local/lib/jdk","ro")
-            args += generateReqPair("-e","JAVA_HOME","/usr/local/lib/jdk")
+            args += generateAttachPair("/usr/local/lib/jdk","/usr/local/lib/jdk","ro")
+            args += generateEnvPair("JAVA_HOME","/usr/local/lib/jdk")
 
             // Set Android cache
-            args += generateReqPair("-v",e.CacheSpace,"/cache/android/.gradle")
-            args += generateReqPair("-e","GRADLE_USER_HOME","/cache/android/.gradle")
+            args += generateAttachPair(e.CacheSpace,"/cache/android/.gradle")
+            args += generateEnvPair("GRADLE_USER_HOME","/cache/android/.gradle")
 
         }
 
         return args
     }
 
-    def generateReqPair(def type,def source,def target=source,def pattern=""){
+    def generateAttachPair(def source,def target=source,def pattern=""){
         def ret = (pattern == null || pattern.length()==0) ?
-                sprintf("  %s %s:%s  ",type,source,target) :
-                sprintf("  %s %s:%s:%s  ",type,source,target,pattern)
+                sprintf("  -v %s:%s  ",source,target) :
+                sprintf("  -v %s:%s:%s  ",source,target,pattern)
         return ret
+    }
+    def generateEnvPair(def key,def val){
+        return sprintf(" -e %s=%s ",key,val)
     }
 
     def getOutputSpace(){
