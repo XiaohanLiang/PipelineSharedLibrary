@@ -112,16 +112,36 @@ class FromYaml {
         // User defined yaml
         def args = generateReqPair("-v",e.MetaSpace)
 
-        // Tools : If desired tools are valid, then we map it into /bin/<Your_tool>:ro
-//        for( tool in this.toolChain.split("#")){
-//            if (validTools.containsKey(tool)){
-//                args += generateReqPair("-v",validTools.get(tool),"/bin/"+tool,"ro")
-//            }
-//        }
+        // TODO : Attach tools -> into /bin/<tool_name>:ro
 
-        // Caches
+        // Caches - For Java
         if (e.BUILD_IMAGE.toLowerCase().contains("maven")){
             args += generateReqPair("-v",e.CacheSpace,"/root/.m2")
+        }
+
+        // Caches - For Android
+        if (e.BUILD_IMAGE.toLowerCase().contains("gradle")){
+
+            // Set Android SDK
+            args += generateReqPair("-v","/usr/local/lib/android-sdk-linux","/usr/local/lib/android-sdk-linux","ro")
+            args += generateReqPair("-e","ANDROID_HOME","/usr/local/lib/android-sdk-linux")
+
+            // Set Android NDK
+            args += generateReqPair("-v","/usr/local/lib/android-sdk-linux/ndk-bundle","/usr/local/lib/android-sdk-linux/ndk-bundle","ro")
+            args += generateReqPair("-e","ANDROID_NDK_HOME","/usr/local/lib/android-sdk-linux/ndk-bundle")
+
+            // Set Gradle Tool
+            args += generateReqPair("-v","/usr/local/lib/gradle","/usr/local/lib/gradle","ro")
+            args += generateReqPair("-e","GRADLE_HOME","/usr/local/lib/gradle")
+
+            // Set JDK
+            args += generateReqPair("-v","/usr/local/lib/jdk","/usr/local/lib/jdk","ro")
+            args += generateReqPair("-e","JAVA_HOME","/usr/local/lib/jdk")
+
+            // Set Android cache
+            args += generateReqPair("-v",e.CacheSpace,"/cache/android/.gradle")
+            args += generateReqPair("-e","GRADLE_USER_HOME","/cache/android/.gradle")
+
         }
 
         return args
