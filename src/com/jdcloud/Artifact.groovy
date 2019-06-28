@@ -228,6 +228,7 @@ class Artifact {
 
                 RecordRuntimeEnv("COMPILER_PACKAGE_URL="+url)
                 RecordRuntimeEnv("UPLOAD_ARTIFACT=1")
+                this.script.archiveArtifacts  artifacts: this.MetaSpace + "buildRuntimeEnv"
             }
 
             if(this.CompilerType == "IMAGE"){
