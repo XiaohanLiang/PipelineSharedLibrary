@@ -43,7 +43,7 @@ class InitEnv {
 
     def RecordRegionInfo(){
         File f = new File(this.RuntimeEnv)
-        f << ReadFile("/var/tmp/REGION_ID") 
+        f << ReadFile("/var/tmp/REGION_ID")
     }
 
     def GitInit(){

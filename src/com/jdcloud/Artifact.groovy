@@ -25,6 +25,7 @@ class Artifact {
     String CompilerOssBucket
     String CompilerOssPath
     String CompilerOssEndpoint
+    String CompilerPackageVersion
 
     def DockerLoginToken
     def DockerRegistryUri
@@ -61,7 +62,9 @@ class Artifact {
         def branch = branch.split("/").size() >=2 ? branch.split("/").get(1) : this.Branch
         def commitId = this.Commit.length() > 9 ? this.Commit[0..8] : this.Commit
 
-        this.PackageNameWithPath = this.ArtifactSpace + moduleName + "-" + branch + "-" + System.currentTimeSeconds() + ".tar.gz"
+        def timeTag = System.currentTimeSeconds()
+        this.PackageNameWithPath = this.ArtifactSpace + moduleName + "-" + branch + "-" + timeTag + ".tar.gz"
+        this.CompilerPackageVersion = branch + "-" + timeTag
     }
 
     def Packaging(){
@@ -228,6 +231,7 @@ class Artifact {
 
                 RecordRuntimeEnv("COMPILER_PACKAGE_URL="+url)
                 RecordRuntimeEnv("UPLOAD_ARTIFACT=1")
+                RecordRuntimeEnv("COMPILER_PACKAGE_VERSION="+this.CompilerPackageVersion)
 
                 this.script.archiveArtifacts  artifacts: "meta/buildRuntimeEnv"
             }
