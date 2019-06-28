@@ -186,6 +186,7 @@ class Artifact {
             this.script.echo "Start uploading..."
             this.script.sh("../meta/jss.sh" + args)
             this.script.echo "End uploading"
+            return this.CompilerOssEndpoint + "/" + this.CompilerOssBucket + "/" + fileName
         }
 
     }
@@ -223,7 +224,10 @@ class Artifact {
 
                 RecordRuntimeEnv("COMPILER_PACKAGE_MD5SUM="+hash)
 
-                UploadPackage()
+                def url = UploadPackage()
+
+                RecordRuntimeEnv("COMPILER_PACKAGE_URL="+url)
+                RecordRuntimeEnv("UPLOAD_ARTIFACT=1")
             }
 
             if(this.CompilerType == "IMAGE"){
