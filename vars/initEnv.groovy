@@ -10,7 +10,7 @@ def call(def env) {
     env.CacheSpace = env.WORKSPACE + "/cache/"
     env.RuntimeEnv = env.WORKSPACE + "/meta/buildRuntimeEnv"
     env.Dockerfile = env.WORKSPACE + "/workspace/Dockerfile"
-    env.JdcloudYaml = env.WORKSPACE + "/workspace/jdcloud-build.yml"
+    env.JdcloudYaml = env.WORKSPACE + "/workspace/jdcloud-build.yaml"
 
     def initiating = new InitEnv(env, this)
     initiating.Execute()
