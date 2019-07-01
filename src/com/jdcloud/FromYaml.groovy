@@ -163,13 +163,16 @@ class FromYaml {
     }
 
     def getYaml(){
-
+        this.script.echo "1"
         def jdcloudYaml = new File(env.JdcloudYaml)
+        this.script.echo "2"
         if(jdcloudYaml.exists()){
+            this.script.echo "3"
             return jdcloudYaml.text
         }
-
+        this.script.echo "4"
         def buildYaml = new File(env.BuildYaml)
+        this.script.echo "5"
         if(buildYaml.exists()){
             return buildYaml.text
         }
