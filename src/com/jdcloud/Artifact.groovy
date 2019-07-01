@@ -188,7 +188,9 @@ class Artifact {
 
             this.script.echo "Start uploading..."
             def ret = this.script.sh(returnStdout: true,script:"../meta/jss.sh" + args)
-            this.script.echo "The return value of the uploading is->" + ret
+            if(ret!=""){
+                this.script.error("Failed in uplaoding, Exit.")
+            }
             this.script.echo "End uploading"
             return this.CompilerOssEndpoint + "/" + this.CompilerOssBucket + "/" + fileName
         }
