@@ -34,26 +34,34 @@ class FromYaml {
     FromYaml (def env,Script s) {
 
         Yaml yaml = new Yaml()
+        
         if (env.USE_JDCLOUD_YAML=="1"){
 
             def jdcloudYaml = new File(env.JdcloudYaml)
-            s.echo "2"
-            if(jdcloudYaml.exists()){
-                s.echo "3"
-                this.SettingMap = yaml.load(jdcloudYaml.text)
-            }else{
-                s.echo "4"
-                def buildYaml = new File(env.BuildYaml)
-                s.echo "5"
-                if(buildYaml.exists()){
-                    this.SettingMap = yaml.load(buildYaml.text)
-                }else{
-                    s.error("Cannot find jdcloud-build.yml or build.yml")
-                }
+            def buildYaml = new File(env.BuildYaml)
+
+            if( !jdcloudYaml.exists() && !buildYaml.exists()){
+                s.error("Cannot find jdcloud-build.yml or build.yml")
             }
-        } else {
+
+            if( jdcloudYaml.exists() && !buildYaml.exists()) {
+                this.SettingMap = yaml.load(jdcloudYaml.text)
+            }
+
+            if( !jdcloudYaml.exists() && buildYaml.exists()) {
+                this.SettingMap = yaml.load(buildYaml.text)
+            }
+
+            if( jdcloudYaml.exists() && buildYaml.exists()) {
+                this.SettingMap = yaml.load(jdcloudYaml.text)
+            }
+
+        }
+
+        if(env.USE_JDCLOUD_YAML != "1"){
             this.SettingMap = yaml.load(env.YAML)
         }
+
         assertNotNull(settingMap)
 
         cmds = [:]
