@@ -187,7 +187,8 @@ class Artifact {
                     this.SecretKey, this.CompilerOssEndpoint, this.CompilerOssBucket)
 
             this.script.echo "Start uploading..."
-            this.script.sh("../meta/jss.sh" + args)
+            def ret = this.script.sh("../meta/jss.sh" + args)
+            this.script.echo "The return value of the uploading is->" + ret
             this.script.echo "End uploading"
             return this.CompilerOssEndpoint + "/" + this.CompilerOssBucket + "/" + fileName
         }
