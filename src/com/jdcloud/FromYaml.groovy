@@ -35,7 +35,7 @@ class FromYaml {
 
         Yaml yaml = new Yaml()
         if (env.USE_JDCLOUD_YAML=="1"){
-            def content = getYaml()
+            def content = getYamlText()
             this.SettingMap = yaml.load(content)
         } else {
             this.SettingMap = yaml.load(env.YAML)
@@ -162,7 +162,7 @@ class FromYaml {
         return this.OutputSpace
     }
 
-    def getYaml(){
+    def getYamlText(){
         this.script.echo "1"
         def jdcloudYaml = new File(env.JdcloudYaml)
         this.script.echo "2"
