@@ -35,8 +35,22 @@ class FromYaml {
 
         Yaml yaml = new Yaml()
         if (env.USE_JDCLOUD_YAML=="1"){
-            def content = getYamlText(env,s)
-            this.SettingMap = yaml.load(content)
+
+            def jdcloudYaml = new File(env.JdcloudYaml)
+            s.echo "2"
+            if(jdcloudYaml.exists()){
+                s.echo "3"
+                this.SettingMap = yaml.load(jdcloudYaml.text)
+            }else{
+                s.echo "4"
+                def buildYaml = new File(env.BuildYaml)
+                s.echo "5"
+                if(buildYaml.exists()){
+                    this.SettingMap = yaml.load(buildYaml.text)
+                }else{
+                    s.error("Cannot find jdcloud-build.yml or build.yml")
+                }
+            }
         } else {
             this.SettingMap = yaml.load(env.YAML)
         }
