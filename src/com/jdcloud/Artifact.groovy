@@ -225,30 +225,32 @@ class Artifact {
             if(this.CompilerType == "PACKAGE"){
             
                 Packaging()
-
                 def hash = MD5Hash()
-
-                RecordRuntimeEnv("COMPILER_PACKAGE_MD5SUM="+hash)
-
                 def url = UploadPackage()
 
+                RecordRuntimeEnv("COMPILER_PACKAGE_MD5SUM="+hash)
                 RecordRuntimeEnv("COMPILER_PACKAGE_URL="+url)
                 RecordRuntimeEnv("UPLOAD_ARTIFACT=1")
                 RecordRuntimeEnv("COMPILER_PACKAGE_VERSION="+this.CompilerPackageVersion)
 
-                this.script.archiveArtifacts  artifacts: "meta/buildRuntimeEnv"
             }
 
             if(this.CompilerType == "IMAGE"){
 
                 PrepareImage()
+                RecordRuntimeEnv("UPLOAD_ARTIFACT=1")
+                RecordRuntimeEnv("COMPILER_PACKAGE_URL="+this.DockerRegistryUri)
+                RecordRuntimeEnv("COMPILER_PACKAGE_VERSION="+this.BuildTag)
 
             }
         }else{
         
             this.script.echo "Uploading skipped"
+            RecordRuntimeEnv("UPLOAD_ARTIFACT=0")
 
         }
+
+        this.script.archiveArtifacts  artifacts: "meta/buildRuntimeEnv"
 
     }
 }
