@@ -90,8 +90,6 @@ class InitEnv {
 
         if (this.e.USE_JDCLOUD_YAML == "0"){
             checkParametersNonNil(this.e.YAML)
-        }else{
-            checkFileExists(this.e.JdcloudYaml)
         }
 
         if (this.e.UPLOAD_ARTIFACT == "1"){
