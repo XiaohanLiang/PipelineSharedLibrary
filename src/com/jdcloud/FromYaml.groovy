@@ -34,7 +34,7 @@ class FromYaml {
     FromYaml (def env,Script s) {
 
         Yaml yaml = new Yaml()
-        
+
         if (env.USE_JDCLOUD_YAML=="1"){
 
             def jdcloudYaml = new File(env.JdcloudYaml)
@@ -72,7 +72,7 @@ class FromYaml {
         }
 
         for ( ee in settingMap.envs ) {
-            this.envs[ee.name] = ee.value
+            this.envs[ee.name] = "'" + ee.value + "'"
         }
 
         if (settingMap.out_dir == null) {
