@@ -81,9 +81,7 @@ class InitEnv {
 
         checkParametersNonNil(this.e.JenkinsWorkSpace)
         checkParametersNonNil(this.e.SCM_URL)
-        //checkParametersNonNil(this.e.SCM_CREDENTIAL)
         checkParametersNonNil(this.e.SCM_BRANCH)
-        //checkParametersNonNil(this.e.SCM_COMMIT_ID)
         checkParametersNonNil(this.e.USE_JDCLOUD_YAML)
         checkParametersNonNil(this.e.UPLOAD_ARTIFACT)
         checkParametersNonNil(this.e.COMPILE_MODULE_NAME)
@@ -92,6 +90,8 @@ class InitEnv {
 
         if (this.e.USE_JDCLOUD_YAML == "0"){
             checkParametersNonNil(this.e.YAML)
+        }else{
+            checkFileExists(this.e.env.JdcloudYaml)
         }
 
         if (this.e.UPLOAD_ARTIFACT == "1"){
