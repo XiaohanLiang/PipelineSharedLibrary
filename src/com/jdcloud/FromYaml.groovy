@@ -138,7 +138,7 @@ class FromYaml {
         // TODO : Attach tools -> into /bin/<tool_name>:ro
 
         // Caches - For Java
-        if (e.BUILD_IMAGE.toLowerCase().contains("maven")){
+        if (e.BUILD_IMAGE.toLowerCase().contains("maven") && !e.SCM_URL.contains("java-demo")){
             args += generateAttachPair(e.CacheSpace,"/root/.m2")
         }
 
@@ -185,16 +185,11 @@ class FromYaml {
     }
 
     def getYamlText(def env,Script s){
-        s.echo "1"
         def jdcloudYaml = new File(env.JdcloudYaml)
-        s.echo "2"
         if(jdcloudYaml.exists()){
-            s.echo "3"
             return jdcloudYaml.text
         }
-        s.echo "4"
         def buildYaml = new File(env.BuildYaml)
-        s.echo "5"
         if(buildYaml.exists()){
             return buildYaml.text
         }
