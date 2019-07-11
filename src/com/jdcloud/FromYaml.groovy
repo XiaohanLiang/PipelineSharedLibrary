@@ -97,7 +97,7 @@ class FromYaml {
         def scriptPath = script.getAbsolutePath()
 
         PrintWriter pencil = new PrintWriter(scriptPath)
-        pencil.println("set -e")
+        pencil.println("#!/bin/sh -xe")
 
         this.envs.each { name,value ->
 
