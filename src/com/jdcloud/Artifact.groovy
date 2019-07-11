@@ -129,8 +129,8 @@ class Artifact {
 
     def RecordRuntimeEnv(String pattern) {
         // Assume buildRuntimeEnv exists
-        this.script.echo "Target -> " + this.MetaSpace + "buildRuntimeEnv"
-        this.script.echo "Pattern -> " + pattern
+//        this.script.echo "Target -> " + this.MetaSpace + "buildRuntimeEnv"
+//        this.script.echo "Pattern -> " + pattern
         File f = new File(this.MetaSpace + "buildRuntimeEnv")
         f << pattern << "\n"
     }
@@ -245,7 +245,7 @@ class Artifact {
             }
         }else{
         
-            this.script.echo "Uploading skipped"
+            this.script.echo "[Profiling Artifact] step has been skipped :)"
             RecordRuntimeEnv("UPLOAD_ARTIFACT=0")
 
         }
