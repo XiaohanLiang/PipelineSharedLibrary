@@ -13,9 +13,9 @@ def call(def env){
     dir(env.UserWorkSpace){
         withDockerContainer(args: requirements ,image:env.BUILD_IMAGE) {
             def s = sh(returnStatus:true ,script:scriptPath)
-            echo "We have status = " + s
-            //def status = sh(returnStdout: true,script:scriptPath)
-            //echo "we have status" + status
+            if(s != 0){
+                error("Failed in executing commands, exiting..")
+            }
         }
     }
 }
