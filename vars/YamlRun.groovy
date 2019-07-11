@@ -12,7 +12,7 @@ def call(def env){
 
     dir(env.UserWorkSpace){
         withDockerContainer(args: requirements ,image:env.BUILD_IMAGE) {
-            sh(returnStdout: true,script:scriptPath)
+            sh(script:scriptPath)
             //def status = sh(returnStdout: true,script:scriptPath)
             //echo "we have status" + status
         }
