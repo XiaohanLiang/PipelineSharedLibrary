@@ -97,6 +97,7 @@ class FromYaml {
         def scriptPath = script.getAbsolutePath()
 
         PrintWriter pencil = new PrintWriter(scriptPath)
+        pencil.println("set -x")
 
         this.envs.each { name,value ->
 
