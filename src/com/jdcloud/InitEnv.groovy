@@ -29,7 +29,10 @@ class InitEnv {
         this.script.sh("ls")
         createPath(this.JenkinsWorkSpace)
         this.script.sh("ls")
+        this.script.echo "${this.CacheSpace}"
+        this.script.sh("ls")
         createPath(this.CacheSpace)
+        this.script.sh("ls")
         createPath(this.UserWorkSpace)
         createPath(this.ArtifactSpace)
         createPath(this.MetaSpace)
