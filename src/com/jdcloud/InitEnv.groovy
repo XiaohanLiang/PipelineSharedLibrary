@@ -28,6 +28,7 @@ class InitEnv {
         createPath(this.JenkinsWorkSpace)
         createPath(this.CacheSpace)
         createPath(this.UserWorkSpace)
+        this.script.sh("ls")
         createPath(this.ArtifactSpace)
         createPath(this.MetaSpace)
         CreateFile(this.RuntimeEnv)
