@@ -36,7 +36,7 @@ class InitEnv {
     def createPath(String exp){
 //        File f = new File(exp)
 //        f.mkdir()
-        this.script.dir(exp){}
+        this.script.sh("mkdir ${exp}")
     }
     def CreateFile(String exp){
         def newFile = new File(exp)
