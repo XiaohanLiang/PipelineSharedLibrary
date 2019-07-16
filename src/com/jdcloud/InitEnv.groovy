@@ -25,7 +25,7 @@ class InitEnv {
     }
 
     def CreatePath(){
-        createPath(this.JenkinsWorkSpace)
+//        createPath(this.JenkinsWorkSpace)
         createPath(this.CacheSpace)
         createPath(this.UserWorkSpace)
         this.script.sh("ls")
