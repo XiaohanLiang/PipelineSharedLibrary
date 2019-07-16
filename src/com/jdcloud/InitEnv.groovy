@@ -39,7 +39,7 @@ class InitEnv {
     def CreateFile(String exp){
 
         this.script.sh("pwd")
-        this.script.sh("cd .. && ls")
+        this.script.sh("ls")
 
         def newFile = new File(exp)
         newFile.createNewFile()
