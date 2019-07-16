@@ -25,7 +25,10 @@ class InitEnv {
     }
 
     def CreatePath(){
+        this.script.echo "${this.JenkinsWorkSpace}"
+        this.script.sh("ls")
         createPath(this.JenkinsWorkSpace)
+        this.script.sh("ls")
         createPath(this.CacheSpace)
         createPath(this.UserWorkSpace)
         createPath(this.ArtifactSpace)
