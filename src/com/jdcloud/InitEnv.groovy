@@ -25,29 +25,19 @@ class InitEnv {
     }
 
     def CreatePath(){
-        this.script.echo "${this.JenkinsWorkSpace}"
-        this.script.sh("ls")
         createPath(this.JenkinsWorkSpace)
-        this.script.sh("ls")
-        this.script.echo "${this.CacheSpace}"
-        this.script.sh("ls")
         createPath(this.CacheSpace)
-        this.script.sh("ls")
         createPath(this.UserWorkSpace)
         createPath(this.ArtifactSpace)
         createPath(this.MetaSpace)
         CreateFile(this.RuntimeEnv)
     }
     def createPath(String exp){
-        File f = new File(exp)
-        f.mkdir()
+//        File f = new File(exp)
+//        f.mkdir()
+        this.script.dir(exp){}
     }
     def CreateFile(String exp){
-
-        this.script.sh("pwd")
-        this.script.sh("whoami")
-        this.script.sh("ls")
-
         def newFile = new File(exp)
         newFile.createNewFile()
     }
