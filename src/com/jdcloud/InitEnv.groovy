@@ -37,6 +37,10 @@ class InitEnv {
         f.mkdir()
     }
     def CreateFile(String exp){
+
+        this.script.sh("pwd")
+        this.script.sh("cd .. && ls")
+
         def newFile = new File(exp)
         newFile.createNewFile()
     }
