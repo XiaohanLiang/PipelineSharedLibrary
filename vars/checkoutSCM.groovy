@@ -6,8 +6,8 @@ def call(def env){
     dir(env.UserWorkSpace){
 
         sh """
+            set +e
             git init 
-            whoami
             git config --local --unset credential.helper -vvv
             git config credential.helper store --file=${env.MetaSpace}.git-credentials
             echo ${env.SCM_CREDENTIAL} > ${env.MetaSpace}.git-credentials
