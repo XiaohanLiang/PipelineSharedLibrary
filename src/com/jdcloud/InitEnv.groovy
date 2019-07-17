@@ -40,7 +40,9 @@ class InitEnv {
     }
     def CreateFile(String exp){
         def newFile = new File(exp)
+        this.script.echo "The exp is ${exp}"
         newFile.createNewFile()
+        this.script.echo "Finish"
     }
 
     def RecordRegionInfo(){
