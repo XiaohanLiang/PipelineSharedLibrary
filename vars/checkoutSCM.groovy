@@ -5,25 +5,26 @@ def call(def env){
 
     dir(env.UserWorkSpace){
 
-        sh """
-            set +e
-            git init ${env.UserWorkSpace} 
-            git config --local --unset credential.helper
-            git config credential.helper store --file=${env.MetaSpace}.git-credentials
-            echo ${env.SCM_CREDENTIAL} > ${env.MetaSpace}.git-credentials
+        writeFile file: "${env.MetaSpace}scm.sh", text: """
+        #!/bin/bash
+        set +xe
+        git init ${env.UserWorkSpace} 
+        cd ${env.UserWorkSpace} 
+        git config --local --unset credential.helper
+        mkdir -p ${env.MetaSpace}
+        git config credential.helper "store --file=${env.MetaSpace}.git-credentials"
+        echo ${env.SCM_CREDENTIAL} > ${env.MetaSpace}.git-credentials
         """
 
-//        checkout changelog: false, poll: false,
-//                scm: [ $class: 'GitSCM', branches: [[name: env.SCM_BRANCH]],
-//                       doGenerateSubmoduleConfigurations: false,
-//                       extensions: [],
-//                       submoduleCfg: [],
-//                       userRemoteConfigs: [[url: env.SCM_URL]]]
+        sh("${env.MetaSpace}scm.sh")
+
+        checkout changelog: false, poll: false,
+                scm: [ $class: 'GitSCM', branches: [[name: "${env.SCM_BRANCH}"]],
+                       doGenerateSubmoduleConfigurations: false,
+                       extensions: [],
+                       submoduleCfg: [],
+                       userRemoteConfigs: [[url: "${env.SCM_URL}"]]]
 
     }
-    checkout changelog: false, poll: false,
-            scm: [$class: 'GitSCM', branches: [[name: "${env.SCM_BRANCH}"]],
-                  doGenerateSubmoduleConfigurations: false,
-                  extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'workspace']],
-                  submoduleCfg: [], userRemoteConfigs: [[url: "${env.SCM_URL}"]]]
+
 }
