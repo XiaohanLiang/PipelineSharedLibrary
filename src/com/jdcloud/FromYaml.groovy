@@ -27,9 +27,14 @@ class FromYaml {
         this.e = env
     }
 
+    def Reader(){
+        def reader = this.script.readYaml "${this.e.JdcloudYaml}"
+        this.script.echo reader
+    }
+
     def GenerateShellScript(){
 
-        this.script.readYaml "${this.e.JdcloudYaml}"
+        Reader()
 
         Yaml yaml = new Yaml()
 
