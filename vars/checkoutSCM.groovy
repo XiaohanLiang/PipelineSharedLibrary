@@ -23,7 +23,7 @@ def call(def env){
 //                       extensions: [],
 //                       submoduleCfg: [],
 //                       userRemoteConfigs: [[url: env.SCM_URL]]]
-        git branch: ${env.SCM_BRANCH}, url: ${env.SCM_CREDENTIAL}
+        git branch: "${env.SCM_BRANCH}", url: "${env.SCM_CREDENTIAL}"
 
     }
 }
