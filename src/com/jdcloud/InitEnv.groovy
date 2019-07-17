@@ -40,7 +40,6 @@ class InitEnv {
 
     def RecordRegionInfo(){
         def regionId = this.script.readFile('/var/tmp/REGION_ID')
-        this.script.echo "Here the regionId=${regionId}"
         this.script.writeFile file:this.RuntimeEnv, text:regionId
     }
 
