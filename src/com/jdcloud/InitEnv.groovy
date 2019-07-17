@@ -139,7 +139,7 @@ class InitEnv {
 
         CreatePath()
 
-        CheckParameters()
+//        CheckParameters()
 
         RecordRegionInfo()
     }
