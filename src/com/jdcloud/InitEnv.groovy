@@ -30,20 +30,15 @@ class InitEnv {
         createPath(this.UserWorkSpace)
         createPath(this.ArtifactSpace)
         createPath(this.MetaSpace)
-        this.script.sh("ls")
         CreateFile(this.RuntimeEnv)
     }
     def createPath(String exp){
-//        File f = new File(exp)
-//        f.mkdir()
-        this.script.sh("mkdir -p ${exp}")
+        File f = new File(exp)
+        f.mkdir()
     }
     def CreateFile(String exp){
-//        def newFile = new File(exp)
-        this.script.echo "The exp is ${exp}"
-        this.script.sh("touch ${this.RuntimeEnv}")
-//        newFile.createNewFile()
-        this.script.echo "Finish"
+        def newFile = new File(exp)
+        newFile.createNewFile()
     }
 
     def RecordRegionInfo(){
