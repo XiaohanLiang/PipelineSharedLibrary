@@ -30,20 +30,25 @@ class InitEnv {
         createPath(this.UserWorkSpace)
         createPath(this.ArtifactSpace)
         createPath(this.MetaSpace)
-        CreateFile(this.RuntimeEnv)
+//        this.script.sh("ls")
+//        CreateFile(this.RuntimeEnv)
     }
     def createPath(String exp){
-        File f = new File(exp)
-        f.mkdir()
+        this.script.sh("mkdir -p ${exp}")
     }
     def CreateFile(String exp){
         def newFile = new File(exp)
+        this.script.echo "The exp is ${exp}"
         newFile.createNewFile()
+        this.script.echo "Finish"
     }
 
     def RecordRegionInfo(){
-        File f = new File(this.RuntimeEnv)
-        f << ReadFile("/var/tmp/REGION_ID")
+//        File f = new File(this.RuntimeEnv)
+//        f << ReadFile("/var/tmp/REGION_ID")
+        def regionId = this.script.readFile('/var/tmp/REGION_ID')
+        this.script.echo "Here the regionId=${regionId}"
+        this.script.writeFile file:this.RuntimeEnv, text:regionId
     }
 
     def GitInit(){
