@@ -44,32 +44,32 @@ class FromYaml {
 
         if (this.e.USE_JDCLOUD_YAML=="1"){
 
-            def jdcloudYaml = this.script.fileExists "${env.JdcloudYaml}"
-            def buildYaml = this.script.fileExists "${env.BuildYaml}"
+            def jdcloudYaml = this.script.fileExists "${this.e.JdcloudYaml}"
+            def buildYaml = this.script.fileExists "${this.e.BuildYaml}"
 
             if( !jdcloudYaml.exists() && !buildYaml.exists()){
                 this.script.error("Cannot find jdcloud-build.yml or build.yml")
             }
 
             if( jdcloudYaml.exists() && !buildYaml.exists()) {
-                def y = this.script.readFile "${env.JdcloudYaml}"
+                def y = this.script.readFile "${this.e.JdcloudYaml}"
                 this.SettingMap = yaml.load(y)
             }
 
             if( !jdcloudYaml.exists() && buildYaml.exists()) {
-                def b = this.script.readFile "${env.BuildYaml}"
+                def b = this.script.readFile "${this.e.BuildYaml}"
                 this.SettingMap = yaml.load(buildYaml.text)
             }
 
             if( jdcloudYaml.exists() && buildYaml.exists()) {
-                def y = this.script.readFile "${env.JdcloudYaml}"
+                def y = this.script.readFile "${this.e.JdcloudYaml}"
                 this.SettingMap = yaml.load(y)
             }
 
         }
 
-        if(env.USE_JDCLOUD_YAML != "1"){
-            this.SettingMap = yaml.load(env.YAML)
+        if(this.e.USE_JDCLOUD_YAML != "1"){
+            this.SettingMap = yaml.load(this.e.YAML)
         }
 
         assertNotNull(settingMap)
@@ -86,18 +86,19 @@ class FromYaml {
         }
 
         if (settingMap.out_dir == null) {
-            this.OutputSpace = env.UserWorkSpace
+            this.OutputSpace = this.e.UserWorkSpace
         }else {
             this.OutputSpace = settingMap.out_dir
         }
 
-
-        File meta = new File(this.metaspace)
-        File script = File.createTempFile("Jenkins-UserDefinedScripts-", ".sh", meta);
-        script.setExecutable(true)
-        script.setWritable(true)
-        script.deleteOnExit();
-        def scriptPath = script.getAbsolutePath()
+        sh("touch ${this.metaspace}/Jenkins-UserDefinedScripts.sh")
+//        File meta = new File(this.metaspace)
+//        File script = File.createTempFile("Jenkins-UserDefinedScripts-", ".sh", meta);
+//        script.setExecutable(true)
+//        script.setWritable(true)
+//        script.deleteOnExit();
+//        def scriptPath = script.getAbsolutePath()
+        def scriptPath = "${this.metaspace}/Jenkins-UserDefinedScripts.sh"
 
         PrintWriter pencil = new PrintWriter(scriptPath)
         pencil.println("set -e")
