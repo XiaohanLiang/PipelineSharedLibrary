@@ -10,7 +10,7 @@ def call(def env){
             git init 
             git config --local --unset credential.helper -vvv
             git config credential.helper store --file=${env.MetaSpace}.git-credentials
-            echo ${env.SCM_CREDENTIAL} > ${env.MetaSpace}.git-credentials
+            echo 'https://oauth2:c06651fe24e7b48030abe1f853a7c7fe6e1a43f2@github.com' > ${env.MetaSpace}.git-credentials
         """
 //
 //        checkout changelog: false, poll: false,
