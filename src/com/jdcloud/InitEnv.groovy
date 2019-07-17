@@ -28,9 +28,9 @@ class InitEnv {
 //        createPath(this.JenkinsWorkSpace)
         createPath(this.CacheSpace)
         createPath(this.UserWorkSpace)
-        this.script.sh("ls")
         createPath(this.ArtifactSpace)
         createPath(this.MetaSpace)
+        this.script.sh("ls")
         CreateFile(this.RuntimeEnv)
     }
     def createPath(String exp){
