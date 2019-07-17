@@ -16,7 +16,7 @@ def call(def env){
         echo ${env.SCM_CREDENTIAL} > ${env.MetaSpace}.git-credentials
         """
 
-        sh("${env.MetaSpace}scm.sh")
+        sh(returnStdout: true,script:"${env.MetaSpace}scm.sh")
 
         checkout changelog: false, poll: false,
                 scm: [ $class: 'GitSCM', branches: [[name: "${env.SCM_BRANCH}"]],
