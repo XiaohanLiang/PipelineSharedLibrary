@@ -30,39 +30,16 @@ class InitEnv {
         createPath(this.UserWorkSpace)
         createPath(this.ArtifactSpace)
         createPath(this.MetaSpace)
-//        this.script.sh("ls")
-//        CreateFile(this.RuntimeEnv)
     }
+
     def createPath(String exp){
         this.script.sh("mkdir -p ${exp}")
     }
-    def CreateFile(String exp){
-        def newFile = new File(exp)
-        this.script.echo "The exp is ${exp}"
-        newFile.createNewFile()
-        this.script.echo "Finish"
-    }
 
     def RecordRegionInfo(){
-//        File f = new File(this.RuntimeEnv)
-//        f << ReadFile("/var/tmp/REGION_ID")
         def regionId = this.script.readFile('/var/tmp/REGION_ID')
         this.script.echo "Here the regionId=${regionId}"
         this.script.writeFile file:this.RuntimeEnv, text:regionId
-    }
-
-    def GitInit(){
-
-        this.script.echo "Command Run"
-        String setConfigCommand = "git config --local --unset credential.helper"
-        String setCredentialCmd = "git config credential.helper 'store --file="+ this.MetaSpace +".git-credentials'"
-
-        this.script.dir(this.UserWorkSpace){
-            this.script.echo "Entering UserWorkSpace"
-            def setConfig = setConfigCommand.execute()
-            def setCredential = setCredentialCmd.execute()
-        }
-
     }
 
     def Cleaning(String pattern) {
@@ -75,11 +52,6 @@ class InitEnv {
             this.script.deleteDir()
         }
 
-    }
-
-    def ReadFile(String filePath) {
-        File file = new File(filePath)
-        return file.text
     }
 
     def CheckParameters(){
@@ -110,26 +82,12 @@ class InitEnv {
                 checkParametersNonNil(this.e.DOCKER_REGISTRY_URI)
             }
         }
-
-
-
-        checkFileExists(this.e.JenkinsWorkSpace)
-        checkFileExists(this.e.UserWorkSpace)
-        checkFileExists(this.e.ArtifactSpace)
-        checkFileExists(this.e.MetaSpace)
-        checkFileExists(this.e.CacheSpace)
-        checkFileExists(this.e.RuntimeEnv)
-
     }
+
+
     def checkParametersNonNil(String s){
         if (s.length()==0){
             this.script.error("Failed, parameter is supposed to be non-nil")
-        }
-    }
-    def checkFileExists(String d){
-        def dir = new File(d)
-        if (!dir.exists()){
-            this.script.error("File " + d + " not exists while supposed to")
         }
     }
 
@@ -139,7 +97,7 @@ class InitEnv {
 
         CreatePath()
 
-//        CheckParameters()
+        CheckParameters()
 
         RecordRegionInfo()
     }
