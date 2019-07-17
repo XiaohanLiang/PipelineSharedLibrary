@@ -35,7 +35,7 @@ class InitEnv {
     }
 
     def createPath(String exp){
-        this.script.sh("mkdir -p ${exp}")
+        this.script.sh(returnStdout: false,script:"mkdir -p ${exp}")
     }
 
     def RecordRegionInfo(){
