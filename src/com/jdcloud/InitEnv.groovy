@@ -30,6 +30,8 @@ class InitEnv {
         createPath(this.UserWorkSpace)
         createPath(this.ArtifactSpace)
         createPath(this.MetaSpace)
+        this.script.echo ("Preparing necessary tools...[FINISHED]")
+
     }
 
     def createPath(String exp){
@@ -52,6 +54,7 @@ class InitEnv {
             this.script.deleteDir()
         }
 
+        this.script.echo ("Cleaning workspace...[FINISHED]")
     }
 
     def CheckParameters(){
