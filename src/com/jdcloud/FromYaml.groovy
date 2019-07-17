@@ -37,6 +37,9 @@ class FromYaml {
 
         if (env.USE_JDCLOUD_YAML=="1"){
 
+
+            this.script.echo "Jdcloud yaml = ${env.JdcloudYaml}"
+            this.script.echo "BuildYaml yaml = ${env.BuildYaml}"
             def jdcloudYaml = this.script.fileExists "${env.JdcloudYaml}"
             def buildYaml = this.script.fileExists "${env.BuildYaml}"
 
