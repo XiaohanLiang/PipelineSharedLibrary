@@ -34,16 +34,21 @@ class FromYaml {
     FromYaml (def env,Script s) {
 
         this.script = s
+        this.metaspace = env.MetaSpace
+        this.e = env
+    }
+
+    def GenerateShellScript(){
+
         Yaml yaml = new Yaml()
 
-        if (env.USE_JDCLOUD_YAML=="1"){
-
+        if (this.e.USE_JDCLOUD_YAML=="1"){
 
             def jdcloudYaml = this.script.fileExists "${env.JdcloudYaml}"
             def buildYaml = this.script.fileExists "${env.BuildYaml}"
 
             if( !jdcloudYaml.exists() && !buildYaml.exists()){
-                s.error("Cannot find jdcloud-build.yml or build.yml")
+                this.script.error("Cannot find jdcloud-build.yml or build.yml")
             }
 
             if( jdcloudYaml.exists() && !buildYaml.exists()) {
@@ -86,12 +91,6 @@ class FromYaml {
             this.OutputSpace = settingMap.out_dir
         }
 
-        this.metaspace = env.MetaSpace
-        //this.toolChain = env.Tools
-        this.e = env
-    }
-
-    def GenerateShellScript(){
 
         File meta = new File(this.metaspace)
         File script = File.createTempFile("Jenkins-UserDefinedScripts-", ".sh", meta);
