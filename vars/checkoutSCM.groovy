@@ -6,6 +6,7 @@ def call(def env){
     dir(env.UserWorkSpace){
 
         sh """
+
             git init ${env.UserWorkSpace}
             git config --local --unset credential.helper
             git config credential.helper "store --file=${env.MetaSpace}.git-credentials"
