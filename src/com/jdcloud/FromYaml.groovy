@@ -29,6 +29,8 @@ class FromYaml {
 
     def GenerateShellScript(){
 
+        this.script.readYaml "${this.e.JdcloudYaml}"
+
         Yaml yaml = new Yaml()
 
         if (this.e.USE_JDCLOUD_YAML=="1"){
