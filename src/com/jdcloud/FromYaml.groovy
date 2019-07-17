@@ -1,21 +1,9 @@
 #!/usr/bin/env groovy
 package com.jdcloud
 
-//@Grab(group='org.yaml', module='snakeyaml', version='1.17')
 import org.yaml.snakeyaml.Yaml
 import static org.junit.Assert.*
 import java.lang.ProcessBuilder
-
-/**
- * Todo -
- *          Introduce some try....catch in creating and executing shells
- *
- * CheckList -
- *          1. ignore output, make it work locally - [ok]
- *          2. Gain output - [ok]
- *          3. Continuous gain output - [ok]
- *          4. Stop it from updating script every time
- */
 
 class FromYaml {
 
