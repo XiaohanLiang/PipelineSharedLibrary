@@ -33,13 +33,12 @@ class FromYaml {
 
     FromYaml (def env,Script s) {
 
+        this.script = s
         Yaml yaml = new Yaml()
 
         if (env.USE_JDCLOUD_YAML=="1"){
 
 
-            this.script.echo "Jdcloud yaml = ${env.JdcloudYaml}"
-            this.script.echo "BuildYaml yaml = ${env.BuildYaml}"
             def jdcloudYaml = this.script.fileExists "${env.JdcloudYaml}"
             def buildYaml = this.script.fileExists "${env.BuildYaml}"
 
@@ -48,17 +47,17 @@ class FromYaml {
             }
 
             if( jdcloudYaml.exists() && !buildYaml.exists()) {
-                def y = readFile "${env.JdcloudYaml}"
+                def y = this.script.readFile "${env.JdcloudYaml}"
                 this.SettingMap = yaml.load(y)
             }
 
             if( !jdcloudYaml.exists() && buildYaml.exists()) {
-                def b = readFile "${env.BuildYaml}"
+                def b = this.script.readFile "${env.BuildYaml}"
                 this.SettingMap = yaml.load(buildYaml.text)
             }
 
             if( jdcloudYaml.exists() && buildYaml.exists()) {
-                def y = readFile "${env.JdcloudYaml}"
+                def y = this.script.readFile "${env.JdcloudYaml}"
                 this.SettingMap = yaml.load(y)
             }
 
@@ -90,7 +89,6 @@ class FromYaml {
         this.metaspace = env.MetaSpace
         //this.toolChain = env.Tools
         this.e = env
-        this.script = s
     }
 
     def GenerateShellScript(){
