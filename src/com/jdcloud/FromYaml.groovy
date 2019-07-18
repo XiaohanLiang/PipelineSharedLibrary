@@ -25,30 +25,6 @@ class FromYaml {
         this.e = env
     }
 
-    def Reader(){
-        def reader = this.script.readYaml file: "${this.e.BuildYaml}"
-        def r = reader.toString()
-        def e = reader.envs.toString()
-        this.script.echo r
-        this.script.echo e
-    }
-
-    def GetYamlFile(){
-
-        def jdcloudYaml = this.script.fileExists "${this.e.JdcloudYaml}"
-        def buildYaml = this.script.fileExists "${this.e.BuildYaml}"
-
-        if( !jdcloudYaml && !buildYaml ){
-            this.script.error("Cannot find jdcloud-build.yml or build.yml")
-        }
-
-        if( jdcloudYaml ) {
-            return "${this.e.JdcloudYaml}"
-        }
-
-        return "${this.e.BuildYaml}"
-    }
-
     def GenerateShellScript(){
 
         if (this.e.USE_JDCLOUD_YAML=="1"){
@@ -157,6 +133,22 @@ class FromYaml {
         return args
     }
 
+    def GetYamlFile(){
+
+        def jdcloudYaml = this.script.fileExists "${this.e.JdcloudYaml}"
+        def buildYaml = this.script.fileExists "${this.e.BuildYaml}"
+
+        if( !jdcloudYaml && !buildYaml ){
+            this.script.error("Cannot find jdcloud-build.yml or build.yml")
+        }
+
+        if( jdcloudYaml ) {
+            return "${this.e.JdcloudYaml}"
+        }
+
+        return "${this.e.BuildYaml}"
+    }
+
     def generateAttachPair(def source,def target=source,def pattern=""){
         def ret = (pattern == null || pattern.length()==0) ?
                 sprintf("  -v %s:%s  ",source,target) :
@@ -167,20 +159,4 @@ class FromYaml {
         return sprintf(" -e %s=%s ",key,val)
     }
 
-    def getOutputSpace(){
-        return this.OutputSpace
-    }
-
-    def getYamlText(def env,Script s){
-        def jdcloudYaml = new File(env.JdcloudYaml)
-        if(jdcloudYaml.exists()){
-            return jdcloudYaml.text
-        }
-        def buildYaml = new File(env.BuildYaml)
-        if(buildYaml.exists()){
-            return buildYaml.text
-        }
-
-        s.error("Cannot find jdcloud-build.yml or build.yml")
-    }
 }

@@ -88,51 +88,14 @@ class Artifact {
     def MD5Hash(){
 
         def packageName = this.PackageNameWithPath
-        File p = new File(packageName);
-        MessageDigest md5Digest = MessageDigest.getInstance("MD5");
-        def md5 = getFileChecksum(md5Digest, p)
-
+        def md5 = this.script.sh("cat ${packageName} | md5sum | awk '{print \$1}'")
         this.script.echo  "Package MD5Sum = " + md5
         return md5
     }
 
-    def getFileChecksum(MessageDigest digest, File file) throws IOException {
-        //Get file input stream for reading the file content
-        FileInputStream fis = new FileInputStream(file);
-
-        //Create byte array to read data in chunks
-        byte[] byteArray = new byte[1024];
-        int bytesCount = fis.read(byteArray)
-
-        //Read file data and update in message digest
-        for ( ; bytesCount != -1 ;bytesCount = fis.read(byteArray)){
-            digest.update(byteArray, 0, bytesCount);
-        }
-
-        //close the stream; We don't need it now.
-        fis.close();
-
-        //Get the hash's bytes
-        byte[] bytes = digest.digest();
-
-        //This bytes[] has bytes in decimal format;
-        //Convert it to hexadecimal format
-        StringBuilder sb = new StringBuilder();
-        for(int i=0; i< bytes.length ;i++)
-        {
-            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-        }
-
-        //return complete hash
-        return sb.toString();
-    }
-
     def RecordRuntimeEnv(String pattern) {
-        // Assume buildRuntimeEnv exists
-//        this.script.echo "Target -> " + this.MetaSpace + "buildRuntimeEnv"
-//        this.script.echo "Pattern -> " + pattern
-        File f = new File(this.MetaSpace + "buildRuntimeEnv")
-        f << pattern << "\n"
+        this.script.sh("#!/bin/sh -e\n echo ${pattern} >> ${this.MetaSpace}buildRuntimeEnv")
+        this.script.sh("#!/bin/sh -e\n echo \n >> ${this.MetaSpace}buildRuntimeEnv")
     }
 
     def CheckParameters(){
@@ -175,10 +138,7 @@ class Artifact {
             def shellString = this.script.libraryResource("jss")
             def shellFile = this.MetaSpace + "jss.sh"
             this.script.writeFile file: shellFile, text: shellString
-
-            File shell = new File(this.MetaSpace + "jss.sh")
-            shell.setExecutable(true)
-            shell.setWritable(true)
+            this.script.sh("#!/bin/sh -e\n chmod +x ${shellFile}")
 
             File art = new File(this.PackageNameWithPath)
             String fileName = art.getName()
