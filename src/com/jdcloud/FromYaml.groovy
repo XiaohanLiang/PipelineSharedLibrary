@@ -132,8 +132,9 @@ class FromYaml {
     }
 
     def Trace(String s){
-        s = s + "\n"
-        this.script.sh("#!/bin/sh -e\n echo ${s} >> ${this.metaspace}Jenkins-UserDefinedScripts.sh")
+        def fileName =  "${this.metaspace}user_defined_scripts.sh"
+        def content = this.script.readFile fileName
+        this.script.writeFile file: fileName , text: "$readContent \n ${s}"
     }
 
     def GetYamlFile(){
