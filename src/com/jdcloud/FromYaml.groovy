@@ -1,8 +1,6 @@
 #!/usr/bin/env groovy
 package com.jdcloud
 
-@Grab(group='org.yaml', module='snakeyaml', version='1.17')
-import org.yaml.snakeyaml.Yaml
 import static org.junit.Assert.*
 import java.lang.ProcessBuilder
 
@@ -35,68 +33,53 @@ class FromYaml {
         this.script.echo e
     }
 
+    def GetYamlFile(){
+
+        def jdcloudYaml = this.script.fileExists "${this.e.JdcloudYaml}"
+        def buildYaml = this.script.fileExists "${this.e.BuildYaml}"
+
+        if( !jdcloudYaml && !buildYaml ){
+            this.script.error("Cannot find jdcloud-build.yml or build.yml")
+        }
+
+        if( jdcloudYaml ) {
+            return "${this.e.JdcloudYaml}"
+        }
+
+        return "${this.e.BuildYaml}"
+    }
+
     def GenerateShellScript(){
 
-        Reader()
-
-        Yaml yaml = new Yaml()
-
         if (this.e.USE_JDCLOUD_YAML=="1"){
-
-            def jdcloudYaml = this.script.fileExists "${this.e.JdcloudYaml}"
-            def buildYaml = this.script.fileExists "${this.e.BuildYaml}"
-
-            if( !jdcloudYaml.exists() && !buildYaml.exists()){
-                this.script.error("Cannot find jdcloud-build.yml or build.yml")
-            }
-
-            if( jdcloudYaml.exists() && !buildYaml.exists()) {
-                def y = this.script.readFile "${this.e.JdcloudYaml}"
-                this.SettingMap = yaml.load(y)
-            }
-
-            if( !jdcloudYaml.exists() && buildYaml.exists()) {
-                def b = this.script.readFile "${this.e.BuildYaml}"
-                this.SettingMap = yaml.load(buildYaml.text)
-            }
-
-            if( jdcloudYaml.exists() && buildYaml.exists()) {
-                def y = this.script.readFile "${this.e.JdcloudYaml}"
-                this.SettingMap = yaml.load(y)
-            }
-
+            def y = GetYamlFile()
+            this.SettingMap = this.script.readYaml file: y
         }
 
         if(this.e.USE_JDCLOUD_YAML != "1"){
-            this.SettingMap = yaml.load(this.e.YAML)
+            this.SettingMap = this.script.readYaml text: this.e.YAML
         }
 
-        assertNotNull(settingMap)
+        assertNotNull(this.SettingMap)
 
         cmds = [:]
         envs = [:]
 
-        for( c in settingMap.cmds ){
+        for( c in this.SettingMap.cmds ){
             this.cmds[c.name] = c.cmd
         }
 
-        for ( ee in settingMap.envs ) {
+        for ( ee in this.SettingMap.envs ) {
             this.envs[ee.name] = "'" + ee.value + "'"
         }
 
-        if (settingMap.out_dir == null) {
+        if (this.SettingMap.out_dir == null) {
             this.OutputSpace = this.e.UserWorkSpace
         }else {
             this.OutputSpace = settingMap.out_dir
         }
 
-        sh("touch ${this.metaspace}/Jenkins-UserDefinedScripts.sh")
-//        File meta = new File(this.metaspace)
-//        File script = File.createTempFile("Jenkins-UserDefinedScripts-", ".sh", meta);
-//        script.setExecutable(true)
-//        script.setWritable(true)
-//        script.deleteOnExit();
-//        def scriptPath = script.getAbsolutePath()
+        this.script.sh("touch ${this.metaspace}/Jenkins-UserDefinedScripts.sh")
         def scriptPath = "${this.metaspace}/Jenkins-UserDefinedScripts.sh"
 
         PrintWriter pencil = new PrintWriter(scriptPath)
