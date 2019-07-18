@@ -79,8 +79,8 @@ class FromYaml {
             this.OutputSpace = settingMap.out_dir
         }
 
-        this.script.sh("touch ${this.metaspace}/Jenkins-UserDefinedScripts.sh")
-        def scriptPath = "${this.metaspace}/Jenkins-UserDefinedScripts.sh"
+        this.script.sh("touch ${this.metaspace}Jenkins-UserDefinedScripts.sh")
+        def scriptPath = "${this.metaspace}Jenkins-UserDefinedScripts.sh"
 
         PrintWriter pencil = new PrintWriter(scriptPath)
         pencil.println("set -e")
