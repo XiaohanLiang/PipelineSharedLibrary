@@ -89,7 +89,6 @@ class Artifact {
 
         def packageName = this.PackageNameWithPath
         def md5 = this.script.sh(returnStdout: true,script:"#!/bin/sh -e\n  cat ${packageName} | md5sum | awk '{print \$1}'")
-        this.script.echo  "Package MD5Sum = " + md5
         return md5
     }
 
