@@ -7,7 +7,8 @@ def call(def env){
 
         writeFile file: "${env.MetaSpace}scm.sh", text: """
         #!/bin/bash
-        set +xe
+        set +x
+        set -e
         git init ${env.UserWorkSpace} 
         cd ${env.UserWorkSpace} 
         git config --local --unset credential.helper
