@@ -59,7 +59,6 @@ class FromYaml {
         this.script.sh("#!/bin/sh -e\n chmod +x ${this.metaspace}Jenkins-UserDefinedScripts.sh")
         def scriptPath = "${this.metaspace}Jenkins-UserDefinedScripts.sh"
 
-        PrintWriter pencil = new PrintWriter(scriptPath)
         Trace("set -e")
 
         this.envs.each { name,value ->
