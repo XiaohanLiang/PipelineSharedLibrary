@@ -28,7 +28,7 @@ class FromYaml {
     }
 
     def Reader(){
-        def reader = this.script.readYaml "${this.e.JdcloudYaml}"
+        def reader = this.script.readYaml file: "${this.e.JdcloudYaml}"
         this.script.echo reader
     }
 
