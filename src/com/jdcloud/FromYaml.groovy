@@ -88,7 +88,6 @@ class FromYaml {
 
         }
 
-        pencil.close()
         return scriptPath
     }
 
