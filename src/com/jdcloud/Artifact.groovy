@@ -18,6 +18,7 @@ class Artifact {
     String ArtifactSpace
     String UserWorkSpace
     String PackageNameWithPath
+    String RawPackageName
 
     String CompilerType
     String UploadArtifact
@@ -61,8 +62,9 @@ class Artifact {
         def moduleName = this.CompileModuleName.toLowerCase().replaceAll("_","-")
         def branch = branch.split("/").size() >=2 ? branch.split("/").get(1) : this.Branch
         def commitId = this.Commit.length() > 9 ? this.Commit[0..8] : this.Commit
-
         def timeTag = System.currentTimeSeconds()
+
+        this.RawPackageName = moduleName + "-" + branch + "-" + timeTag + ".tar.gz"
         this.PackageNameWithPath = this.ArtifactSpace + moduleName + "-" + branch + "-" + timeTag + ".tar.gz"
         this.CompilerPackageVersion = branch + "-" + timeTag
     }
@@ -72,17 +74,13 @@ class Artifact {
         SetPackageName()
         def packageName = this.PackageNameWithPath
         def packageCommand = "tar zcvf " + packageName + " " + this.OutputSpace
+        this.script.echo "Packaging : ${this.OutputSpace} -> ${this.RawPackageName}"
 
-        this.script.echo "Packaging -> " + packageName
+        def ret = this.script.sh(returnStatus:true,script:"${packageCommand}")
+        if(ret != 0){
+            error("Failed in packaging, exiting..")
+        }
 
-        def Stdout = new StringBuilder()
-        def Stderr = new StringBuilder()
-        def start = packageCommand.execute()
-        start.consumeProcessOutput(Stdout, Stderr)
-        start.waitForOrKill(3600 * 1000)
-
-        this.script.echo ">      $Stdout"
-        this.script.echo "------------"
     }
 
     def MD5Hash(){
