@@ -88,7 +88,7 @@ class Artifact {
     def MD5Hash(){
 
         def packageName = this.PackageNameWithPath
-        def md5 = this.script.sh("cat ${packageName} | md5sum | awk '{print \$1}'")
+        def md5 = this.script.sh(returnStdout: true,script:"#!/bin/sh -e\n  cat ${packageName} | md5sum | awk '{print \$1}'")
         this.script.echo  "Package MD5Sum = " + md5
         return md5
     }
@@ -151,7 +151,7 @@ class Artifact {
             if(ret!=""){
                 this.script.error("Failed in uplaoding, Exit.")
             }
-            this.script.echo "End uploading"
+            this.script.echo "Uploading finished :)"
             return this.CompilerOssEndpoint + "/" + this.CompilerOssBucket + "/" + fileName
         }
 
