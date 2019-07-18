@@ -94,7 +94,7 @@ class Artifact {
 
     def RecordRuntimeEnv(String pattern) {
         def content = this.script.readFile "${this.MetaSpace}buildRuntimeEnv"
-        this.script.writeFile file: "${this.MetaSpace}buildRuntimeEnv" , text: "${content} \n ${pattern}"
+        this.script.writeFile file: "${this.MetaSpace}buildRuntimeEnv" , text: "${content}\n${pattern}"
     }
 
     def CheckParameters(){
