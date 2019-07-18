@@ -29,7 +29,10 @@ class FromYaml {
 
     def Reader(){
         def reader = this.script.readYaml file: "${this.e.BuildYaml}"
-        this.script.echo reader.envs
+        def r = reader.toString()
+        def e = reader.envs.toString()
+        this.script.echo r
+        this.script.echo e
     }
 
     def GenerateShellScript(){
