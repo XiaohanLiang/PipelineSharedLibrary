@@ -17,12 +17,14 @@ class FromYaml {
     def validTools = ["g":"/root/g"]
     def cachedImages = ["maven"]
     def SettingMap
+    def ScriptsName
 
     FromYaml (def env,Script s) {
 
         this.script = s
         this.metaspace = env.MetaSpace
         this.e = env
+        this.ScriptsName = "${this.metaspace}user_defined_scripts.sh"
     }
 
     def GenerateShellScript(){
@@ -55,9 +57,8 @@ class FromYaml {
             this.OutputSpace = settingMap.out_dir
         }
 
-        this.script.sh("#!/bin/sh -e\n touch ${this.metaspace}Jenkins-UserDefinedScripts.sh")
-        this.script.sh("#!/bin/sh -e\n chmod +x ${this.metaspace}Jenkins-UserDefinedScripts.sh")
-        def scriptPath = "${this.metaspace}Jenkins-UserDefinedScripts.sh"
+        this.script.sh("#!/bin/sh -e\n touch ${this.ScriptsName}")
+        this.script.sh("#!/bin/sh -e\n chmod +x ${this.ScriptsName}")
 
         Trace("set -e")
 
@@ -88,7 +89,7 @@ class FromYaml {
 
         }
 
-        return scriptPath
+        return "${this.ScriptsName}"
     }
 
     def DefineRequirements(){
@@ -132,9 +133,8 @@ class FromYaml {
     }
 
     def Trace(String s){
-        def fileName =  "${this.metaspace}user_defined_scripts.sh"
-        def content = this.script.readFile fileName
-        this.script.writeFile file: fileName , text: "$readContent \n ${s}"
+        def content = this.script.readFile "${this.ScriptsName}"
+        this.script.writeFile file: "${this.ScriptsName}" , text: "$readContent \n ${s}"
     }
 
     def GetYamlFile(){
