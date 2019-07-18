@@ -93,8 +93,8 @@ class Artifact {
     }
 
     def RecordRuntimeEnv(String pattern) {
-        this.script.sh("#!/bin/sh -e\n echo ${pattern} >> ${this.MetaSpace}buildRuntimeEnv")
-        this.script.sh("#!/bin/sh -e\n echo \n >> ${this.MetaSpace}buildRuntimeEnv")
+        def content = this.script.readFile "${this.MetaSpace}buildRuntimeEnv"
+        this.script.writeFile file: "${this.MetaSpace}buildRuntimeEnv" , text: "${content} \n ${pattern}"
     }
 
     def CheckParameters(){
