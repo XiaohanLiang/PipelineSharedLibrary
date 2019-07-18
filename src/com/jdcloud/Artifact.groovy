@@ -76,11 +76,12 @@ class Artifact {
         def packageCommand = "tar zcvf " + packageName + " " + this.OutputSpace
         this.script.echo "Packaging : ${this.OutputSpace} -> ${this.RawPackageName}"
 
-        def ret = this.script.sh(returnStatus:true,script:"${packageCommand}")
-        if(ret != 0){
-            error("Failed in packaging, exiting..")
+        this.script.dir(this.UserWorkSpace){
+            def ret = this.script.sh(returnStatus:true,script:"${packageCommand}")
+            if(ret != 0){
+                this.script.error("Failed in packaging, exiting..")
+            }
         }
-
     }
 
     def MD5Hash(){
@@ -146,7 +147,7 @@ class Artifact {
             this.script.echo "Start uploading..."
             def ret = this.script.sh(returnStdout: true,script:"../meta/jss.sh" + args)
             if(ret!=""){
-                this.script.error("Failed in uplaoding, Exit.")
+                this.script.error("Failed in uploading, Exit.")
             }
             this.script.echo "Uploading finished :)"
             return this.CompilerOssEndpoint + "/" + this.CompilerOssBucket + "/" + fileName
