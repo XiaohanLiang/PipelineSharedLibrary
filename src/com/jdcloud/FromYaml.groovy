@@ -134,7 +134,7 @@ class FromYaml {
 
     def Trace(String s){
         def content = this.script.readFile "${this.ScriptsName}"
-        this.script.writeFile file: "${this.ScriptsName}" , text: "$readContent \n ${s}"
+        this.script.writeFile file: "${this.ScriptsName}" , text: "${content} \n ${s}"
     }
 
     def GetYamlFile(){
