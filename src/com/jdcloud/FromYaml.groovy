@@ -60,15 +60,15 @@ class FromYaml {
         def scriptPath = "${this.metaspace}Jenkins-UserDefinedScripts.sh"
 
         PrintWriter pencil = new PrintWriter(scriptPath)
-        pencil.println("set -e")
+        Trace("set -e")
 
         this.envs.each { name,value ->
 
             if (name == null || name.length()==0){
                 return
             }
-            pencil.println("echo 'SET Env \${" + name + "} = " + value + "'")
-            pencil.println("export " + name + "=" + value)
+            Trace("echo 'SET Env \${" + name + "} = " + value + "'")
+            Trace("export " + name + "=" + value)
 
         }
 
@@ -81,11 +81,11 @@ class FromYaml {
                 return
             }
 
-            pencil.println("echo Executing command: " + name)
-            pencil.println("echo '\$ " + cmd + "'")
-            pencil.println(cmd)
-            pencil.println("echo -----")
-            pencil.println("echo ''")
+            Trace("echo Executing command: " + name)
+            Trace("echo '\$ " + cmd + "'")
+            Trace(cmd)
+            Trace("echo -----")
+            Trace("echo ''")
 
         }
 
@@ -131,6 +131,11 @@ class FromYaml {
         }
 
         return args
+    }
+
+    def Trace(String s){
+        s = s + "\n"
+        this.script.sh("#!/bin/sh -e\n echo ${s} >> ${this.metaspace}Jenkins-UserDefinedScripts.sh")
     }
 
     def GetYamlFile(){
