@@ -36,7 +36,12 @@ class Artifact {
     Artifact (def env,def s) {
 
         this.script = s
-        this.BuildTag = env.BUILD_TAG
+
+        if(env.DOCKER_IMAGE_TAG != ""){
+            this.BuildTag = env.DOCKER_IMAGE_TAG
+        }else{
+            this.BuildTag = env.BUILD_TAG
+        }
 
         this.UploadArtifact = env.UPLOAD_ARTIFACT
         this.CompileModuleName = env.COMPILE_MODULE_NAME
