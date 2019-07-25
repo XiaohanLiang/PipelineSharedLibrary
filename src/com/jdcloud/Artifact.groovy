@@ -38,10 +38,11 @@ class Artifact {
         this.script = s
 
         try {
-            s.echo "Use image tag -> ${env.DOCKER_IMAGE_TAG}"
             this.BuildTag = env.DOCKER_IMAGE_TAG
+            if(this.BuildTag == ""){
+                this.BuildTag = env.BUILD_TAG
+            }
         }catch(MissingPropertyException){
-            s.echo "Use random image tag ->"
             this.BuildTag = env.BUILD_TAG
         }
 
