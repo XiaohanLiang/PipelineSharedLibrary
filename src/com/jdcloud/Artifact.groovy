@@ -46,11 +46,11 @@ class Artifact {
             }
         }catch(MissingPropertyException){
             this.BuildTag = env.BUILD_TAG
-            if (isContainChinese(this.BuildTag)){
-                s.echo "yes, contain chinese"
-            }else{
-                s.echo "no chinese"
-            }
+        }
+        if (isContainChinese(this.BuildTag)){
+            s.echo "yes, contain chinese"
+        }else{
+            s.echo "no chinese"
         }
 
         this.UploadArtifact = env.UPLOAD_ARTIFACT
