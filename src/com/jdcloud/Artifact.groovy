@@ -47,11 +47,6 @@ class Artifact {
         }catch(MissingPropertyException){
             this.BuildTag = env.BUILD_TAG
         }
-        if (isContainChinese(this.BuildTag)){
-            s.echo "yes, contain chinese"
-        }else{
-            s.echo "no chinese"
-        }
 
         this.UploadArtifact = env.UPLOAD_ARTIFACT
         this.CompileModuleName = env.COMPILE_MODULE_NAME
@@ -177,6 +172,12 @@ class Artifact {
         def buildCommand = sprintf("docker build -t %s:%s .",this.DockerRegistryUri,this.BuildTag)
         def pushCommand = sprintf("docker push %s:%s ",this.DockerRegistryUri,this.BuildTag)
         def rmiCommand = sprintf("docker rmi %s:%s ",this.DockerRegistryUri,this.BuildTag)
+
+        if (isContainChinese(this.BuildTag)){
+            s.echo "yes, contain chinese"
+        }else{
+            s.echo "no chinese"
+        }
 
         // Start executing them
         this.script.dir(this.UserWorkSpace){
