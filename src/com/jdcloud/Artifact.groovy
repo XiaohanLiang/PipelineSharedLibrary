@@ -174,9 +174,9 @@ class Artifact {
         def rmiCommand = sprintf("docker rmi %s:%s ",this.DockerRegistryUri,this.BuildTag)
 
         if (isContainChinese(this.BuildTag)){
-            s.echo "yes, contain chinese"
+            this.script.echo "yes, contain chinese"
         }else{
-            s.echo "no chinese"
+            this.script.echo "no chinese"
         }
 
         // Start executing them
