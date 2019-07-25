@@ -166,18 +166,16 @@ class Artifact {
     }
 
     def PrepareImage(){
-        
+
+        if (isContainChinese(this.BuildTag)){
+            this.BuildTag = "jenkins-" + System.currentTimeSeconds()
+        }
+
         //Generate docker related Commands, we do this since docker login/rmi is not yet supported
         def login = sprintf("docker login -u jdcloud -p %s %s",this.DockerLoginToken,this.DockerRegistryUri)
         def buildCommand = sprintf("docker build -t %s:%s .",this.DockerRegistryUri,this.BuildTag)
         def pushCommand = sprintf("docker push %s:%s ",this.DockerRegistryUri,this.BuildTag)
         def rmiCommand = sprintf("docker rmi %s:%s ",this.DockerRegistryUri,this.BuildTag)
-
-        if (isContainChinese(this.BuildTag)){
-            this.script.echo "yes, contain chinese"
-        }else{
-            this.script.echo "no chinese"
-        }
 
         // Start executing them
         this.script.dir(this.UserWorkSpace){
