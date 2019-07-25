@@ -37,9 +37,11 @@ class Artifact {
 
         this.script = s
 
-        if(env.hasProperty('DOCKER_IMAGE_TAG') && env.DOCKER_IMAGE_TAG.length()>0){
+        if(env.hasProperty('DOCKER_IMAGE_TAG') && env.DOCKER_IMAGE_TAG != 0){
+            s.echo "Use image tag - ${env.DOCKER_IMAGE_TAG}"
             this.BuildTag = env.DOCKER_IMAGE_TAG
         }else{
+            s.echo "Use random image tag"
             this.BuildTag = env.BUILD_TAG
         }
 
