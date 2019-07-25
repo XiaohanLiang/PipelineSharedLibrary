@@ -2,6 +2,8 @@
 package com.jdcloud
 
 import java.security.MessageDigest;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class Artifact {
 
