@@ -44,6 +44,11 @@ class Artifact {
             }
         }catch(MissingPropertyException){
             this.BuildTag = env.BUILD_TAG
+            if (isContainChinese(this.BuildTag)){
+                s.echo "yes, contain chinese"
+            }else{
+                s.echo "no chinese"
+            }
         }
 
         this.UploadArtifact = env.UPLOAD_ARTIFACT
@@ -180,6 +185,16 @@ class Artifact {
         }
 
     }
+
+    Boolean isContainChinese(String str) {
+        Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+        Matcher m = p.matcher(str);
+        if (m.find()) {
+            return true;
+        }
+        return false;
+    }
+
 
     def Execute(){
 
