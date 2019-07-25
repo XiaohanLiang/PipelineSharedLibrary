@@ -46,14 +46,6 @@ class Artifact {
             this.BuildTag = env.BUILD_TAG
         }
 
-//        if(env.metaClass.hasProperty(env,'DOCKER_IMAGE_TAG') && env.DOCKER_IMAGE_TAG != ""){
-//            s.echo "Use image tag - ${env.DOCKER_IMAGE_TAG}"
-//            this.BuildTag = env.DOCKER_IMAGE_TAG
-//        }else{
-//            s.echo "Use random image tag"
-//            this.BuildTag = env.BUILD_TAG
-//        }
-
         this.UploadArtifact = env.UPLOAD_ARTIFACT
         this.CompileModuleName = env.COMPILE_MODULE_NAME
         this.OutputSpace = env.OutputSpace
