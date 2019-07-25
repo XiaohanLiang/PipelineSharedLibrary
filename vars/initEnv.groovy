@@ -12,11 +12,7 @@ def call(def env) {
     env.Dockerfile = env.WORKSPACE + "/workspace/Dockerfile"
     env.JdcloudYaml = env.WORKSPACE + "/workspace/jdcloud-build.yml"
     env.BuildYaml = env.WORKSPACE + "/workspace/build.yml"
-    if(env.DOCKER_IMAGE_TAG != null){
-        echo "123"
-    }else{
-        echo "456"
-    }
+
 
     def initiating = new InitEnv(env, this)
     initiating.Execute()
