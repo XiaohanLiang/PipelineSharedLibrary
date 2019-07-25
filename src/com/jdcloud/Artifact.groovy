@@ -37,17 +37,10 @@ class Artifact {
 
         this.script = s
 
-        if(env.metaClass.hasProperty('DOCKER_IMAGE_TAG') && env.DOCKER_IMAGE_TAG != ""){
+        if(env.metaClass.hasProperty(env,'DOCKER_IMAGE_TAG') && env.DOCKER_IMAGE_TAG != ""){
             s.echo "Use image tag - ${env.DOCKER_IMAGE_TAG}"
             this.BuildTag = env.DOCKER_IMAGE_TAG
         }else{
-
-            if (env.hasProperty('DOCKER_IMAGE_TAG')){
-                s.echo "Has image tag -> ${env.DOCKER_IMAGE_TAG}"
-            }else{
-                s.echo "Donnot has docker image tag"
-            }
-
             s.echo "Use random image tag"
             this.BuildTag = env.BUILD_TAG
         }
