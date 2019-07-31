@@ -83,7 +83,7 @@ class Artifact {
 
         SetPackageName()
         def packageName = this.PackageNameWithPath
-        def packageCommand = "tar zcvf " + packageName + " " + this.OutputSpace
+        def packageCommand = "cd ${this.OutputSpace} && tar zcvf ${packageName} ."
         this.script.echo "Packaging : ${this.OutputSpace} -> ${this.RawPackageName}"
 
         this.script.dir(this.UserWorkSpace){
