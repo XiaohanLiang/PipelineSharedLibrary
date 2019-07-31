@@ -83,10 +83,10 @@ class Artifact {
 
         SetPackageName()
         def packageName = this.PackageNameWithPath
-        def packageCommand = "cd ${this.OutputSpace} && tar zcvf ${packageName} ."
+        def packageCommand = "tar zcvf ${packageName} ."
         this.script.echo "Packaging : ${this.OutputSpace} -> ${this.RawPackageName}"
 
-        this.script.dir(this.UserWorkSpace){
+        this.script.dir(this.OutputSpace){
             def ret = this.script.sh(returnStatus:true,script:"${packageCommand}")
             if(ret != 0){
                 this.script.error("Failed in packaging, exiting..")
