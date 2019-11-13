@@ -12,3 +12,4 @@ the near future.
 - Unmarshall yaml files, execute shell commands inside
 - Upload to AWS S3 Bucket with signing 
 - Docker images managing
+- Added
