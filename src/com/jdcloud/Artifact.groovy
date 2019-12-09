@@ -119,7 +119,7 @@ class Artifact {
 
         assert this.CompilerType == "IMAGE" || this.CompilerType == "PACKAGE"
         if(this.CompilerType == "IMAGE"){
-           checkImageParameters() 
+           checkImageParameters()
         }
         if(this.CompilerType == "PACKAGE"){
            checkPackageParameters()
@@ -223,12 +223,12 @@ class Artifact {
 
                 PrepareImage()
                 RecordRuntimeEnv("UPLOAD_ARTIFACT=1")
-                RecordRuntimeEnv("COMPILER_PACKAGE_URL="+this.DockerRegistryUri)
+                RecordRuntimeEnv("COMPILER_PACKAGE_URL="+this.DockerRegistryUri+":"+this.BuildTag)
                 RecordRuntimeEnv("COMPILER_PACKAGE_VERSION="+this.BuildTag)
 
             }
         }else{
-        
+
             this.script.echo "[Profiling Artifact] step has been skipped :)"
             RecordRuntimeEnv("UPLOAD_ARTIFACT=0")
 
