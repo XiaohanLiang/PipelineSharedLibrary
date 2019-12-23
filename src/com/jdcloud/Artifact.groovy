@@ -157,7 +157,7 @@ class Artifact {
                     this.SecretKey, this.CompilerOssEndpoint, this.CompilerOssBucket)
 
             this.script.echo "Start uploading..."
-            def ret = this.script.sh(returnStdout: true,script:"../meta/jss.sh" + args)
+            def ret = this.script.sh(returnStdout: true,script:"#!/bin/sh -e\n /bin/sh ../meta/jss.sh"+args)
             if(ret!=""){
                 this.script.error("Failed in uploading, Exit.")
             }
@@ -207,7 +207,7 @@ class Artifact {
             CheckParameters()
 
             if(this.CompilerType == "PACKAGE"){
-            
+
                 Packaging()
                 def hash = MD5Hash()
                 def url = UploadPackage()
