@@ -154,7 +154,7 @@ class Artifact {
             String fileName = art.getName()
 
             String args = sprintf(" -n %s -f %s -k %s -s %s -e %s -b %s", this.CompilerOssPath+fileName, fileName,this.AccessKey,
-                    "123" , this.CompilerOssEndpoint, this.CompilerOssBucket)
+                    this.SecretKey , this.CompilerOssEndpoint, this.CompilerOssBucket)
 
             this.script.echo "Start uploading..."
             def ret = this.script.sh(returnStdout: true,script:"#!/bin/sh -e\n /bin/sh ../meta/jss.sh"+args)
