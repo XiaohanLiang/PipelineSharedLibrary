@@ -162,7 +162,7 @@ class Artifact {
                 this.script.error("Failed in uploading, Exit.")
             }
             this.script.echo "Uploading finished :)"
-            return this.CompilerOssEndpoint + "/" + this.CompilerOssBucket + "/" + fileName
+            return this.CompilerOssEndpoint + "/" + this.CompilerOssBucket + "/" + this.CompilerOssPath + fileName
         }
 
     }
