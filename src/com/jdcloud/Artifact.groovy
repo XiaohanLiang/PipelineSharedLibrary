@@ -153,7 +153,7 @@ class Artifact {
             File art = new File(this.PackageNameWithPath)
             String fileName = art.getName()
 
-            String args = sprintf(" -n %s -f %s -k %s -s %s -e %s -b %s", this.CompilerOssPath+fileName, fileName,this.AccessKey,
+            String args = sprintf(" -n -f %s -k %s -s %s -e %s -b %s", this.CompilerOssPath+fileName, fileName,this.AccessKey,
                     this.SecretKey, this.CompilerOssEndpoint, this.CompilerOssBucket)
 
             this.script.echo "Start uploading..."
