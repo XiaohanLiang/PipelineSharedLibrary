@@ -157,6 +157,10 @@ class Artifact {
                     this.SecretKey , this.CompilerOssEndpoint, this.CompilerOssBucket)
 
             this.script.echo "Start uploading..."
+            this.script.echo "> Package -> " + this.CompilerOssPath + fileName
+            this.script.echo "> Bucket -> " + this.CompilerOssBucket
+            this.script.echo ""
+            
             def ret = this.script.sh(returnStdout: true,script:"#!/bin/sh -e\n /bin/sh ../meta/jss.sh"+args)
             if(ret!=""){
                 this.script.error("Failed in uploading, Exit.")
