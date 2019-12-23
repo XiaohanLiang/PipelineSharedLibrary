@@ -54,7 +54,7 @@ class Artifact {
         this.Branch = env.SCM_BRANCH
         this.Commit = env.SCM_COMMIT_ID
         this.CompilerOssBucket = env.OSS_BUCKET_NAME
-        this.CompilerOssPath = env.OSS_BUCKET_PATH
+        this.CompilerOssPath = env.OSS_BUCKET_PATH == "" ? env.OSS_BUCKET_PATH : env.OSS_BUCKET_PATH+"/"
         this.CompilerOssEndpoint = env.OSS_BUCKET_ENDPOINT
         this.AccessKey = env.OSS_ACCESS_KEY
         this.SecretKey = env.OSS_SECRET_KEY
@@ -153,7 +153,7 @@ class Artifact {
             File art = new File(this.PackageNameWithPath)
             String fileName = art.getName()
 
-            String args = sprintf(" -n %s -f %s -k %s -s %s -e %s -b %s", fileName, fileName,this.AccessKey,
+            String args = sprintf(" -n %s -f %s -k %s -s %s -e %s -b %s", this.CompilerOssPath+fileName, fileName,this.AccessKey,
                     this.SecretKey, this.CompilerOssEndpoint, this.CompilerOssBucket)
 
             this.script.echo "Start uploading..."
