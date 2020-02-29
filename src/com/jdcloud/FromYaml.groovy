@@ -100,34 +100,34 @@ class FromYaml {
         // TODO : Attach tools -> into /bin/<tool_name>:ro
 
         // Caches - For Java
-        if (e.BUILD_IMAGE.toLowerCase().contains("maven") && !e.SCM_URL.contains("java-demo")){
-            args += generateAttachPair(e.CacheSpace,"/root/.m2")
-        }
+        //if (e.BUILD_IMAGE.toLowerCase().contains("maven") && !e.SCM_URL.contains("java-demo")){
+        //    args += generateAttachPair(e.CacheSpace,"/root/.m2")
+        //}
 
         // Caches - For Android
-        if (e.BUILD_IMAGE.toLowerCase().contains("gradle")){
+        //if (e.BUILD_IMAGE.toLowerCase().contains("gradle")){
 
             // Set Android SDK
-            args += generateAttachPair("/usr/local/lib/android-sdk-linux","/usr/local/lib/android-sdk-linux","ro")
-            args += generateEnvPair("ANDROID_HOME","/usr/local/lib/android-sdk-linux")
+        //   args += generateAttachPair("/usr/local/lib/android-sdk-linux","/usr/local/lib/android-sdk-linux","ro")
+        //    args += generateEnvPair("ANDROID_HOME","/usr/local/lib/android-sdk-linux")
 
             // Set Android NDK
-            args += generateAttachPair("/usr/local/lib/android-sdk-linux/ndk-bundle","/usr/local/lib/android-sdk-linux/ndk-bundle","ro")
-            args += generateEnvPair("ANDROID_NDK_HOME","/usr/local/lib/android-sdk-linux/ndk-bundle")
+        //   args += generateAttachPair("/usr/local/lib/android-sdk-linux/ndk-bundle","/usr/local/lib/android-sdk-linux/ndk-bundle","ro")
+        //   args += generateEnvPair("ANDROID_NDK_HOME","/usr/local/lib/android-sdk-linux/ndk-bundle")
 
             // Set Gradle Tool
-            args += generateAttachPair("/usr/local/lib/gradle","/usr/local/lib/gradle","ro")
-            args += generateEnvPair("GRADLE_HOME","/usr/local/lib/gradle")
+        //  args += generateAttachPair("/usr/local/lib/gradle","/usr/local/lib/gradle","ro")
+        //  args += generateEnvPair("GRADLE_HOME","/usr/local/lib/gradle")
 
             // Set JDK
-            args += generateAttachPair("/usr/local/lib/jdk","/usr/local/lib/jdk","ro")
-            args += generateEnvPair("JAVA_HOME","/usr/local/lib/jdk")
+        //  args += generateAttachPair("/usr/local/lib/jdk","/usr/local/lib/jdk","ro")
+        //  args += generateEnvPair("JAVA_HOME","/usr/local/lib/jdk")
 
             // Set Android cache
-            args += generateAttachPair(e.CacheSpace,"/cache/android/.gradle")
-            args += generateEnvPair("GRADLE_USER_HOME","/cache/android/.gradle")
+        //  args += generateAttachPair(e.CacheSpace,"/cache/android/.gradle")
+        //  args += generateEnvPair("GRADLE_USER_HOME","/cache/android/.gradle")
 
-        }
+        //}
 
         return args
     }
